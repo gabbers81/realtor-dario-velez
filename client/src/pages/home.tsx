@@ -157,7 +157,7 @@ export default function HomePage() {
               </div>
               
               <p className="text-gray-600 text-lg leading-relaxed max-w-lg">
-                Con más de 15 años de experiencia en el mercado inmobiliario del Este de República Dominicana, 
+                Con más de 5 años de experiencia en el mercado inmobiliario del Este de República Dominicana, 
                 te guío hacia las mejores oportunidades de inversión en propiedades turísticas.
               </p>
 
@@ -181,7 +181,7 @@ export default function HomePage() {
               {/* Statistics */}
               <div className="grid grid-cols-3 gap-8 pt-8">
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-caribbean">15+</div>
+                  <div className="text-3xl font-bold text-caribbean">5+</div>
                   <div className="text-gray-600 text-sm">Años de Experiencia</div>
                 </div>
                 <div className="text-center">
@@ -199,7 +199,7 @@ export default function HomePage() {
             <div className="relative">
               <div className="relative z-10">
                 <img 
-                  src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=1000" 
+                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=1000" 
                   alt="María Elena Santos - Realtor Profesional" 
                   className="rounded-2xl shadow-2xl w-full max-w-md mx-auto object-cover h-[600px]"
                 />
