@@ -137,7 +137,6 @@ export default function HomePage() {
           </div>
         )}
       </header>
-
       {/* Hero Section */}
       <section id="inicio" className="relative bg-gradient-to-br from-slate-100 via-blue-50 to-cyan-50 min-h-screen flex items-center overflow-hidden">
         {/* Background decorative elements */}
@@ -210,7 +209,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
       {/* About Section */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -228,7 +226,7 @@ export default function HomePage() {
                 <div className="w-16 h-16 bg-caribbean/10 rounded-full flex items-center justify-center mx-auto mb-4">
                   <CheckCircle className="text-caribbean text-2xl" size={32} />
                 </div>
-                <h3 className="font-semibold text-xl mb-2">Certificaciones</h3>
+                <h3 className="font-semibold text-xl mb-2">Especializado</h3>
                 <p className="text-gray-600">Certificada por CODIA y especializada en propiedades turísticas del Caribe</p>
               </CardContent>
             </Card>
@@ -255,7 +253,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
       {/* Projects Section */}
       <section id="proyectos" className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -313,7 +310,6 @@ export default function HomePage() {
           )}
         </div>
       </section>
-
       {/* Legal Information Section */}
       <section id="info-legal" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -370,38 +366,9 @@ export default function HomePage() {
             </div>
           </div>
 
-          <Card className="mt-12 bg-gradient-to-r from-caribbean to-turquoise text-white">
-            <CardContent className="p-8 text-center">
-              <h3 className="font-semibold text-2xl mb-4">¿Necesitas Asesoría Legal Especializada?</h3>
-              <p className="mb-6 opacity-90">Te conectamos con los mejores abogados especializados en inversión extranjera</p>
-              <Button 
-                onClick={() => setIsContactModalOpen(true)}
-                className="bg-white text-caribbean hover:bg-gray-100"
-              >
-                Solicitar Consulta Legal
-              </Button>
-            </CardContent>
-          </Card>
+          
         </div>
       </section>
-
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-caribbean to-turquoise">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
-          <h2 className="font-bold text-4xl mb-6">¿Listo para Invertir en el Paraíso?</h2>
-          <p className="text-xl mb-8 opacity-90">
-            Agenda una consulta gratuita y descubre las mejores oportunidades de inversión en el Caribe
-          </p>
-          <Button 
-            onClick={() => setIsContactModalOpen(true)}
-            className="bg-white text-caribbean hover:bg-gray-100 px-8 py-4 text-lg font-semibold shadow-xl"
-          >
-            <Calendar className="mr-2" size={20} />
-            Agendar Consulta Gratuita
-          </Button>
-        </div>
-      </section>
-
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -461,7 +428,6 @@ export default function HomePage() {
           </div>
         </div>
       </footer>
-
       {/* Modals */}
       <ContactModal 
         isOpen={isContactModalOpen} 
@@ -471,14 +437,12 @@ export default function HomePage() {
           setIsCalendlyModalOpen(true);
         }}
       />
-      
       <ProjectModal 
         isOpen={isProjectModalOpen} 
         onClose={() => setIsProjectModalOpen(false)}
         project={selectedProject}
         onOpenContact={openContactFromProject}
       />
-      
       <CalendlyModal 
         isOpen={isCalendlyModalOpen} 
         onClose={() => setIsCalendlyModalOpen(false)}
