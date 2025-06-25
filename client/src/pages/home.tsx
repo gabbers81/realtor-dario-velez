@@ -227,7 +227,7 @@ export default function HomePage() {
                   <CheckCircle className="text-caribbean text-2xl" size={32} />
                 </div>
                 <h3 className="font-semibold text-xl mb-2">Especializado</h3>
-                <p className="text-gray-600">Certificada por CODIA y especializada en propiedades turísticas del Caribe</p>
+                <p className="text-gray-600">Especializado en propiedades turísticas del Este de República Dominicana (Punta Cana, Bábaro, Cap Cana)</p>
               </CardContent>
             </Card>
 
