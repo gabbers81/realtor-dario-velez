@@ -21,7 +21,7 @@ export function CalendlyModal({ isOpen, onClose }: CalendlyModalProps) {
             width="100%" 
             height="600" 
             frameBorder="0"
-            title="Agendar Consulta con María Elena Santos"
+            title="Agendar Consulta con Dario Velez"
             className="rounded-lg"
           ></iframe>
           

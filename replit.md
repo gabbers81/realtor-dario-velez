@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is a modern full-stack real estate website built for the Dominican Republic market. The application combines a React frontend with a Node.js Express backend, featuring a property showcase, contact management system, and appointment scheduling capabilities. The site is designed for real estate professionals to display luxury properties and capture potential client leads.
+This is a modern full-stack real estate website built for the Dominican Republic market. The application combines a React frontend with a Node.js Express backend, featuring a property showcase, contact management system, and appointment scheduling capabilities. The site is designed for Dario Velez, a real estate professional specializing in tourism properties in the Dominican Republic's eastern region.
 
 ## System Architecture
 
@@ -81,11 +81,12 @@ The application is configured for Replit deployment with:
 
 ## Recent Changes
 
-- June 25, 2025. Updated María Elena Santos profile to 5 years experience (from 15 years)
-- June 25, 2025. Implemented 5-question contact form with budget selection and optional down payment
-- June 25, 2025. Added Calendly integration placeholder with iframe embed structure
-- June 25, 2025. Updated contact form validation to require budget field
-- June 25, 2025. Fixed TypeScript errors and improved form data handling
+- June 25, 2025. Changed realtor name from María Elena Santos to Dario Velez with masculine pronouns
+- June 25, 2025. Updated all text references throughout the website to reflect male realtor
+- June 25, 2025. Changed profile image to professional male realtor photo
+- June 25, 2025. Updated email address from maria@caribeinversiones.com to dario@caribeinversiones.com
+- June 25, 2025. Updated profile to 5 years experience with 5-question contact form
+- June 25, 2025. Added Calendly integration structure ready for implementation
 
 ## Contact Form Structure
 
