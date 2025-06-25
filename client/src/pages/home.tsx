@@ -63,8 +63,8 @@ export default function HomePage() {
                 <Home className="text-white text-lg" size={20} />
               </div>
               <div>
-                <h1 className="font-semibold text-gray-900 text-lg">María Elena Santos</h1>
-                <p className="text-sm text-gray-600">Realtor Especializada</p>
+                <h1 className="font-semibold text-gray-900 text-lg">Dario Velez</h1>
+                <p className="text-sm text-gray-600">Realtor Especializado</p>
               </div>
             </div>
             
@@ -201,8 +201,8 @@ export default function HomePage() {
             <div className="relative">
               <div className="relative z-10">
                 <img 
-                  src={WhatsApp_Image_2025_06_25_at_19_11_55} 
-                  alt="María Elena Santos - Realtor Profesional" 
+                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=1000" 
+                  alt="Dario Velez - Realtor Profesional" 
                   className="rounded-2xl shadow-2xl w-full max-w-md mx-auto object-cover h-[600px]"
                 />
               </div>
@@ -215,9 +215,9 @@ export default function HomePage() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="font-bold text-4xl text-gray-900 mb-4">Sobre María Elena Santos</h2>
+            <h2 className="font-bold text-4xl text-gray-900 mb-4">Sobre Dario Velez</h2>
             <p className="text-gray-600 text-lg max-w-3xl mx-auto">
-              Especialista certificada en inversiones turísticas del Este Dominicano, con un historial comprobado 
+              Especialista certificado en inversiones turísticas del Este Dominicano, con un historial comprobado 
               de éxito ayudando a inversionistas internacionales a encontrar las mejores oportunidades.
             </p>
           </div>
@@ -229,7 +229,7 @@ export default function HomePage() {
                   <CheckCircle className="text-caribbean text-2xl" size={32} />
                 </div>
                 <h3 className="font-semibold text-xl mb-2">Especializado</h3>
-                <p className="text-gray-600">Especializado en propiedades turísticas del Este de República Dominicana (Punta Cana, Bábaro, Cap Cana)</p>
+                <p className="text-gray-600">Especializado en propiedades turísticas del Este de República Dominicana (Punta Cana, Bávaro, Cap Cana)</p>
               </CardContent>
             </Card>
 
@@ -381,12 +381,12 @@ export default function HomePage() {
                   <Home className="text-white" size={20} />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-lg">María Elena Santos</h3>
-                  <p className="text-gray-400">Realtor Especializada</p>
+                  <h3 className="font-semibold text-lg">Dario Velez</h3>
+                  <p className="text-gray-400">Realtor Especializado</p>
                 </div>
               </div>
               <p className="text-gray-400 mb-4">
-                Tu experta en inversiones inmobiliarias turísticas en República Dominicana. 
+                Tu experto en inversiones inmobiliarias turísticas en República Dominicana. 
                 Convirtiendo sueños caribeños en realidades rentables.
               </p>
               <div className="flex space-x-4">
@@ -409,7 +409,7 @@ export default function HomePage() {
               <h4 className="font-semibold mb-4">Contacto</h4>
               <div className="space-y-2 text-gray-400">
                 <p className="flex items-center"><Phone className="mr-2" size={16} /> +1 (829) 123-4567</p>
-                <p className="flex items-center"><Mail className="mr-2" size={16} /> maria@caribeinversiones.com</p>
+                <p className="flex items-center"><Mail className="mr-2" size={16} /> dario@caribeinversiones.com</p>
                 <p className="flex items-center"><MapPin className="mr-2" size={16} /> Punta Cana, República Dominicana</p>
               </div>
             </div>
@@ -426,7 +426,7 @@ export default function HomePage() {
           </div>
           
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 María Elena Santos - Realtor Especializada. Todos los derechos reservados.</p>
+            <p>&copy; 2024 Dario Velez - Realtor Especializado. Todos los derechos reservados.</p>
           </div>
         </div>
       </footer>
