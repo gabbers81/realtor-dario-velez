@@ -281,7 +281,7 @@ export default function HomePage() {
             </div>
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {projects?.map((project: Project) => (
+              {(projects as Project[])?.map((project: Project) => (
                 <Card 
                   key={project.id} 
                   className="overflow-hidden hover:shadow-xl transition-shadow group cursor-pointer"

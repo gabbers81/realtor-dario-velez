@@ -3,7 +3,7 @@ export interface ContactFormData {
   email: string;
   phone: string;
   budget: string;
-  downPayment: string;
+  downPayment?: string;
 }
 
 export interface Project {

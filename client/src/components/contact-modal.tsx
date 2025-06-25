@@ -65,7 +65,7 @@ export function ContactModal({ isOpen, onClose, onOpenCalendly }: ContactModalPr
     e.preventDefault();
     
     // Basic validation
-    if (!formData.fullName || !formData.email || !formData.phone) {
+    if (!formData.fullName || !formData.email || !formData.phone || !formData.budget) {
       toast({
         title: "Campos requeridos",
         description: "Por favor completa todos los campos marcados con *",
@@ -148,7 +148,7 @@ export function ContactModal({ isOpen, onClose, onOpenCalendly }: ContactModalPr
 
           <div>
             <Label htmlFor="budget" className="text-sm font-medium text-gray-700">
-              Presupuesto de Inversión
+              Presupuesto a Invertir *
             </Label>
             <Select
               value={formData.budget}
@@ -158,9 +158,9 @@ export function ContactModal({ isOpen, onClose, onOpenCalendly }: ContactModalPr
                 <SelectValue placeholder="Selecciona tu rango" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="80k-120k">US$80,000 - US$120,000</SelectItem>
-                <SelectItem value="121k-200k">US$121,000 - US$200,000</SelectItem>
-                <SelectItem value="200k+">US$200,000+</SelectItem>
+                <SelectItem value="80k-120k">US$80k-US$120k</SelectItem>
+                <SelectItem value="121k-200k">US$121k-200k</SelectItem>
+                <SelectItem value="200k+">US$200k+</SelectItem>
               </SelectContent>
             </Select>
           </div>

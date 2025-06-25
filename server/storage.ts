@@ -143,7 +143,7 @@ export class MemStorage implements IStorage {
     const contact: Contact = { 
       ...insertContact, 
       id,
-      budget: insertContact.budget || null,
+      budget: insertContact.budget,
       downPayment: insertContact.downPayment || null,
       createdAt: new Date()
     };
