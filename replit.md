@@ -79,10 +79,30 @@ The application is configured for Replit deployment with:
 - `npm run start`: Runs the production server
 - `npm run dev`: Development mode with hot reload
 
-## Changelog
+## Recent Changes
 
-Changelog:
-- June 25, 2025. Initial setup
+- June 25, 2025. Updated María Elena Santos profile to 5 years experience (from 15 years)
+- June 25, 2025. Implemented 5-question contact form with budget selection and optional down payment
+- June 25, 2025. Added Calendly integration placeholder with iframe embed structure
+- June 25, 2025. Updated contact form validation to require budget field
+- June 25, 2025. Fixed TypeScript errors and improved form data handling
+
+## Contact Form Structure
+
+The contact form now includes 5 questions as specified:
+1. Nombre completo (required)
+2. Correo electrónico (required) 
+3. Teléfono formato dominicano (required)
+4. Presupuesto a Invertir (required): US$80k-120k, US$121k-200k, US$200k+
+5. Inicial que puede pagar (optional): 10%, 15%, 20%
+
+Additional feature: "¿Cuándo prefieres que te contactemos?" leads to Calendly integration for appointment scheduling.
+
+## Calendly Integration
+
+- Ready for implementation with iframe embed structure
+- Placeholder URL needs to be replaced with actual Calendly link
+- Modal opens when user clicks "Agendar Cita Directamente" from contact form
 
 ## User Preferences
 
