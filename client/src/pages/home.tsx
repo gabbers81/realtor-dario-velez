@@ -1,0 +1,488 @@
+import { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { ContactModal } from "@/components/contact-modal";
+import { ProjectModal } from "@/components/project-modal";
+import { CalendlyModal } from "@/components/calendly-modal";
+import { Home, Calendar, ArrowRight, Check, Shield, CheckCircle, Phone, Mail, MapPin } from "lucide-react";
+import { FaFacebook, FaInstagram, FaLinkedin, FaWhatsapp, FaBars, FaTimes } from "react-icons/fa";
+import type { Project } from "@/lib/types";
+
+export default function HomePage() {
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
+  const [isCalendlyModalOpen, setIsCalendlyModalOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const { data: projects, isLoading } = useQuery({
+    queryKey: ["/api/projects"],
+  });
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+    setIsMobileMenuOpen(false);
+  };
+
+  const openProjectModal = (project: Project) => {
+    setSelectedProject(project);
+    setIsProjectModalOpen(true);
+  };
+
+  const openContactFromProject = () => {
+    setIsProjectModalOpen(false);
+    setTimeout(() => setIsContactModalOpen(true), 300);
+  };
+
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [isMobileMenuOpen]);
+
+  return (
+    <div className="min-h-screen bg-white">
+      {/* Header */}
+      <header className="bg-white shadow-sm sticky top-0 z-40">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center py-4">
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 bg-turquoise rounded-full flex items-center justify-center">
+                <Home className="text-white text-lg" size={20} />
+              </div>
+              <div>
+                <h1 className="font-semibold text-gray-900 text-lg">María Elena Santos</h1>
+                <p className="text-sm text-gray-600">Realtor Especializada</p>
+              </div>
+            </div>
+            
+            <nav className="hidden md:flex space-x-8">
+              <button 
+                onClick={() => scrollToSection('inicio')}
+                className="text-gray-700 hover:text-caribbean font-medium transition-colors"
+              >
+                Inicio
+              </button>
+              <button 
+                onClick={() => scrollToSection('proyectos')}
+                className="text-gray-700 hover:text-caribbean font-medium transition-colors"
+              >
+                Proyectos
+              </button>
+              <button 
+                onClick={() => scrollToSection('info-legal')}
+                className="text-gray-700 hover:text-caribbean font-medium transition-colors"
+              >
+                Info Legal
+              </button>
+              <Button 
+                onClick={() => setIsContactModalOpen(true)}
+                className="bg-caribbean text-white hover:bg-caribbean/90"
+              >
+                Contacto
+              </Button>
+            </nav>
+
+            <button 
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="md:hidden text-gray-700"
+            >
+              {isMobileMenuOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile menu */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden bg-white border-t">
+            <div className="px-4 py-3 space-y-3">
+              <button 
+                onClick={() => scrollToSection('inicio')}
+                className="block w-full text-left text-gray-700 font-medium py-2"
+              >
+                Inicio
+              </button>
+              <button 
+                onClick={() => scrollToSection('proyectos')}
+                className="block w-full text-left text-gray-700 font-medium py-2"
+              >
+                Proyectos
+              </button>
+              <button 
+                onClick={() => scrollToSection('info-legal')}
+                className="block w-full text-left text-gray-700 font-medium py-2"
+              >
+                Info Legal
+              </button>
+              <Button 
+                onClick={() => {
+                  setIsContactModalOpen(true);
+                  setIsMobileMenuOpen(false);
+                }}
+                className="w-full bg-caribbean text-white hover:bg-caribbean/90"
+              >
+                Contacto
+              </Button>
+            </div>
+          </div>
+        )}
+      </header>
+
+      {/* Hero Section */}
+      <section id="inicio" className="relative bg-gradient-to-br from-slate-100 via-blue-50 to-cyan-50 min-h-screen flex items-center overflow-hidden">
+        {/* Background decorative elements */}
+        <div className="absolute top-20 right-20 w-32 h-32 bg-yellow-200 rounded-full opacity-60 blur-2xl"></div>
+        <div className="absolute bottom-32 left-20 w-48 h-48 bg-turquoise/20 rounded-full opacity-60 blur-3xl"></div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            {/* Left content */}
+            <div className="space-y-8">
+              <div>
+                <p className="text-turquoise font-medium text-lg mb-4">Especialista en Propiedades Turísticas</p>
+                <h1 className="font-bold text-5xl lg:text-6xl text-gray-900 leading-tight">
+                  Inversiones <br />
+                  <span className="text-turquoise">Caribeñas</span> que <br />
+                  Transforman Vidas
+                </h1>
+              </div>
+              
+              <p className="text-gray-600 text-lg leading-relaxed max-w-lg">
+                Con más de 15 años de experiencia en el mercado inmobiliario del Este de República Dominicana, 
+                te guío hacia las mejores oportunidades de inversión en propiedades turísticas.
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button 
+                  onClick={() => setIsContactModalOpen(true)}
+                  className="bg-caribbean text-white hover:bg-caribbean/90 px-8 py-4 text-base font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"
+                >
+                  <Calendar className="mr-2" size={20} />
+                  Agendar Consulta
+                </Button>
+                <Button 
+                  variant="outline"
+                  onClick={() => scrollToSection('proyectos')}
+                  className="border-2 border-turquoise text-turquoise hover:bg-turquoise hover:text-white px-8 py-4 text-base font-semibold transition-all duration-300"
+                >
+                  Ver Proyectos
+                </Button>
+              </div>
+
+              {/* Statistics */}
+              <div className="grid grid-cols-3 gap-8 pt-8">
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-caribbean">15+</div>
+                  <div className="text-gray-600 text-sm">Años de Experiencia</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-sage">50+</div>
+                  <div className="text-gray-600 text-sm">Proyectos Completados</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-yellow-500">200+</div>
+                  <div className="text-gray-600 text-sm">Clientes Satisfechos</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right content - Professional photo */}
+            <div className="relative">
+              <div className="relative z-10">
+                <img 
+                  src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=1000" 
+                  alt="María Elena Santos - Realtor Profesional" 
+                  className="rounded-2xl shadow-2xl w-full max-w-md mx-auto object-cover h-[600px]"
+                />
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-tr from-turquoise/20 to-caribbean/20 rounded-2xl transform rotate-6 scale-105 -z-10"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* About Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="font-bold text-4xl text-gray-900 mb-4">Sobre María Elena Santos</h2>
+            <p className="text-gray-600 text-lg max-w-3xl mx-auto">
+              Especialista certificada en inversiones turísticas del Este Dominicano, con un historial comprobado 
+              de éxito ayudando a inversionistas internacionales a encontrar las mejores oportunidades.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            <Card className="text-center p-6 hover:shadow-lg transition-shadow">
+              <CardContent className="pt-6">
+                <div className="w-16 h-16 bg-caribbean/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <CheckCircle className="text-caribbean text-2xl" size={32} />
+                </div>
+                <h3 className="font-semibold text-xl mb-2">Certificaciones</h3>
+                <p className="text-gray-600">Certificada por CODIA y especializada en propiedades turísticas del Caribe</p>
+              </CardContent>
+            </Card>
+
+            <Card className="text-center p-6 hover:shadow-lg transition-shadow">
+              <CardContent className="pt-6">
+                <div className="w-16 h-16 bg-turquoise/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Shield className="text-turquoise text-2xl" size={32} />
+                </div>
+                <h3 className="font-semibold text-xl mb-2">Experiencia</h3>
+                <p className="text-gray-600">Más de 200 transacciones exitosas en la zona turística de Punta Cana y Bávaro</p>
+              </CardContent>
+            </Card>
+
+            <Card className="text-center p-6 hover:shadow-lg transition-shadow">
+              <CardContent className="pt-6">
+                <div className="w-16 h-16 bg-sage/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <MapPin className="text-sage text-2xl" size={32} />
+                </div>
+                <h3 className="font-semibold text-xl mb-2">Internacional</h3>
+                <p className="text-gray-600">Atendiendo clientes de Estados Unidos, Canadá, Europa y Latinoamérica</p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Projects Section */}
+      <section id="proyectos" className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="font-bold text-4xl text-gray-900 mb-4">Proyectos Inmobiliarios</h2>
+            <p className="text-gray-600 text-lg max-w-3xl mx-auto">
+              Descubre las mejores oportunidades de inversión en propiedades turísticas del Este Dominicano
+            </p>
+          </div>
+
+          {isLoading ? (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[...Array(6)].map((_, i) => (
+                <Card key={i} className="overflow-hidden">
+                  <div className="w-full h-48 bg-gray-200 animate-pulse"></div>
+                  <CardContent className="p-6">
+                    <div className="h-6 bg-gray-200 rounded animate-pulse mb-2"></div>
+                    <div className="h-4 bg-gray-200 rounded animate-pulse mb-4"></div>
+                    <div className="flex justify-between items-center">
+                      <div className="h-6 bg-gray-200 rounded animate-pulse w-24"></div>
+                      <div className="h-4 bg-gray-200 rounded animate-pulse w-20"></div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {projects?.map((project: Project) => (
+                <Card 
+                  key={project.id} 
+                  className="overflow-hidden hover:shadow-xl transition-shadow group cursor-pointer"
+                  onClick={() => openProjectModal(project)}
+                >
+                  <div className="overflow-hidden">
+                    <img 
+                      src={project.imageUrl} 
+                      alt={project.title}
+                      className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  <CardContent className="p-6">
+                    <h3 className="font-semibold text-xl mb-2">{project.title}</h3>
+                    <p className="text-gray-600 mb-4">{project.description}</p>
+                    <div className="flex justify-between items-center">
+                      <span className="text-caribbean font-bold text-lg">{project.price}</span>
+                      <button className="text-turquoise hover:text-caribbean font-medium flex items-center">
+                        Ver Detalles <ArrowRight className="ml-1" size={16} />
+                      </button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Legal Information Section */}
+      <section id="info-legal" className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="font-bold text-4xl text-gray-900 mb-4">Información Legal y Regulatoria</h2>
+            <p className="text-gray-600 text-lg max-w-3xl mx-auto">
+              Todo lo que necesitas saber sobre las leyes y regulaciones para invertir en República Dominicana
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-12">
+            <div>
+              <h3 className="font-semibold text-2xl mb-6 text-gray-900">CONFOTUR - Ley de Fomento Turístico</h3>
+              <div className="space-y-4">
+                <div className="flex items-start space-x-3">
+                  <CheckCircle className="text-turquoise mt-1" size={20} />
+                  <p className="text-gray-600">Exención del 100% del Impuesto sobre la Renta durante 15 años</p>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <CheckCircle className="text-turquoise mt-1" size={20} />
+                  <p className="text-gray-600">Exención del 100% de los impuestos municipales por 10 años</p>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <CheckCircle className="text-turquoise mt-1" size={20} />
+                  <p className="text-gray-600">Exención total de impuestos de importación para equipos</p>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <CheckCircle className="text-turquoise mt-1" size={20} />
+                  <p className="text-gray-600">Permiso para repatriar el 100% de las ganancias</p>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-2xl mb-6 text-gray-900">Otros Beneficios Legales</h3>
+              <div className="space-y-4">
+                <div className="flex items-start space-x-3">
+                  <Shield className="text-sage mt-1" size={20} />
+                  <p className="text-gray-600">Derecho constitucional a la propiedad privada para extranjeros</p>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <Shield className="text-sage mt-1" size={20} />
+                  <p className="text-gray-600">Registro de la propiedad garantizado por el Estado</p>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <Shield className="text-sage mt-1" size={20} />
+                  <p className="text-gray-600">Libre convertibilidad del peso dominicano</p>
+                </div>
+                <div className="flex items-start space-x-3">
+                  <Shield className="text-sage mt-1" size={20} />
+                  <p className="text-gray-600">Facilidades para la obtención de residencia</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <Card className="mt-12 bg-gradient-to-r from-caribbean to-turquoise text-white">
+            <CardContent className="p-8 text-center">
+              <h3 className="font-semibold text-2xl mb-4">¿Necesitas Asesoría Legal Especializada?</h3>
+              <p className="mb-6 opacity-90">Te conectamos con los mejores abogados especializados en inversión extranjera</p>
+              <Button 
+                onClick={() => setIsContactModalOpen(true)}
+                className="bg-white text-caribbean hover:bg-gray-100"
+              >
+                Solicitar Consulta Legal
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-20 bg-gradient-to-br from-caribbean to-turquoise">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+          <h2 className="font-bold text-4xl mb-6">¿Listo para Invertir en el Paraíso?</h2>
+          <p className="text-xl mb-8 opacity-90">
+            Agenda una consulta gratuita y descubre las mejores oportunidades de inversión en el Caribe
+          </p>
+          <Button 
+            onClick={() => setIsContactModalOpen(true)}
+            className="bg-white text-caribbean hover:bg-gray-100 px-8 py-4 text-lg font-semibold shadow-xl"
+          >
+            <Calendar className="mr-2" size={20} />
+            Agendar Consulta Gratuita
+          </Button>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-4 gap-8">
+            <div className="col-span-2">
+              <div className="flex items-center space-x-3 mb-4">
+                <div className="w-10 h-10 bg-turquoise rounded-full flex items-center justify-center">
+                  <Home className="text-white" size={20} />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-lg">María Elena Santos</h3>
+                  <p className="text-gray-400">Realtor Especializada</p>
+                </div>
+              </div>
+              <p className="text-gray-400 mb-4">
+                Tu experta en inversiones inmobiliarias turísticas en República Dominicana. 
+                Convirtiendo sueños caribeños en realidades rentables.
+              </p>
+              <div className="flex space-x-4">
+                <a href="#" className="text-gray-400 hover:text-turquoise transition-colors">
+                  <FaFacebook size={20} />
+                </a>
+                <a href="#" className="text-gray-400 hover:text-turquoise transition-colors">
+                  <FaInstagram size={20} />
+                </a>
+                <a href="#" className="text-gray-400 hover:text-turquoise transition-colors">
+                  <FaLinkedin size={20} />
+                </a>
+                <a href="#" className="text-gray-400 hover:text-turquoise transition-colors">
+                  <FaWhatsapp size={20} />
+                </a>
+              </div>
+            </div>
+
+            <div>
+              <h4 className="font-semibold mb-4">Contacto</h4>
+              <div className="space-y-2 text-gray-400">
+                <p className="flex items-center"><Phone className="mr-2" size={16} /> +1 (829) 123-4567</p>
+                <p className="flex items-center"><Mail className="mr-2" size={16} /> maria@caribeinversiones.com</p>
+                <p className="flex items-center"><MapPin className="mr-2" size={16} /> Punta Cana, República Dominicana</p>
+              </div>
+            </div>
+
+            <div>
+              <h4 className="font-semibold mb-4">Servicios</h4>
+              <ul className="space-y-2 text-gray-400">
+                <li>Inversiones Turísticas</li>
+                <li>Asesoría CONFOTUR</li>
+                <li>Gestión de Propiedades</li>
+                <li>Consultoría Legal</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+            <p>&copy; 2024 María Elena Santos - Realtor Especializada. Todos los derechos reservados.</p>
+          </div>
+        </div>
+      </footer>
+
+      {/* Modals */}
+      <ContactModal 
+        isOpen={isContactModalOpen} 
+        onClose={() => setIsContactModalOpen(false)}
+        onOpenCalendly={() => {
+          setIsContactModalOpen(false);
+          setIsCalendlyModalOpen(true);
+        }}
+      />
+      
+      <ProjectModal 
+        isOpen={isProjectModalOpen} 
+        onClose={() => setIsProjectModalOpen(false)}
+        project={selectedProject}
+        onOpenContact={openContactFromProject}
+      />
+      
+      <CalendlyModal 
+        isOpen={isCalendlyModalOpen} 
+        onClose={() => setIsCalendlyModalOpen(false)}
+      />
+    </div>
+  );
+}
