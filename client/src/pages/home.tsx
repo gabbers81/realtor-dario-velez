@@ -9,6 +9,8 @@ import { Home, Calendar, ArrowRight, Check, Shield, CheckCircle, Phone, Mail, Ma
 import { FaFacebook, FaInstagram, FaLinkedin, FaWhatsapp, FaBars, FaTimes } from "react-icons/fa";
 import type { Project } from "@/lib/types";
 
+import WhatsApp_Image_2025_06_25_at_19_11_55 from "@assets/WhatsApp Image 2025-06-25 at 19.11.55.jpeg";
+
 export default function HomePage() {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
@@ -199,7 +201,7 @@ export default function HomePage() {
             <div className="relative">
               <div className="relative z-10">
                 <img 
-                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=1000" 
+                  src={WhatsApp_Image_2025_06_25_at_19_11_55} 
                   alt="María Elena Santos - Realtor Profesional" 
                   className="rounded-2xl shadow-2xl w-full max-w-md mx-auto object-cover h-[600px]"
                 />
