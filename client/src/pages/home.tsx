@@ -201,7 +201,7 @@ export default function HomePage() {
             <div className="relative">
               <div className="relative z-10">
                 <img 
-                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=1000" 
+                  src={WhatsApp_Image_2025_06_25_at_19_11_55} 
                   alt="Dario Velez - Realtor Profesional" 
                   className="rounded-2xl shadow-2xl w-full max-w-md mx-auto object-cover h-[600px]"
                 />
