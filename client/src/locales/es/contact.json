@@ -1,0 +1,42 @@
+{
+  "form": {
+    "title": "Contacta con Dario",
+    "subtitle": "Cuéntame sobre tu proyecto de inversión",
+    "full_name": "Nombre Completo",
+    "full_name_placeholder": "Tu nombre completo",
+    "email": "Correo Electrónico",
+    "email_placeholder": "tucorreo@ejemplo.com",
+    "phone": "Teléfono",
+    "phone_placeholder": "+1 (829) 000-0000",
+    "budget": "Presupuesto de Inversión",
+    "budget_placeholder": "Selecciona tu rango de inversión",
+    "budget_options": {
+      "80k_120k": "US$80,000 - US$120,000",
+      "121k_200k": "US$121,000 - US$200,000",
+      "200k_plus": "US$200,000+"
+    },
+    "down_payment": "Inicial que puedes pagar (Opcional)",
+    "down_payment_placeholder": "Selecciona el porcentaje",
+    "down_payment_options": {
+      "10_percent": "10%",
+      "15_percent": "15%",
+      "20_percent": "20%"
+    },
+    "when_contact": "¿Cuándo prefieres que te contactemos?",
+    "submit": "Enviar Consulta",
+    "schedule_directly": "Agendar Cita Directamente"
+  },
+  "validation": {
+    "required": "Este campo es requerido",
+    "invalid_email": "Correo electrónico inválido",
+    "invalid_phone": "Formato de teléfono inválido"
+  },
+  "success": {
+    "title": "¡Mensaje Enviado!",
+    "description": "Gracias por tu interés. Te contactaré pronto para discutir tu proyecto de inversión."
+  },
+  "project_interest": {
+    "title": "Interesado en {{projectTitle}}",
+    "description": "Me gustaría obtener más información sobre este proyecto y explorar oportunidades de inversión."
+  }
+}
