@@ -28,5 +28,10 @@
     "contact": "Контакт",
     "years_experience": "лет опыта",
     "dominican_republic": "Доминиканская Республика"
+  },
+  "actions": {
+    "back": "Назад",
+    "download": "Скачать",
+    "contact": "Связаться"
   }
 }

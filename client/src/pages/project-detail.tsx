@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ContactModal } from "@/components/contact-modal";
 import { CalendlyModal } from "@/components/calendly-modal";
-import { ArrowLeft, Download, Calendar, MapPin, Clock, DollarSign, MessageCircle } from "lucide-react";
+import { ArrowLeft, Download, Calendar, MapPin, Clock, DollarSign, MessageCircle, Home } from "lucide-react";
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from "@/components/language-switcher";
 import type { Project } from "@/lib/types";
@@ -68,16 +68,47 @@ export default function ProjectDetailPage() {
       <header className="bg-white shadow-sm sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
-            <Button 
-              onClick={goBack}
-              variant="ghost"
-              className="flex items-center text-gray-700 hover:text-caribbean"
-            >
-              <ArrowLeft className="mr-2" size={20} />
-              Volver
-            </Button>
-            
-            <LanguageSwitcher />
+            {/* Logo and Navigation */}
+            <div className="flex items-center space-x-8">
+              <div className="flex items-center space-x-3">
+                <div className="w-10 h-10 bg-turquoise rounded-full flex items-center justify-center">
+                  <Home className="text-white text-lg" size={20} />
+                </div>
+                <div>
+                  <h1 className="font-bold text-xl text-gray-900">Dario Velez</h1>
+                  <p className="text-sm text-gray-600">{t('common:tagline')}</p>
+                </div>
+              </div>
+              
+              {/* Navigation Links - Desktop */}
+              <nav className="hidden lg:flex space-x-8">
+                <a href="/" className="text-gray-700 hover:text-caribbean transition-colors font-medium">
+                  {t('common:nav.home')}
+                </a>
+                <a href="/#projects" className="text-gray-700 hover:text-caribbean transition-colors font-medium">
+                  {t('common:nav.projects')}
+                </a>
+                <a href="/#testimonials" className="text-gray-700 hover:text-caribbean transition-colors font-medium">
+                  {t('common:nav.testimonials')}
+                </a>
+                <a href="/#legal" className="text-gray-700 hover:text-caribbean transition-colors font-medium">
+                  {t('common:nav.legal')}
+                </a>
+              </nav>
+            </div>
+
+            {/* Actions */}
+            <div className="flex items-center space-x-4">
+              <LanguageSwitcher />
+              <Button 
+                onClick={goBack}
+                variant="ghost"
+                className="flex items-center text-gray-700 hover:text-caribbean"
+              >
+                <ArrowLeft className="mr-2" size={20} />
+                {t('common:actions.back')}
+              </Button>
+            </div>
           </div>
         </div>
       </header>

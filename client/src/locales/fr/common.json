@@ -28,5 +28,10 @@
     "contact": "Contact",
     "years_experience": "années d'expérience",
     "dominican_republic": "République Dominicaine"
+  },
+  "actions": {
+    "back": "Retour",
+    "download": "Télécharger",
+    "contact": "Contacter"
   }
 }

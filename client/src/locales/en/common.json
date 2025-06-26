@@ -28,5 +28,10 @@
     "contact": "Contact",
     "years_experience": "years of experience",
     "dominican_republic": "Dominican Republic"
+  },
+  "actions": {
+    "back": "Back",
+    "download": "Download",
+    "contact": "Contact"
   }
 }
