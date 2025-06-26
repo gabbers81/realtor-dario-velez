@@ -151,6 +151,8 @@
     "main_features": "Características Principales",
     "detailed_info": "Información Detallada del Proyecto",
     "download_pdf": "Descargar PDF",
-    "contact_project": "Contactar sobre este Proyecto"
+    "contact_project": "Contactar sobre este Proyecto",
+    "view_brochure": "Ver Brochure del Proyecto",
+    "mobile_pdf_message": "Para mejor experiencia en móvil, descarga el PDF"
   }
 }

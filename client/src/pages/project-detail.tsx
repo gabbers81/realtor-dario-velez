@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ContactModal } from "@/components/contact-modal";
 import { CalendlyModal } from "@/components/calendly-modal";
-import { ArrowLeft, Download, Calendar, MapPin, Clock, DollarSign, MessageCircle, Home } from "lucide-react";
+import { ArrowLeft, Download, Calendar, MapPin, Clock, DollarSign, MessageCircle, Home, FileText } from "lucide-react";
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from "@/components/language-switcher";
 import type { Project } from "@/lib/types";
@@ -202,9 +202,30 @@ export default function ProjectDetailPage() {
             </div>
             
             <div className="bg-gray-100 rounded-lg overflow-hidden shadow-lg">
+              {/* Mobile: Show download button prominently */}
+              <div className="block md:hidden p-6 text-center bg-white">
+                <FileText className="mx-auto mb-4 text-caribbean" size={48} />
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                  {t('projects:detail.view_brochure')}
+                </h3>
+                <p className="text-gray-600 mb-4">
+                  {t('projects:detail.mobile_pdf_message', 'Para mejor experiencia, descarga el PDF')}
+                </p>
+                <Button
+                  asChild
+                  className="bg-caribbean text-white hover:bg-caribbean/90 w-full"
+                >
+                  <a href={project.pdfUrl} download target="_blank">
+                    <Download className="mr-2" size={20} />
+                    {t('projects:detail.download_pdf')}
+                  </a>
+                </Button>
+              </div>
+              
+              {/* Desktop: Embedded viewer */}
               <iframe
                 src={project.pdfUrl}
-                className="w-full h-screen"
+                className="hidden md:block w-full h-[600px] lg:h-[800px]"
                 title={`${project.title} - Información detallada`}
               />
             </div>
