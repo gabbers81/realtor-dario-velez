@@ -204,7 +204,7 @@ export function ContactModal({ isOpen, onClose, onOpenCalendly }: ContactModalPr
               className="w-full bg-turquoise text-white hover:bg-turquoise/90"
             >
               <Calendar className="mr-2" size={16} />
-              Agendar Cita Directamente
+              {t('contact:form.schedule_appointment')}
             </Button>
           </div>
         </form>
