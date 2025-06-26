@@ -1,0 +1,31 @@
+{
+  "navigation": {
+    "home": "Home",
+    "about": "About Me",
+    "services": "Services",
+    "projects": "Projects",
+    "legal": "Legal Info",
+    "contact": "Contact"
+  },
+  "buttons": {
+    "contact_me": "Contact Me",
+    "view_details": "View Details",
+    "schedule_appointment": "Schedule Appointment",
+    "close": "Close",
+    "send": "Send",
+    "schedule_directly": "Schedule Appointment Directly",
+    "contact_for_project": "Contact About This Project"
+  },
+  "general": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "phone": "Phone",
+    "email": "Email",
+    "location": "Location",
+    "services": "Services",
+    "contact": "Contact",
+    "years_experience": "years of experience",
+    "dominican_republic": "Dominican Republic"
+  }
+}

@@ -7,11 +7,14 @@ import { ProjectModal } from "@/components/project-modal";
 import { CalendlyModal } from "@/components/calendly-modal";
 import { Home, Calendar, ArrowRight, Check, Shield, CheckCircle, Phone, Mail, MapPin, Scale, FileText } from "lucide-react";
 import { FaFacebook, FaInstagram, FaLinkedin, FaWhatsapp, FaBars, FaTimes } from "react-icons/fa";
+import { useTranslation } from 'react-i18next';
+import { LanguageSwitcher } from "@/components/language-switcher";
 import type { Project } from "@/lib/types";
 
 import WhatsApp_Image_2025_06_25_at_19_11_55 from "@assets/WhatsApp Image 2025-06-25 at 19.11.55.jpeg";
 
 export default function HomePage() {
+  const { t } = useTranslation();
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
   const [isCalendlyModalOpen, setIsCalendlyModalOpen] = useState(false);
