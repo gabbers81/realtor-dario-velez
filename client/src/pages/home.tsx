@@ -4,7 +4,6 @@ import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ContactModal } from "@/components/contact-modal";
-import { ProjectModal } from "@/components/project-modal";
 import { CalendlyModal } from "@/components/calendly-modal";
 import { Home, Calendar, ArrowRight, Check, Shield, CheckCircle, Phone, Mail, MapPin, Scale, FileText, Star, Quote } from "lucide-react";
 import { FaFacebook, FaInstagram, FaLinkedin, FaWhatsapp, FaBars, FaTimes } from "react-icons/fa";
@@ -18,9 +17,7 @@ export default function HomePage() {
   const { t } = useTranslation(['common', 'home', 'contact', 'projects', 'legal', 'testimonials']);
   const [, setLocation] = useLocation();
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
-  const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
   const [isCalendlyModalOpen, setIsCalendlyModalOpen] = useState(false);
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   // Get testimonials with fallback
@@ -48,11 +45,6 @@ export default function HomePage() {
 
   const navigateToProject = (project: Project) => {
     setLocation(`/proyecto/${project.slug}`);
-  };
-
-  const openContactFromProject = () => {
-    setIsProjectModalOpen(false);
-    setTimeout(() => setIsContactModalOpen(true), 300);
   };
 
   useEffect(() => {
@@ -558,12 +550,7 @@ export default function HomePage() {
           setIsCalendlyModalOpen(true);
         }}
       />
-      <ProjectModal 
-        isOpen={isProjectModalOpen} 
-        onClose={() => setIsProjectModalOpen(false)}
-        project={selectedProject}
-        onOpenContact={openContactFromProject}
-      />
+
       <CalendlyModal 
         isOpen={isCalendlyModalOpen} 
         onClose={() => setIsCalendlyModalOpen(false)}
