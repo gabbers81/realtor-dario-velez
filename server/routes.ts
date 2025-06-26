@@ -5,6 +5,15 @@ import { insertContactSchema } from "@shared/schema";
 import { z } from "zod";
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Health check endpoint
+  app.get("/health", (_req, res) => {
+    res.status(200).json({ 
+      status: "healthy", 
+      timestamp: new Date().toISOString(),
+      service: "dominican-real-estate-api"
+    });
+  });
+
   // Get all projects
   app.get("/api/projects", async (_req, res) => {
     try {

@@ -35,5 +35,16 @@
     "download": "Download",
     "contact": "Contact"
   },
+  "seo": {
+    "description": "Exclusive properties in Punta Cana, Bavaro and East Coast. Luxury real estate investments with Dario Velez, specialist in Dominican residential tourism."
+  },
+  "error404": {
+    "title": "Page not found",
+    "description": "The page you're looking for doesn't exist. Explore our exclusive properties in Dominican Republic.",
+    "message": "Sorry, the page you're looking for doesn't exist. It may have been moved or deleted.",
+    "goHome": "Go Home",
+    "goBack": "Previous Page", 
+    "helpfulLinks": "Helpful links:"
+  },
   "or": "or"
 }

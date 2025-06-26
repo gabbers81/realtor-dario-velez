@@ -35,5 +35,16 @@
     "download": "Descargar",
     "contact": "Contactar"
   },
+  "seo": {
+    "description": "Propiedades exclusivas en Punta Cana, Bávaro y Costa Este. Inversiones inmobiliarias de lujo con Dario Velez, especialista en turismo residencial dominicano."
+  },
+  "error404": {
+    "title": "Página no encontrada",
+    "description": "La página que buscas no existe. Explora nuestras propiedades exclusivas en República Dominicana.",
+    "message": "Lo sentimos, la página que buscas no existe. Puede que haya sido movida o eliminada.",
+    "goHome": "Ir al Inicio",
+    "goBack": "Página Anterior", 
+    "helpfulLinks": "Enlaces útiles:"
+  },
   "or": "o"
 }
