@@ -1,0 +1,58 @@
+{
+  "properties": {
+    "paradise_bay": {
+      "title": "Paradise Bay Resort",
+      "description": "Luxuriöser Hotelkomplex mit Meerblick in Punta Cana",
+      "location": "Punta Cana, Dominikanische Republik",
+      "price": "US$150,000 - US$300,000",
+      "completion": "Dezember 2024",
+      "features": [
+        "Meerblick",
+        "Infinity-Pool",
+        "Luxus-Spa",
+        "Gourmet-Restaurant",
+        "24/7-Sicherheit",
+        "Hotelmanagement inklusive"
+      ]
+    },
+    "coral_dreams": {
+      "title": "Coral Dreams Villa",
+      "description": "Private Villen mit direktem Strandzugang in Bávaro",
+      "location": "Bávaro, Dominikanische Republik",
+      "price": "US$200,000 - US$450,000",
+      "completion": "März 2025",
+      "features": [
+        "Direkter Strandzugang",
+        "Private Villen",
+        "Privater Pool",
+        "Tropischer Garten",
+        "Voll ausgestattete Küche",
+        "Concierge-Service"
+      ]
+    },
+    "ocean_breeze": {
+      "title": "Ocean Breeze Condos",
+      "description": "Moderne Eigentumswohnungen mit Resort-Ausstattung",
+      "location": "Cap Cana, Dominikanische Republik",
+      "price": "US$180,000 - US$350,000",
+      "completion": "Juni 2025",
+      "features": [
+        "Zeitgenössisches Design",
+        "Resort-Ausstattung",
+        "Golfplatz",
+        "Private Marina",
+        "Beach Club",
+        "Garantierte Rentabilität"
+      ]
+    }
+  },
+  "modal": {
+    "close": "Schließen",
+    "features": "Eigenschaften",
+    "completion": "Fertigstellung",
+    "price_range": "Preisbereich",
+    "location": "Standort",
+    "view_brochure": "Broschüre ansehen",
+    "contact_about": "Kontakt zu diesem Projekt"
+  }
+}

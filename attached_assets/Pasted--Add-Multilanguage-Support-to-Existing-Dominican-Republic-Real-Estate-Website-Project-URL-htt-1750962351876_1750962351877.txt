@@ -1,0 +1,200 @@
+# Add Multilanguage Support to Existing Dominican Republic Real Estate Website
+
+**Project URL:** https://c435f3a6-d06f-4e5e-8b86-69a645e21929-00-12qmye5u79wap.worf.replit.dev
+
+Add comprehensive multilanguage support to Dario Velez's existing tourism property website without breaking current functionality.
+
+## Project Context
+- **Client:** Dario Velez - Tourism Property Specialist in Eastern Dominican Republic  
+- **Current Stack:** React 18 + TypeScript + Vite, Express backend, Tailwind + shadcn/ui
+- **Current Features:** Lead generation, property showcase, Calendly booking, CONFOTUR legal info
+- **Database:** Moving to Supabase (currently in-memory storage)
+
+## Languages to Implement
+1. **Spanish** (default) - Current content
+2. **English** - Primary international market
+3. **Russian** - Growing buyer segment
+4. **French** - European Caribbean investors
+5. **German** - Strong international real estate investors  
+6. **Portuguese** - Brazilian market proximity
+
+## Implementation Plan
+
+### Step 1: Install Dependencies
+```bash
+npm install react-i18next i18next i18next-browser-languagedetector
+```
+
+### Step 2: Project Structure Modifications
+
+#### New Files to Create
+```
+client/src/
+├── locales/                     # NEW
+│   ├── es/
+│   │   ├── common.json         # Navigation, buttons, general UI
+│   │   ├── home.json           # Homepage content
+│   │   ├── contact.json        # Contact form labels
+│   │   ├── projects.json       # Property descriptions
+│   │   └── legal.json          # CONFOTUR legal information
+│   ├── en/ (same structure)
+│   ├── ru/ (same structure)  
+│   ├── fr/ (same structure)
+│   ├── de/ (same structure)
+│   └── pt/ (same structure)
+├── i18n/                       # NEW
+│   └── config.ts              # i18n configuration
+└── components/
+    └── language-switcher.tsx   # NEW - Language selector component
+```
+
+#### Files to Modify
+```
+client/src/
+├── components/
+│   ├── contact-modal.tsx       # Add translations to form labels
+│   ├── project-modal.tsx       # Add translations to property details
+│   └── calendly-modal.tsx      # Add translations to booking text
+├── pages/
+│   └── home.tsx               # Replace hardcoded text with translations
+├── App.tsx                    # Add i18n provider
+└── main.tsx                   # Initialize i18n before React
+```
+
+### Step 3: Content Translation Mapping
+
+#### Current Content to Translate
+
+**Navigation & UI (common.json):**
+- "Inicio" → "Home", "Главная", "Accueil", "Startseite", "Início"
+- "Sobre Mí" → "About Me", "Обо мне", "À propos", "Über mich", "Sobre mim"
+- "Servicios" → "Services", "Услуги", "Services", "Dienstleistungen", "Serviços"
+- "Proyectos" → "Projects", "Проекты", "Projets", "Projekte", "Projetos"
+- "Contacto" → "Contact", "Контакт", "Contact", "Kontakt", "Contato"
+
+**Dario's Profile (home.json):**
+- Current: "Especialista en Propiedades Turísticas"
+- Current: "5 años de experiencia ayudando..."
+- Services section content
+- About section content
+
+**Contact Form (contact.json):**
+- "Nombre Completo" → "Full Name", "Полное имя", etc.
+- "Presupuesto de Inversión" → "Investment Budget", "Инвестиционный бюджет", etc.
+- Budget options: "US$80k-120k", "US$121k-200k", "US$200k+"
+
+**Legal Section (legal.json):**
+- "Ley CONFOTUR" content
+- "Proceso Legal" 4-step process
+- Tax exemption details
+
+**Property Details (projects.json):**
+- Sample properties: "Paradise Bay Resort", "Coral Dreams Villa"
+- Features, pricing, locations, completion status
+
+### Step 4: Technical Implementation
+
+#### Language Switcher Component
+```tsx
+// components/language-switcher.tsx
+import { useTranslation } from 'react-i18next';
+import { Button } from '@/components/ui/button';
+
+const languages = [
+  { code: 'es', name: 'Español', flag: '🇩🇴' },
+  { code: 'en', name: 'English', flag: '🇺🇸' },
+  { code: 'ru', name: 'Русский', flag: '🇷🇺' },
+  { code: 'fr', name: 'Français', flag: '🇫🇷' },
+  { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
+  { code: 'pt', name: 'Português', flag: '🇧🇷' }
+];
+```
+
+#### Component Updates Example
+```tsx
+// In home.tsx - Replace hardcoded text
+import { useTranslation } from 'react-i18next';
+
+const { t } = useTranslation('home');
+
+// Change from:
+<h1>Especialista en Propiedades Turísticas</h1>
+
+// To:
+<h1>{t('hero.specialist_title')}</h1>
+```
+
+#### URL Structure (using Wouter)
+- Keep current routing simple - add language switcher in header
+- Store language preference in localStorage
+- No need to change URL structure initially
+
+### Step 5: Supabase Integration
+
+#### Translation Management Table (Optional)
+```sql
+-- For dynamic content management
+CREATE TABLE translations (
+  id SERIAL PRIMARY KEY,
+  key VARCHAR(255) NOT NULL,
+  language VARCHAR(10) NOT NULL,
+  value TEXT NOT NULL,
+  section VARCHAR(100),
+  created_at TIMESTAMP DEFAULT NOW(),
+  UNIQUE(key, language)
+);
+```
+
+#### Property Translations
+```sql
+-- Extend existing projects table
+ALTER TABLE projects ADD COLUMN title_en TEXT;
+ALTER TABLE projects ADD COLUMN title_ru TEXT;
+ALTER TABLE projects ADD COLUMN description_en TEXT;
+ALTER TABLE projects ADD COLUMN description_ru TEXT;
+-- Add for fr, de, pt as needed
+```
+
+### Step 6: Implementation Order
+
+#### Phase 1: Basic Setup (Day 1)
+1. Install i18next packages
+2. Create basic config and Spanish/English files
+3. Add language switcher to header
+4. Update homepage hero section
+
+#### Phase 2: Core Content (Day 2)
+1. Translate navigation and common UI elements
+2. Update contact form with translations
+3. Translate services and about sections
+4. Test Spanish/English switching
+
+#### Phase 3: Expand Languages (Day 3)
+1. Add Russian translation files
+2. Add French, German, Portuguese files
+3. Update property modal translations
+4. Test all language versions
+
+#### Phase 4: Polish & Optimization (Day 4)
+1. Add proper language detection
+2. Implement SEO meta tags per language
+3. Add currency formatting per region
+4. Final testing and optimization
+
+### Key Preservation Points
+- **Keep existing styling:** Montserrat + Open Sans fonts, Caribbean theme
+- **Maintain current components:** shadcn/ui, existing modals, TanStack Query
+- **Preserve functionality:** Contact form, Calendly integration, property showcase
+- **No routing changes:** Keep Wouter setup simple, focus on content translation
+
+### Testing Checklist
+- [ ] Language switcher works in header
+- [ ] Contact modal form labels translate
+- [ ] Property details show in selected language  
+- [ ] CONFOTUR legal section translates
+- [ ] Language preference persists on reload
+- [ ] All 6 languages display correctly
+- [ ] Mobile responsive design maintained
+- [ ] Calendly integration unaffected
+
+This implementation keeps your existing architecture intact while adding comprehensive multilanguage support to attract international buyers to Dario's Dominican Republic tourism properties.

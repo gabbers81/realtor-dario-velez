@@ -1,0 +1,31 @@
+{
+  "navigation": {
+    "home": "Accueil",
+    "about": "À propos",
+    "services": "Services",
+    "projects": "Projets",
+    "legal": "Info Légale",
+    "contact": "Contact"
+  },
+  "buttons": {
+    "contact_me": "Me contacter",
+    "view_details": "Voir les détails",
+    "schedule_appointment": "Prendre rendez-vous",
+    "close": "Fermer",
+    "send": "Envoyer",
+    "schedule_directly": "Prendre rendez-vous directement",
+    "contact_for_project": "Contact pour ce projet"
+  },
+  "general": {
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "success": "Succès",
+    "phone": "Téléphone",
+    "email": "Email",
+    "location": "Localisation",
+    "services": "Services",
+    "contact": "Contact",
+    "years_experience": "années d'expérience",
+    "dominican_republic": "République Dominicaine"
+  }
+}

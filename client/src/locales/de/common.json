@@ -1,0 +1,31 @@
+{
+  "navigation": {
+    "home": "Startseite",
+    "about": "Über mich",
+    "services": "Dienstleistungen",
+    "projects": "Projekte",
+    "legal": "Rechtliche Infos",
+    "contact": "Kontakt"
+  },
+  "buttons": {
+    "contact_me": "Kontaktieren Sie mich",
+    "view_details": "Details ansehen",
+    "schedule_appointment": "Termin vereinbaren",
+    "close": "Schließen",
+    "send": "Senden",
+    "schedule_directly": "Direkt Termin vereinbaren",
+    "contact_for_project": "Kontakt zu diesem Projekt"
+  },
+  "general": {
+    "loading": "Wird geladen...",
+    "error": "Fehler",
+    "success": "Erfolg",
+    "phone": "Telefon",
+    "email": "E-Mail",
+    "location": "Standort",
+    "services": "Dienstleistungen",
+    "contact": "Kontakt",
+    "years_experience": "Jahre Erfahrung",
+    "dominican_republic": "Dominikanische Republik"
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "form": {
+    "title": "Dario Kontaktieren",
+    "subtitle": "Erzählen Sie mir von Ihrem Investitionsprojekt",
+    "full_name": "Vollständiger Name",
+    "full_name_placeholder": "Ihr vollständiger Name",
+    "email": "E-Mail-Adresse",
+    "email_placeholder": "ihreemail@beispiel.com",
+    "phone": "Telefonnummer",
+    "phone_placeholder": "+1 (829) 000-0000",
+    "budget": "Investitionsbudget",
+    "budget_placeholder": "Wählen Sie Ihren Investitionsbereich",
+    "budget_options": {
+      "80k_120k": "US$80,000 - US$120,000",
+      "121k_200k": "US$121,000 - US$200,000",
+      "200k_plus": "US$200,000+"
+    },
+    "down_payment": "Anzahlung, die Sie leisten können (Optional)",
+    "down_payment_placeholder": "Prozentsatz auswählen",
+    "down_payment_options": {
+      "10_percent": "10%",
+      "15_percent": "15%",
+      "20_percent": "20%"
+    },
+    "when_contact": "Wann möchten Sie kontaktiert werden?",
+    "submit": "Anfrage Senden",
+    "schedule_directly": "Termin Direkt Vereinbaren"
+  },
+  "validation": {
+    "required": "Dieses Feld ist erforderlich",
+    "invalid_email": "Ungültige E-Mail-Adresse",
+    "invalid_phone": "Ungültiges Telefonformat"
+  },
+  "success": {
+    "title": "Nachricht Gesendet!",
+    "description": "Vielen Dank für Ihr Interesse. Ich werde Sie bald kontaktieren, um Ihr Investitionsprojekt zu besprechen."
+  },
+  "project_interest": {
+    "title": "Interessiert an {{projectTitle}}",
+    "description": "Ich möchte mehr Informationen über dieses Projekt erhalten und Investitionsmöglichkeiten erkunden."
+  }
+}

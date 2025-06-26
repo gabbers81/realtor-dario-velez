@@ -1,0 +1,41 @@
+{
+  "confotur": {
+    "title": "CONFOTUR-Gesetz",
+    "subtitle": "Nationaler Rat für Tourismusförderung",
+    "benefits": {
+      "tax_exemption": {
+        "title": "Vollständige Steuerbefreiung",
+        "description": "10 Jahre ohne Einkommenssteuern für genehmigte Tourismusprojekte"
+      },
+      "import_exemption": {
+        "title": "Zollfreie Importe",
+        "description": "Baumaterialien und Ausrüstung für das Projekt ohne Importsteuern"
+      },
+      "transfer_exemption": {
+        "title": "Eigentumsübertragung",
+        "description": "Befreiung von 3% Übertragungssteuer beim ersten Verkauf"
+      }
+    }
+  },
+  "process": {
+    "title": "Vereinfachter Rechtsprozess",
+    "steps": {
+      "due_diligence": {
+        "title": "Sorgfältigkeitsprüfung",
+        "description": "Vollständige Überprüfung von Titeln und Genehmigungen"
+      },
+      "purchase_contract": {
+        "title": "Kaufvertrag",
+        "description": "Verfassung und Unterzeichnung vor einem öffentlichen Notar"
+      },
+      "title_registration": {
+        "title": "Titelregistrierung",
+        "description": "Eintragung im Nationalen Titelregister"
+      },
+      "certificates": {
+        "title": "Zertifikatsbeschaffung",
+        "description": "CONFOTUR und Baugenehmigungen je nach Anwendbarkeit"
+      }
+    }
+  }
+}

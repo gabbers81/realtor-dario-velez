@@ -1,0 +1,54 @@
+{
+  "hero": {
+    "title": "Investimentos Imobiliários no Paraíso Caribenho",
+    "specialist_title": "Especialista em Propriedades Turísticas",
+    "description": "Descubra oportunidades únicas de investimento na costa leste da República Dominicana",
+    "cta": "Explorar Propriedades"
+  },
+  "about": {
+    "title": "Sobre Dario Velez",
+    "subtitle": "Seu Especialista em Investimentos Turísticos",
+    "experience": "5 anos de experiência ajudando investidores internacionais a encontrar as melhores oportunidades imobiliárias na República Dominicana.",
+    "specialization": "Especializado em propriedades turísticas na região leste do país, incluindo Punta Cana, Bávaro e arredores.",
+    "commitment": "Comprometido em fornecer serviço personalizado e transparente para maximizar o retorno do investimento dos meus clientes."
+  },
+  "services": {
+    "title": "Meus Serviços",
+    "subtitle": "Soluções Abrangentes para Seu Investimento",
+    "investment_advisory": {
+      "title": "Consultoria em Investimentos",
+      "description": "Análise detalhada do mercado e oportunidades de investimento personalizadas de acordo com seu orçamento e objetivos."
+    },
+    "confotur_guidance": {
+      "title": "Orientação CONFOTUR",
+      "description": "Eu te oriento sobre benefícios fiscais e processos para aproveitar ao máximo a Lei de Desenvolvimento Turístico."
+    },
+    "property_management": {
+      "title": "Gestão de Propriedades",
+      "description": "Serviços completos de administração para maximizar a rentabilidade do seu investimento turístico."
+    }
+  },
+  "projects": {
+    "title": "Projetos em Destaque",
+    "subtitle": "Oportunidades Exclusivas de Investimento",
+    "completion": "Conclusão",
+    "features": "Características",
+    "view_pdf": "Ver Plantas"
+  },
+  "stats": {
+    "years_experience": "Anos de Experiência",
+    "satisfied_clients": "Clientes Satisfeitos",
+    "projects_completed": "Projetos Concluídos",
+    "investment_managed": "Investimento Gerenciado"
+  },
+  "footer": {
+    "description": "Seu especialista em investimentos imobiliários turísticos na República Dominicana. Transformando sonhos caribenhos em realidades rentáveis.",
+    "copyright": "Dario Velez - Corretor Especializado. Todos os direitos reservados.",
+    "services_list": {
+      "tourism_investments": "Investimentos Turísticos",
+      "confotur_advisory": "Consultoria CONFOTUR",
+      "property_management": "Gestão de Propriedades",
+      "legal_consulting": "Consultoria Jurídica"
+    }
+  }
+}

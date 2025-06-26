@@ -1,0 +1,41 @@
+{
+  "confotur": {
+    "title": "Ley CONFOTUR",
+    "subtitle": "Consejo Nacional de Fomento Turístico",
+    "benefits": {
+      "tax_exemption": {
+        "title": "Exención Fiscal Total",
+        "description": "10 años sin impuestos sobre la renta para proyectos turísticos aprobados"
+      },
+      "import_exemption": {
+        "title": "Importación Libre de Aranceles",
+        "description": "Materiales de construcción y equipos para el proyecto sin impuestos de importación"
+      },
+      "transfer_exemption": {
+        "title": "Transferencia de Propiedad",
+        "description": "Exención del 3% de impuesto de transferencia en la primera venta"
+      }
+    }
+  },
+  "process": {
+    "title": "Proceso Legal Simplificado",
+    "steps": {
+      "due_diligence": {
+        "title": "Due Diligence",
+        "description": "Verificación completa de títulos y permisos"
+      },
+      "purchase_contract": {
+        "title": "Contrato de Compraventa",
+        "description": "Redacción y firma ante notario público"
+      },
+      "title_registration": {
+        "title": "Registro de Títulos",
+        "description": "Inscripción en el Registro de Títulos Nacional"
+      },
+      "certificates": {
+        "title": "Obtención de Certificados",
+        "description": "CONFOTUR y permisos de construcción según aplique"
+      }
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "hero": {
+    "title": "Immobilieninvestitionen im Karibischen Paradies",
+    "specialist_title": "Spezialist für Tourismus-Immobilien",
+    "description": "Entdecken Sie einzigartige Investitionsmöglichkeiten an der Ostküste der Dominikanischen Republik",
+    "cta": "Immobilien Erkunden"
+  },
+  "about": {
+    "title": "Über Dario Velez",
+    "subtitle": "Ihr Experte für Tourismus-Investitionen",
+    "experience": "5 Jahre Erfahrung bei der Unterstützung internationaler Investoren beim Finden der besten Immobilienchancen in der Dominikanischen Republik.",
+    "specialization": "Spezialisiert auf Tourismus-Immobilien in der östlichen Region des Landes, einschließlich Punta Cana, Bávaro und Umgebung.",
+    "commitment": "Verpflichtet, personalisierten und transparenten Service zu bieten, um die Rendite meiner Kunden zu maximieren."
+  },
+  "services": {
+    "title": "Meine Dienstleistungen",
+    "subtitle": "Umfassende Lösungen für Ihre Investition",
+    "investment_advisory": {
+      "title": "Investitionsberatung",
+      "description": "Detaillierte Marktanalyse und personalisierte Investitionsmöglichkeiten entsprechend Ihrem Budget und Ihren Zielen."
+    },
+    "confotur_guidance": {
+      "title": "CONFOTUR-Beratung",
+      "description": "Ich führe Sie durch Steuervorteile und Prozesse, um das Beste aus dem Tourismusförderungsgesetz herauszuholen."
+    },
+    "property_management": {
+      "title": "Immobilienverwaltung",
+      "description": "Komplette Verwaltungsdienstleistungen zur Maximierung der Rentabilität Ihrer Tourismus-Investition."
+    }
+  },
+  "projects": {
+    "title": "Herausragende Projekte",
+    "subtitle": "Exklusive Investitionsmöglichkeiten",
+    "completion": "Fertigstellung",
+    "features": "Eigenschaften",
+    "view_pdf": "Pläne ansehen"
+  },
+  "stats": {
+    "years_experience": "Jahre Erfahrung",
+    "satisfied_clients": "Zufriedene Kunden",
+    "projects_completed": "Abgeschlossene Projekte",
+    "investment_managed": "Verwaltete Investition"
+  },
+  "footer": {
+    "description": "Ihr Experte für Tourismus-Immobilieninvestitionen in der Dominikanischen Republik. Verwandlung karibischer Träume in profitable Realitäten.",
+    "copyright": "Dario Velez - Spezialisierter Immobilienmakler. Alle Rechte vorbehalten.",
+    "services_list": {
+      "tourism_investments": "Tourismus-Investitionen",
+      "confotur_advisory": "CONFOTUR-Beratung",
+      "property_management": "Immobilienverwaltung",
+      "legal_consulting": "Rechtsberatung"
+    }
+  }
+}
