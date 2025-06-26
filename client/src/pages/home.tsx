@@ -14,7 +14,7 @@ import type { Project } from "@/lib/types";
 import WhatsApp_Image_2025_06_25_at_19_11_55 from "@assets/WhatsApp Image 2025-06-25 at 19.11.55.jpeg";
 
 export default function HomePage() {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['common', 'home', 'contact', 'projects', 'legal', 'testimonials']);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
   const [isCalendlyModalOpen, setIsCalendlyModalOpen] = useState(false);
@@ -83,6 +83,12 @@ export default function HomePage() {
                 className="text-gray-700 hover:text-caribbean font-medium transition-colors"
               >
                 {t('navigation.projects')}
+              </button>
+              <button 
+                onClick={() => scrollToSection('testimonials')}
+                className="text-gray-700 hover:text-caribbean font-medium transition-colors"
+              >
+                {t('navigation.testimonials')}
               </button>
               <button 
                 onClick={() => scrollToSection('info-legal')}
@@ -327,7 +333,7 @@ export default function HomePage() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {t('testimonials:testimonials', { returnObjects: true }).map((testimonial: any, index: number) => (
+            {(t('testimonials:testimonials', { returnObjects: true }) as any[]).map((testimonial: any, index: number) => (
               <Card key={index} className="p-6 hover:shadow-lg transition-shadow bg-white border border-gray-100">
                 <CardContent className="p-0">
                   {/* Quote Icon */}
