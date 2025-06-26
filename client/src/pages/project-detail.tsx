@@ -262,8 +262,8 @@ export default function ProjectDetailPage() {
             <div>
               <h4 className="font-semibold mb-4">{t('common:navigation.contact')}</h4>
               <div className="space-y-2 text-gray-400">
-                <p>+1 (829) 123-4567</p>
-                <p>dario@caribeinversiones.com</p>
+                <p>+1 (829) 444-4431</p>
+                <p className="break-all">dariovelez@ofertainmobiliariard.com</p>
                 <p>Punta Cana, República Dominicana</p>
               </div>
             </div>

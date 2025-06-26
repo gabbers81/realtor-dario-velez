@@ -526,8 +526,8 @@ export default function HomePage() {
             <div>
               <h4 className="font-semibold mb-4">{t('general.contact')}</h4>
               <div className="space-y-2 text-gray-400">
-                <p className="flex items-center"><Phone className="mr-2" size={16} /> +1 (829) 123-4567</p>
-                <p className="flex items-center"><Mail className="mr-2" size={16} /> dario@caribeinversiones.com</p>
+                <p className="flex items-center"><Phone className="mr-2" size={16} /> +1 (829) 444-4431</p>
+                <p className="flex items-center"><Mail className="mr-2 flex-shrink-0" size={16} /> <span className="break-all">dariovelez@ofertainmobiliariard.com</span></p>
                 <p className="flex items-center"><MapPin className="mr-2" size={16} /> Punta Cana, {t('general.dominican_republic')}</p>
               </div>
             </div>
