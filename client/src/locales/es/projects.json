@@ -14,6 +14,125 @@
         "Hotel boutique y centro de convenciones",
         "A 5 minutos del aeropuerto internacional"
       ]
+    },
+    "secret_garden": {
+      "title": "Secret Garden",
+      "description": "Exclusivo desarrollo residencial boutique con jardines tropicales y amenidades premium.",
+      "location": "Cap Cana",
+      "price": "Desde US$195,000",
+      "completion": "Agosto 2026",
+      "features": [
+        "Apartamentos de 1, 2 y 3 habitaciones",
+        "Jardines tropicales privados",
+        "Piscina infinity con bar acuático",
+        "Spa y centro de wellness",
+        "Concierge service 24/7",
+        "Seguridad y acceso controlado",
+        "Parqueo privado cubierto",
+        "Cerca de campo de golf y marina"
+      ]
+    },
+    "the_reef": {
+      "title": "The Reef",
+      "description": "Complejo de lujo en primera línea de playa con hotel, residencias y piscinas naturales en Las Terrenas.",
+      "location": "Las Terrenas, Samaná",
+      "price": "Desde US$165,000",
+      "completion": "Marzo 2026",
+      "features": [
+        "435 apartamentos de 2 y 3 habitaciones",
+        "Hotel de 81 habitaciones integrado",
+        "4 piscinas naturales conectadas",
+        "Club de playa exclusivo",
+        "Spa y gimnasio completo",
+        "Zona comercial y restaurantes",
+        "Sendero ecológico y bosque frutal",
+        "Canchas de tenis y pádel"
+      ]
+    },
+    "palm_beach_residences": {
+      "title": "Palm Beach Residences",
+      "description": "Torre residencial de lujo con amenidades resort en el prestigioso Cap Cana.",
+      "location": "Cap Cana",
+      "price": "Desde US$225,000",
+      "completion": "Noviembre 2025",
+      "features": [
+        "Apartamentos de 1 y 2 habitaciones",
+        "Vestíbulo de doble altura",
+        "Piscina infinity con bar",
+        "Área de juegos para niños",
+        "Zona para mascotas",
+        "Salón de juegos nivel 3",
+        "Mobiliario italiano incluido",
+        "Acceso a golf y marina de Cap Cana"
+      ]
+    },
+    "solvamar_macao": {
+      "title": "Solvamar Macao",
+      "description": "Townhouses y villas familiares cerca de la famosa Playa Macao con amenidades completas.",
+      "location": "Macao, Punta Cana",
+      "price": "Desde US$145,000",
+      "completion": "Julio 2026",
+      "features": [
+        "Townhouses de 60m² y villas hasta 120m²",
+        "2 habitaciones con closets",
+        "Piscina comunitaria opcional",
+        "Cancha multiusos y gazebo",
+        "Área BBQ y zona para niños",
+        "A 5 minutos de Playa Macao",
+        "Terminaciones de alta calidad",
+        "Parqueo techado incluido"
+      ]
+    },
+    "amares_unique_homes": {
+      "title": "Amares Unique Homes",
+      "description": "Villas exclusivas con diseño curvilíneo frente al mar en la península de Samaná.",
+      "location": "Las Terrenas, Samaná",
+      "price": "Desde US$285,000",
+      "completion": "Octubre 2026",
+      "features": [
+        "36 villas únicas de 1 y 2 habitaciones",
+        "Primera línea de playa",
+        "Beach club privado",
+        "Piscina privada por villa",
+        "Restaurante lounge",
+        "Centro wellness y spa",
+        "Tienda boutique",
+        "Más de 750m² de áreas comunes"
+      ]
+    },
+    "tropical_beach_3_0": {
+      "title": "Tropical Beach 3.0",
+      "description": "Proyecto residencial familiar con diseño moderno a 4 minutos del centro de Bávaro.",
+      "location": "Bávaro",
+      "price": "Desde US$125,000",
+      "completion": "Septiembre 2025",
+      "features": [
+        "Casas familiares de 2 y 3 habitaciones",
+        "Área recreacional completa",
+        "Piscina comunitaria",
+        "Zona de BBQ y gazebo",
+        "Parqueo techado",
+        "Seguridad 24 horas",
+        "A 4 minutos del downtown",
+        "Construcción con materiales de calidad"
+      ]
+    },
+    "las_cayas_residences": {
+      "title": "Las Cayas Residences",
+      "description": "Urbanización cerrada de lujo con villas de 1 y 2 niveles, casa club y amenidades premium.",
+      "location": "Punta Cana",
+      "price": "Desde US$255,200",
+      "completion": "Diciembre 2025",
+      "features": [
+        "Villas de 3 habitaciones en 2 niveles",
+        "175m² de construcción",
+        "Casa club con área lounge",
+        "Piscinas para niños y adultos",
+        "Gimnasio y área BBQ",
+        "Parque para perros",
+        "Gazebo y área infantil",
+        "Piscina privada opcional"
+      ]
     }
   },
   "modal": {

@@ -15,68 +15,133 @@
         "5 minutes from international airport"
       ]
     },
-    "paradise_bay": {
-      "title": "Paradise Bay Resort",
-      "description": "Luxury hotel complex with ocean view in Punta Cana",
-      "location": "Punta Cana, Dominican Republic",
-      "price": "US$150,000 - US$300,000",
-      "completion": "December 2024",
+    "secret_garden": {
+      "title": "Secret Garden",
+      "description": "Exclusive boutique residential development with tropical gardens and premium amenities.",
+      "location": "Cap Cana",
+      "price": "From US$195,000",
+      "completion": "August 2026",
       "features": [
-        "Ocean view",
-        "Infinity pool",
-        "Luxury spa",
-        "Gourmet restaurant",
-        "24/7 security",
-        "Hotel management included"
+        "1, 2 and 3 bedroom apartments",
+        "Private tropical gardens",
+        "Infinity pool with aquatic bar",
+        "Spa and wellness center",
+        "24/7 concierge service",
+        "Security and controlled access",
+        "Covered private parking",
+        "Near golf course and marina"
       ]
     },
-    "coral_dreams": {
-      "title": "Coral Dreams Villa",
-      "description": "Private villas with direct beach access in Bávaro",
-      "location": "Bávaro, Dominican Republic",
-      "price": "US$200,000 - US$450,000",
-      "completion": "March 2025",
+    "the_reef": {
+      "title": "The Reef",
+      "description": "Luxury beachfront complex with hotel, residences and natural pools in Las Terrenas.",
+      "location": "Las Terrenas, Samaná",
+      "price": "From US$165,000",
+      "completion": "March 2026",
       "features": [
-        "Direct beach access",
-        "Private villas",
-        "Private pool",
-        "Tropical garden",
-        "Fully equipped kitchen",
-        "Concierge services"
+        "435 apartments with 2 and 3 bedrooms",
+        "Integrated 81-room hotel",
+        "4 connected natural pools",
+        "Exclusive beach club",
+        "Complete spa and gym",
+        "Commercial area and restaurants",
+        "Ecological trail and fruit forest",
+        "Tennis and paddle courts"
       ]
     },
-    "ocean_breeze": {
-      "title": "Ocean Breeze Condos",
-      "description": "Modern condominiums with resort amenities",
-      "location": "Cap Cana, Dominican Republic",
-      "price": "US$180,000 - US$350,000",
-      "completion": "June 2025",
+    "palm_beach_residences": {
+      "title": "Palm Beach Residences",
+      "description": "Luxury residential tower with resort amenities in prestigious Cap Cana.",
+      "location": "Cap Cana",
+      "price": "From US$225,000",
+      "completion": "November 2025",
       "features": [
-        "Contemporary design",
-        "Resort amenities",
-        "Golf course",
-        "Private marina",
-        "Beach club",
-        "Guaranteed profitability"
+        "1 and 2 bedroom apartments",
+        "Double-height lobby",
+        "Infinity pool with bar",
+        "Children's play area",
+        "Pet zone",
+        "Level 3 game room",
+        "Italian furniture included",
+        "Access to Cap Cana golf and marina"
+      ]
+    },
+    "solvamar_macao": {
+      "title": "Solvamar Macao",
+      "description": "Family townhouses and villas near famous Macao Beach with complete amenities.",
+      "location": "Macao, Punta Cana",
+      "price": "From US$145,000",
+      "completion": "July 2026",
+      "features": [
+        "60m² townhouses and villas up to 120m²",
+        "2 bedrooms with closets",
+        "Optional community pool",
+        "Multi-purpose court and gazebo",
+        "BBQ area and children's zone",
+        "5 minutes from Macao Beach",
+        "High quality finishes",
+        "Covered parking included"
+      ]
+    },
+    "amares_unique_homes": {
+      "title": "Amares Unique Homes",
+      "description": "Exclusive villas with curvilinear design facing the sea in Samaná peninsula.",
+      "location": "Las Terrenas, Samaná",
+      "price": "From US$285,000",
+      "completion": "October 2026",
+      "features": [
+        "36 unique villas with 1 and 2 bedrooms",
+        "Beachfront location",
+        "Private beach club",
+        "Private pool per villa",
+        "Lounge restaurant",
+        "Wellness center and spa",
+        "Boutique store",
+        "Over 750m² of common areas"
+      ]
+    },
+    "tropical_beach_3_0": {
+      "title": "Tropical Beach 3.0",
+      "description": "Family residential project with modern design 4 minutes from Bavaro center.",
+      "location": "Bavaro",
+      "price": "From US$125,000",
+      "completion": "September 2025",
+      "features": [
+        "Family homes with 2 and 3 bedrooms",
+        "Complete recreational area",
+        "Community pool",
+        "BBQ area and gazebo",
+        "Covered parking",
+        "24-hour security",
+        "4 minutes from downtown",
+        "Quality materials construction"
+      ]
+    },
+    "las_cayas_residences": {
+      "title": "Las Cayas Residences",
+      "description": "Luxury gated community with 1 and 2-level villas, clubhouse and premium amenities.",
+      "location": "Punta Cana",
+      "price": "From US$255,200",
+      "completion": "December 2025",
+      "features": [
+        "3-bedroom villas on 2 levels",
+        "175m² construction",
+        "Clubhouse with lounge area",
+        "Pools for children and adults",
+        "Gym and BBQ area",
+        "Dog park",
+        "Gazebo and children's area",
+        "Optional private pool"
       ]
     }
   },
   "modal": {
     "close": "Close",
     "features": "Features",
-    "completion": "Completion",
-    "price_range": "Price range",
     "location": "Location",
-    "view_brochure": "View Brochure",
-    "contact_about": "Contact about this project"
-  },
-  "detail": {
     "price": "Price",
-    "location": "Location", 
-    "completion": "Delivery",
-    "main_features": "Main Features",
-    "detailed_info": "Detailed Project Information",
-    "download_pdf": "Download PDF",
-    "contact_project": "Contact About This Project"
+    "completion": "Completion",
+    "view_brochure": "View Brochure",
+    "contact_for_info": "Contact for Information"
   }
 }
