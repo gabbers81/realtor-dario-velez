@@ -8,6 +8,7 @@ import { CalendlyModal } from "@/components/calendly-modal";
 import { ArrowLeft, Download, Calendar, MapPin, Clock, DollarSign, MessageCircle, Home, FileText } from "lucide-react";
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from "@/components/language-switcher";
+import { SEOHead } from "@/components/seo-head";
 import type { Project } from "@/lib/types";
 import DarioVelezLogo from "@assets/DarioRealtorLogo_cropped_1750974653123.png";
 
