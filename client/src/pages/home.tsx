@@ -187,7 +187,7 @@ export default function HomePage() {
                   <div className="text-gray-600 text-sm">Años de Experiencia</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-sage">50+</div>
+                  <div className="text-3xl font-bold text-sage">5+</div>
                   <div className="text-gray-600 text-sm">Proyectos Completados</div>
                 </div>
                 <div className="text-center">
