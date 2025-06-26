@@ -24,7 +24,10 @@
     },
     "when_contact": "Wann möchten Sie kontaktiert werden?",
     "submit": "Anfrage Senden",
-    "schedule_directly": "Termin Direkt Vereinbaren"
+    "schedule_directly": "Termin Direkt Vereinbaren",
+    "sending": "Wird gesendet...",
+    "send_inquiry": "Anfrage Senden",
+    "schedule_appointment": "Termin Direkt Vereinbaren"
   },
   "validation": {
     "required": "Dieses Feld ist erforderlich",

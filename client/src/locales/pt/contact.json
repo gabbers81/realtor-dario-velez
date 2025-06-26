@@ -24,12 +24,18 @@
     },
     "when_contact": "Quando você prefere ser contatado?",
     "submit": "Enviar Consulta",
-    "schedule_directly": "Agendar Consulta Diretamente"
+    "schedule_directly": "Agendar Consulta Diretamente",
+    "sending": "Enviando...",
+    "send_inquiry": "Enviar Consulta",
+    "schedule_appointment": "Agendar Consulta Diretamente"
   },
   "validation": {
     "required": "Este campo é obrigatório",
     "invalid_email": "Endereço de email inválido",
-    "invalid_phone": "Formato de telefone inválido"
+    "invalid_phone": "Formato de telefone inválido",
+    "required_fields": "Campos obrigatórios",
+    "complete_required": "Por favor, preencha todos os campos marcados com *",
+    "phone_format": "Use o formato dominicano: +1 (829) 123-4567"
   },
   "success": {
     "title": "Mensagem Enviada!",
