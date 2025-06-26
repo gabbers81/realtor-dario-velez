@@ -12,7 +12,7 @@ import { LanguageSwitcher } from "@/components/language-switcher";
 import type { Project } from "@/lib/types";
 
 import WhatsApp_Image_2025_06_25_at_19_11_55 from "@assets/WhatsApp Image 2025-06-25 at 19.11.55.jpeg";
-import DarioVelezLogo from "@assets/infected7975_logo_Dario_Velez_Realtor_Property_Dominican_Repu_cc5896bd-5515-4b6b-bcb4-4ed00fb46175_2 (1)_1750972994476.png";
+import DarioVelezLogo from "@assets/DarioRealtorLogo_cropped_1750974653123.png";
 
 export default function HomePage() {
   const { t } = useTranslation(['common', 'home', 'contact', 'projects', 'legal', 'testimonials']);

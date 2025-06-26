@@ -81,13 +81,14 @@ The application is configured for Replit deployment with:
 
 ## Recent Changes
 
+- June 26, 2025. Implemented mobile-optimized PDF viewer with responsive design for project detail pages
+- June 26, 2025. Mobile devices now show download-first interface while desktop maintains embedded viewer
 - June 26, 2025. Successfully added 7 new real estate projects with complete multilanguage support
 - June 26, 2025. Integrated all project PDFs: Secret Garden, The Reef, Palm Beach Residences, Solvamar Macao, Amares Unique Homes, Tropical Beach 3.0, Las Cayas Residences
 - June 26, 2025. Updated Secret Garden with accurate data from new PDF: 327 units, commercial area, Bávaro location
 - June 26, 2025. Fixed PDF serving architecture - moved files to client/public/pdfs/ for proper static serving
 - June 26, 2025. Created comprehensive translations for all 8 projects across 6 languages (Spanish, English, Russian, French, German, Portuguese)
 - June 26, 2025. Updated logo system with custom tropical design featuring palm trees and house silhouette
-- June 26, 2025. Fixed complete translation system for project detail pages - all content now translates properly
 - June 26, 2025. Successfully implemented Testimonials section between Projects and Legal sections
 - June 26, 2025. Added 3 professional testimonials from international DR property investors (US, Canada, France)
 - June 26, 2025. Created testimonials translation files for all 6 languages with minimalistic design

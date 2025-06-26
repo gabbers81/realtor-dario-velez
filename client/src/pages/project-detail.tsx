@@ -9,6 +9,7 @@ import { ArrowLeft, Download, Calendar, MapPin, Clock, DollarSign, MessageCircle
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from "@/components/language-switcher";
 import type { Project } from "@/lib/types";
+import DarioVelezLogo from "@assets/DarioRealtorLogo_cropped_1750974653123.png";
 
 export default function ProjectDetailPage() {
   const { t } = useTranslation(['common', 'home', 'contact', 'projects']);
@@ -91,9 +92,11 @@ export default function ProjectDetailPage() {
             {/* Logo and Navigation */}
             <div className="flex items-center space-x-8">
               <div className="flex items-center space-x-3">
-                <div className="w-10 h-10 bg-turquoise rounded-full flex items-center justify-center">
-                  <Home className="text-white text-lg" size={20} />
-                </div>
+                <img 
+                  src={DarioVelezLogo} 
+                  alt="Dario Velez Realtor Logo" 
+                  className="w-16 h-16 object-contain"
+                />
                 <div>
                   <h1 className="font-bold text-xl text-gray-900">Dario Velez</h1>
                   <p className="text-sm text-gray-600">{t('common:tagline')}</p>
@@ -232,6 +235,45 @@ export default function ProjectDetailPage() {
           </div>
         </section>
       )}
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white py-12 mt-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="col-span-2">
+              <div className="flex items-center space-x-3 mb-4">
+                <div className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center">
+                  <img 
+                    src={DarioVelezLogo} 
+                    alt="Dario Velez Real Estate Logo" 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-lg">Dario Velez</h3>
+                  <p className="text-gray-400">{t('common:tagline')}</p>
+                </div>
+              </div>
+              <p className="text-gray-400 mb-4">
+                {t('home:footer.description')}
+              </p>
+            </div>
+
+            <div>
+              <h4 className="font-semibold mb-4">{t('common:navigation.contact')}</h4>
+              <div className="space-y-2 text-gray-400">
+                <p>+1 (829) 123-4567</p>
+                <p>dario@caribeinversiones.com</p>
+                <p>Punta Cana, República Dominicana</p>
+              </div>
+            </div>
+          </div>
+          
+          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+            <p>© 2025 Dario Velez. Todos los derechos reservados.</p>
+          </div>
+        </div>
+      </footer>
 
       {/* Floating Contact Button */}
       <div className="fixed bottom-6 right-6 z-50">
