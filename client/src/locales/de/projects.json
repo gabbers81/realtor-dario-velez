@@ -1,5 +1,20 @@
 {
   "properties": {
+    "aura_boulevard": {
+      "title": "Aura Boulevard",
+      "description": "Moderner Wohnkomplex strategisch gelegen im Punta Cana Design District mit exklusivem Einkaufszentrum.",
+      "location": "Punta Cana Design District",
+      "price": "Ab US$89,000",
+      "completion": "Dezember 2025",
+      "features": [
+        "Hotel-Suite und 1-2 Zimmer Apartments",
+        "Exklusives Einkaufszentrum am Eingang",
+        "Schwimmbäder, beheizte Whirlpools und Wasserpark",
+        "Padel- und Basketballplatz",
+        "Boutique-Hotel und Konferenzzentrum",
+        "5 Minuten vom internationalen Flughafen entfernt"
+      ]
+    },
     "paradise_bay": {
       "title": "Paradise Bay Resort",
       "description": "Luxuriöser Hotelkomplex mit Meerblick in Punta Cana",
