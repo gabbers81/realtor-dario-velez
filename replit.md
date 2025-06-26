@@ -87,6 +87,8 @@ The application is configured for Replit deployment with:
 
 ## Recent Changes
 
+- June 26, 2025. **PDF Display Issue Fixed**: Resolved field mapping issue between snake_case database fields and camelCase frontend interface
+- June 26, 2025. **Enhanced PDF Viewer**: Added proper iframe embedding headers and fallback options for desktop/mobile
 - June 26, 2025. **Supabase Integration Successfully Completed**: Application now fully operational with Supabase as exclusive database
 - June 26, 2025. **Hybrid Connection System Implemented**: Created automatic REST API fallback when direct PostgreSQL connection fails
 - June 26, 2025. **All 8 Real Estate Projects Active**: Database populated and API endpoints responding successfully via REST API
