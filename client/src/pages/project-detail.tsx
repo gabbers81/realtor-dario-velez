@@ -18,8 +18,6 @@ export default function ProjectDetailPage() {
 
   // Extract slug from location
   const slug = location.split('/proyecto/')[1];
-  
-  console.log('Current location:', location, 'extracted slug:', slug);
 
   const { data: project, isLoading, error } = useQuery<Project>({
     queryKey: [`/api/project/${slug}`],
