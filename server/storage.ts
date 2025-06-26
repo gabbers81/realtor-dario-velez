@@ -254,8 +254,26 @@ export class SupabaseStorage implements IStorage {
   }
 
   async createContact(insertContact: InsertContact): Promise<Contact> {
-    const [contact] = await db.insert(contacts).values(insertContact).returning();
-    return contact;
+    try {
+      const [contact] = await db.insert(contacts).values(insertContact).returning();
+      return contact;
+    } catch (error: any) {
+      if (error?.code === 'ENOTFOUND' && supabaseClient) {
+        console.log('Direct connection failed, using REST API fallback for contact creation...');
+        const { data, error: restError } = await supabaseClient
+          .from('contacts')
+          .insert(insertContact)
+          .select()
+          .single();
+        
+        if (restError) {
+          throw new Error(`REST API error: ${restError.message}`);
+        }
+        
+        return data;
+      }
+      throw error;
+    }
   }
 
   async getContacts(): Promise<Contact[]> {
@@ -263,7 +281,23 @@ export class SupabaseStorage implements IStorage {
   }
 
   async getProjects(): Promise<Project[]> {
-    return await db.select().from(projects);
+    try {
+      return await db.select().from(projects);
+    } catch (error: any) {
+      if (error?.code === 'ENOTFOUND' && supabaseClient) {
+        console.log('Direct connection failed, using REST API fallback...');
+        const { data, error: restError } = await supabaseClient
+          .from('projects')
+          .select('*');
+        
+        if (restError) {
+          throw new Error(`REST API error: ${restError.message}`);
+        }
+        
+        return data || [];
+      }
+      throw error;
+    }
   }
 
   async getProject(id: number): Promise<Project | undefined> {

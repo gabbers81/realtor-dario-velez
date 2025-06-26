@@ -15,7 +15,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (error?.code === 'ENOTFOUND') {
         res.status(503).json({ 
           message: "Database connection unavailable", 
-          details: "DNS resolution issue with Supabase hostname" 
+          details: "DNS resolution issue with Supabase hostname. Please create tables in Supabase dashboard first." 
+        });
+      } else if (error?.message?.includes('REST API error')) {
+        res.status(503).json({ 
+          message: "Database tables not found", 
+          details: "Please create tables using the SQL script in Supabase dashboard" 
         });
       } else {
         res.status(500).json({ message: "Error fetching projects" });
