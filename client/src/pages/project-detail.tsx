@@ -83,16 +83,16 @@ export default function ProjectDetailPage() {
               {/* Navigation Links - Desktop */}
               <nav className="hidden lg:flex space-x-8">
                 <a href="/" className="text-gray-700 hover:text-caribbean transition-colors font-medium">
-                  {t('common:nav.home')}
+                  {t('common:navigation.home')}
                 </a>
                 <a href="/#projects" className="text-gray-700 hover:text-caribbean transition-colors font-medium">
-                  {t('common:nav.projects')}
+                  {t('common:navigation.projects')}
                 </a>
                 <a href="/#testimonials" className="text-gray-700 hover:text-caribbean transition-colors font-medium">
-                  {t('common:nav.testimonials')}
+                  {t('common:navigation.testimonials')}
                 </a>
                 <a href="/#legal" className="text-gray-700 hover:text-caribbean transition-colors font-medium">
-                  {t('common:nav.legal')}
+                  {t('common:navigation.legal')}
                 </a>
               </nav>
             </div>
