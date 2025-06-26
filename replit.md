@@ -81,6 +81,10 @@ The application is configured for Replit deployment with:
 
 ## Recent Changes
 
+- June 26, 2025. **Supabase Integration Attempted**: Configured application to use Supabase as primary database
+- June 26, 2025. **Network Connectivity Issue**: Replit environment cannot resolve DNS for Supabase hostname (db.etrtpcdjkhxndlkwhfmw.supabase.co)
+- June 26, 2025. **Database Architecture**: Implemented SupabaseStorage class with PostgreSQL connection via postgres-js driver
+- June 26, 2025. **Manual Table Creation Required**: Due to connection issues, tables must be created directly in Supabase dashboard
 - June 26, 2025. Updated header and footer logos with new cropped tropical design across all pages
 - June 26, 2025. Added consistent footer section to project detail pages with professional branding
 - June 26, 2025. Implemented mobile-optimized PDF viewer with responsive design for project detail pages
