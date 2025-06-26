@@ -21,6 +21,17 @@ export default function HomePage() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  // Get testimonials with fallback
+  const getTestimonials = () => {
+    try {
+      const testimonials = t('testimonials:testimonials', { returnObjects: true });
+      return Array.isArray(testimonials) ? testimonials : [];
+    } catch (error) {
+      console.error('Error loading testimonials:', error);
+      return [];
+    }
+  };
+
   const { data: projects, isLoading } = useQuery({
     queryKey: ["/api/projects"],
   });
@@ -129,6 +140,12 @@ export default function HomePage() {
                 className="block w-full text-left text-gray-700 font-medium py-2"
               >
                 {t('navigation.projects')}
+              </button>
+              <button 
+                onClick={() => scrollToSection('testimonials')}
+                className="block w-full text-left text-gray-700 font-medium py-2"
+              >
+                {t('navigation.testimonials')}
               </button>
               <button 
                 onClick={() => scrollToSection('info-legal')}
@@ -333,7 +350,7 @@ export default function HomePage() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {(t('testimonials:testimonials', { returnObjects: true }) as any[]).map((testimonial: any, index: number) => (
+            {getTestimonials().map((testimonial: any, index: number) => (
               <Card key={index} className="p-6 hover:shadow-lg transition-shadow bg-white border border-gray-100">
                 <CardContent className="p-0">
                   {/* Quote Icon */}
