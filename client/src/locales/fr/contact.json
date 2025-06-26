@@ -1,42 +1,42 @@
 {
   "form": {
-    "title": "Contact Dario",
-    "subtitle": "Tell me about your investment project",
-    "full_name": "Full Name",
-    "full_name_placeholder": "Your full name",
-    "email": "Email Address",
-    "email_placeholder": "youremail@example.com",
-    "phone": "Phone Number",
+    "title": "Contacter Dario",
+    "subtitle": "Parlez-moi de votre projet d'investissement",
+    "full_name": "Nom Complet",
+    "full_name_placeholder": "Votre nom complet",
+    "email": "Adresse Email",
+    "email_placeholder": "votreemail@exemple.com",
+    "phone": "Numéro de Téléphone",
     "phone_placeholder": "+1 (829) 000-0000",
-    "budget": "Investment Budget",
-    "budget_placeholder": "Select your investment range",
+    "budget": "Budget d'Investissement",
+    "budget_placeholder": "Sélectionnez votre gamme d'investissement",
     "budget_options": {
       "80k_120k": "US$80,000 - US$120,000",
       "121k_200k": "US$121,000 - US$200,000",
       "200k_plus": "US$200,000+"
     },
-    "down_payment": "Down Payment You Can Make (Optional)",
-    "down_payment_placeholder": "Select percentage",
+    "down_payment": "Acompte que vous pouvez verser (Optionnel)",
+    "down_payment_placeholder": "Sélectionnez le pourcentage",
     "down_payment_options": {
       "10_percent": "10%",
       "15_percent": "15%",
       "20_percent": "20%"
     },
-    "when_contact": "When would you prefer to be contacted?",
-    "submit": "Send Inquiry",
-    "schedule_directly": "Schedule Appointment Directly"
+    "when_contact": "Quand préféreriez-vous être contacté?",
+    "submit": "Envoyer la Demande",
+    "schedule_directly": "Prendre Rendez-vous Directement"
   },
   "validation": {
-    "required": "This field is required",
-    "invalid_email": "Invalid email address",
-    "invalid_phone": "Invalid phone format"
+    "required": "Ce champ est requis",
+    "invalid_email": "Adresse email invalide",
+    "invalid_phone": "Format de téléphone invalide"
   },
   "success": {
-    "title": "Message Sent!",
-    "description": "Thank you for your interest. I will contact you soon to discuss your investment project."
+    "title": "Message Envoyé!",
+    "description": "Merci pour votre intérêt. Je vous contacterai bientôt pour discuter de votre projet d'investissement."
   },
   "project_interest": {
-    "title": "Interested in {{projectTitle}}",
-    "description": "I would like to get more information about this project and explore investment opportunities."
+    "title": "Intéressé par {{projectTitle}}",
+    "description": "J'aimerais obtenir plus d'informations sur ce projet et explorer les opportunités d'investissement."
   }
 }

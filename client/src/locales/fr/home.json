@@ -6,49 +6,49 @@
     "cta": "Explorer les Propriétés"
   },
   "about": {
-    "title": "About Dario Velez",
-    "subtitle": "Your Expert in Tourism Investments",
-    "experience": "5 years of experience helping international investors find the best real estate opportunities in the Dominican Republic.",
-    "specialization": "Specialized in tourism properties in the eastern region of the country, including Punta Cana, Bávaro and surroundings.",
-    "commitment": "Committed to providing personalized and transparent service to maximize my clients' return on investment."
+    "title": "À propos de Dario Velez",
+    "subtitle": "Votre Expert en Investissements Touristiques",
+    "experience": "5 années d'expérience à aider les investisseurs internationaux à trouver les meilleures opportunités immobilières en République Dominicaine.",
+    "specialization": "Spécialisé dans les propriétés touristiques de la région est du pays, incluant Punta Cana, Bávaro et environs.",
+    "commitment": "Engagé à fournir un service personnalisé et transparent pour maximiser le retour sur investissement de mes clients."
   },
   "services": {
-    "title": "My Services",
-    "subtitle": "Comprehensive Solutions for Your Investment",
+    "title": "Mes Services",
+    "subtitle": "Solutions Complètes pour Votre Investissement",
     "investment_advisory": {
-      "title": "Investment Advisory",
-      "description": "Detailed market analysis and personalized investment opportunities according to your budget and objectives."
+      "title": "Conseil en Investissement",
+      "description": "Analyse détaillée du marché et opportunités d'investissement personnalisées selon votre budget et objectifs."
     },
     "confotur_guidance": {
-      "title": "CONFOTUR Guidance",
-      "description": "I guide you through tax benefits and processes to make the most of the Tourism Development Law."
+      "title": "Orientation CONFOTUR",
+      "description": "Je vous guide dans les avantages fiscaux et processus pour tirer le meilleur parti de la Loi de Développement Touristique."
     },
     "property_management": {
-      "title": "Property Management",
-      "description": "Complete administration services to maximize the profitability of your tourism investment."
+      "title": "Gestion de Propriétés",
+      "description": "Services d'administration complets pour maximiser la rentabilité de votre investissement touristique."
     }
   },
   "projects": {
-    "title": "Featured Projects",
-    "subtitle": "Exclusive Investment Opportunities",
-    "completion": "Completion",
-    "features": "Features",
-    "view_pdf": "View Plans"
+    "title": "Projets Vedettes",
+    "subtitle": "Opportunités d'Investissement Exclusives",
+    "completion": "Achèvement",
+    "features": "Caractéristiques",
+    "view_pdf": "Voir les Plans"
   },
   "stats": {
-    "years_experience": "Years of Experience",
-    "satisfied_clients": "Satisfied Clients",
-    "projects_completed": "Projects Completed",
-    "investment_managed": "Investment Managed"
+    "years_experience": "Années d'Expérience",
+    "satisfied_clients": "Clients Satisfaits",
+    "projects_completed": "Projets Terminés",
+    "investment_managed": "Investissement Géré"
   },
   "footer": {
-    "description": "Your expert in tourism real estate investments in the Dominican Republic. Turning Caribbean dreams into profitable realities.",
-    "copyright": "Dario Velez - Specialized Realtor. All rights reserved.",
+    "description": "Votre expert en investissements immobiliers touristiques en République Dominicaine. Transformant les rêves caribéens en réalités rentables.",
+    "copyright": "Dario Velez - Agent Immobilier Spécialisé. Tous droits réservés.",
     "services_list": {
-      "tourism_investments": "Tourism Investments",
-      "confotur_advisory": "CONFOTUR Advisory",
-      "property_management": "Property Management",
-      "legal_consulting": "Legal Consulting"
+      "tourism_investments": "Investissements Touristiques",
+      "confotur_advisory": "Conseil CONFOTUR",
+      "property_management": "Gestion de Propriétés",
+      "legal_consulting": "Conseil Juridique"
     }
   }
 }
