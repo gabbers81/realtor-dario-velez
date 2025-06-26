@@ -15,14 +15,36 @@ export interface IStorage {
   createProject(project: InsertProject): Promise<Project>;
 }
 
-// Initialize Supabase connection with additional configuration
-const sql = postgres(process.env.DATABASE_URL!.trim(), {
-  ssl: { rejectUnauthorized: false },
-  max: 10,
-  idle_timeout: 20,
-  connect_timeout: 10,
-});
-const db = drizzle(sql);
+// Initialize Supabase connection with proper URL encoding
+let sql: any;
+let db: any;
+
+try {
+  const databaseUrl = process.env.DATABASE_URL!.trim();
+  console.log('Attempting to connect to Supabase with URL:', databaseUrl.replace(/:[^:@]+@/, ':***@'));
+  
+  // Handle special characters in password by URL encoding
+  const encodedUrl = databaseUrl.replace(/(:)([^:@]+)(@)/, (match, colon, password, at) => {
+    return colon + encodeURIComponent(password) + at;
+  });
+  
+  console.log('Using encoded URL for connection');
+  
+  sql = postgres(encodedUrl, {
+    ssl: 'require',
+    max: 20,
+    idle_timeout: 20,
+    connect_timeout: 60,
+    prepare: false,
+    onnotice: () => {}, // Suppress notices
+  });
+  
+  db = drizzle(sql);
+  console.log('Supabase client initialized successfully with encoded URL');
+} catch (error) {
+  console.error('Error initializing Supabase connection:', error);
+  throw error;
+}
 
 export class SupabaseStorage implements IStorage {
   constructor() {
