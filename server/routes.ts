@@ -15,7 +15,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Get single project
+  // Get single project by ID
   app.get("/api/projects/:id", async (req, res) => {
     try {
       const id = parseInt(req.params.id);
@@ -24,6 +24,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       const project = await storage.getProject(id);
+      if (!project) {
+        return res.status(404).json({ message: "Project not found" });
+      }
+      
+      res.json(project);
+    } catch (error) {
+      res.status(500).json({ message: "Error fetching project" });
+    }
+  });
+
+  // Get single project by slug
+  app.get("/api/project/:slug", async (req, res) => {
+    try {
+      const slug = req.params.slug;
+      
+      const project = await storage.getProjectBySlug(slug);
       if (!project) {
         return res.status(404).json({ message: "Project not found" });
       }

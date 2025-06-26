@@ -8,6 +8,7 @@ export interface IStorage {
   // Projects
   getProjects(): Promise<Project[]>;
   getProject(id: number): Promise<Project | undefined>;
+  getProjectBySlug(slug: string): Promise<Project | undefined>;
   createProject(project: InsertProject): Promise<Project>;
 }
 
@@ -85,6 +86,7 @@ export class MemStorage implements IStorage {
       },
       {
         title: "Boutique Hotel Samaná",
+        slug: "boutique-hotel-samana",
         description: "Oportunidad de inversión en hotel boutique en la hermosa península de Samaná.",
         price: "Desde US$85,000",
         location: "Las Terrenas, Samaná",
@@ -102,6 +104,7 @@ export class MemStorage implements IStorage {
       },
       {
         title: "Golf & Beach Community",
+        slug: "golf-beach-community",
         description: "Residencias exclusivas en comunidad cerrada con acceso a golf y playa privada.",
         price: "Desde US$250,000",
         location: "Costa del Coco",
@@ -119,6 +122,7 @@ export class MemStorage implements IStorage {
       },
       {
         title: "Eco Paradise Resort",
+        slug: "eco-paradise-resort",
         description: "Desarrollo eco-sostenible que combina lujo con responsabilidad ambiental.",
         price: "Desde US$95,000",
         location: "Las Terrenas",
@@ -164,6 +168,10 @@ export class MemStorage implements IStorage {
 
   async getProject(id: number): Promise<Project | undefined> {
     return this.projects.get(id);
+  }
+
+  async getProjectBySlug(slug: string): Promise<Project | undefined> {
+    return Array.from(this.projects.values()).find(project => project.slug === slug);
   }
 
   async createProject(insertProject: InsertProject): Promise<Project> {

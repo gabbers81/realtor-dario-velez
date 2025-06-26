@@ -1,0 +1,187 @@
+import { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useRoute } from "wouter";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { ContactModal } from "@/components/contact-modal";
+import { CalendlyModal } from "@/components/calendly-modal";
+import { ArrowLeft, Download, Calendar, MapPin, Clock, DollarSign, MessageCircle } from "lucide-react";
+import { useTranslation } from 'react-i18next';
+import { LanguageSwitcher } from "@/components/language-switcher";
+import type { Project } from "@/lib/types";
+
+export default function ProjectDetailPage() {
+  const { t } = useTranslation(['common', 'home', 'contact', 'projects']);
+  const [match, params] = useRoute("/proyecto/:slug");
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  const [isCalendlyModalOpen, setIsCalendlyModalOpen] = useState(false);
+
+  const { data: project, isLoading, error } = useQuery({
+    queryKey: [`/api/project/${params?.slug}`],
+    enabled: !!params?.slug,
+  });
+
+  const goBack = () => {
+    window.history.back();
+  };
+
+  const downloadPDF = () => {
+    if (project?.pdfUrl) {
+      const link = document.createElement('a');
+      link.href = project.pdfUrl;
+      link.download = `${project.slug}.pdf`;
+      link.click();
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-caribbean mx-auto mb-4"></div>
+          <p className="text-gray-600">{t('general.loading')}</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error || !project) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">Proyecto no encontrado</h1>
+          <Button onClick={goBack} variant="outline">
+            <ArrowLeft className="mr-2" size={16} />
+            Volver
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-white">
+      {/* Header */}
+      <header className="bg-white shadow-sm sticky top-0 z-40">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center py-4">
+            <Button 
+              onClick={goBack}
+              variant="ghost"
+              className="flex items-center text-gray-700 hover:text-caribbean"
+            >
+              <ArrowLeft className="mr-2" size={20} />
+              Volver
+            </Button>
+            
+            <LanguageSwitcher />
+          </div>
+        </div>
+      </header>
+
+      {/* Project Header */}
+      <section className="py-8 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            <div>
+              <h1 className="text-4xl font-bold text-gray-900 mb-4">{project.title}</h1>
+              <p className="text-xl text-gray-600 mb-6">{project.description}</p>
+              
+              <div className="grid grid-cols-2 gap-4 mb-6">
+                <div className="flex items-center text-gray-700">
+                  <DollarSign className="mr-2 text-caribbean" size={20} />
+                  <div>
+                    <span className="block text-sm text-gray-500">Precio</span>
+                    <span className="font-semibold text-lg">{project.price}</span>
+                  </div>
+                </div>
+                <div className="flex items-center text-gray-700">
+                  <MapPin className="mr-2 text-turquoise" size={20} />
+                  <div>
+                    <span className="block text-sm text-gray-500">Ubicación</span>
+                    <span className="font-semibold">{project.location}</span>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="flex items-center text-gray-700 mb-6">
+                <Clock className="mr-2 text-sage" size={20} />
+                <div>
+                  <span className="block text-sm text-gray-500">Entrega</span>
+                  <span className="font-semibold">{project.completion}</span>
+                </div>
+              </div>
+
+              <div className="mb-6">
+                <h3 className="font-semibold text-lg mb-3">Características Principales</h3>
+                <div className="grid grid-cols-1 gap-2">
+                  {project.features.map((feature, index) => (
+                    <Badge key={index} variant="outline" className="justify-start p-2">
+                      {feature}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+            </div>
+            
+            <div>
+              <img 
+                src={project.imageUrl} 
+                alt={project.title}
+                className="w-full h-96 object-cover rounded-lg shadow-lg"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* PDF Viewer */}
+      {project.pdfUrl && (
+        <section className="py-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-2xl font-bold text-gray-900">Información Detallada del Proyecto</h2>
+              <Button onClick={downloadPDF} variant="outline">
+                <Download className="mr-2" size={16} />
+                Descargar PDF
+              </Button>
+            </div>
+            
+            <div className="bg-gray-100 rounded-lg overflow-hidden shadow-lg">
+              <iframe
+                src={project.pdfUrl}
+                className="w-full h-screen"
+                title={`${project.title} - Información detallada`}
+              />
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Floating Contact Button */}
+      <div className="fixed bottom-6 right-6 z-50">
+        <Button
+          onClick={() => setIsContactModalOpen(true)}
+          className="bg-caribbean text-white hover:bg-caribbean/90 shadow-lg rounded-full p-4 h-auto"
+        >
+          <MessageCircle className="mr-2" size={20} />
+          Contactar
+        </Button>
+      </div>
+
+      {/* Modals */}
+      <ContactModal 
+        isOpen={isContactModalOpen} 
+        onClose={() => setIsContactModalOpen(false)}
+        onOpenCalendly={() => {
+          setIsContactModalOpen(false);
+          setIsCalendlyModalOpen(true);
+        }}
+      />
+      <CalendlyModal 
+        isOpen={isCalendlyModalOpen} 
+        onClose={() => setIsCalendlyModalOpen(false)}
+      />
+    </div>
+  );
+}
