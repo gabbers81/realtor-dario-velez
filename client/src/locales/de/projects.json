@@ -2,57 +2,57 @@
   "properties": {
     "paradise_bay": {
       "title": "Paradise Bay Resort",
-      "description": "Luxury hotel complex with ocean view in Punta Cana",
-      "location": "Punta Cana, Dominican Republic",
+      "description": "Luxuriöser Hotelkomplex mit Meerblick in Punta Cana",
+      "location": "Punta Cana, Dominikanische Republik",
       "price": "US$150,000 - US$300,000",
-      "completion": "December 2024",
+      "completion": "Dezember 2024",
       "features": [
-        "Ocean view",
-        "Infinity pool",
-        "Luxury spa",
-        "Gourmet restaurant",
-        "24/7 security",
-        "Hotel management included"
+        "Meerblick",
+        "Infinity-Pool",
+        "Luxus-Spa",
+        "Gourmet-Restaurant",
+        "24/7-Sicherheit",
+        "Hotelmanagement inklusive"
       ]
     },
     "coral_dreams": {
       "title": "Coral Dreams Villa",
-      "description": "Private villas with direct beach access in Bávaro",
-      "location": "Bávaro, Dominican Republic",
+      "description": "Private Villen mit direktem Strandzugang in Bávaro",
+      "location": "Bávaro, Dominikanische Republik",
       "price": "US$200,000 - US$450,000",
-      "completion": "March 2025",
+      "completion": "März 2025",
       "features": [
-        "Direct beach access",
-        "Private villas",
-        "Private pool",
-        "Tropical garden",
-        "Fully equipped kitchen",
-        "Concierge services"
+        "Direkter Strandzugang",
+        "Private Villen",
+        "Privater Pool",
+        "Tropischer Garten",
+        "Voll ausgestattete Küche",
+        "Concierge-Service"
       ]
     },
     "ocean_breeze": {
       "title": "Ocean Breeze Condos",
-      "description": "Modern condominiums with resort amenities",
-      "location": "Cap Cana, Dominican Republic",
+      "description": "Moderne Eigentumswohnungen mit Resort-Ausstattung",
+      "location": "Cap Cana, Dominikanische Republik",
       "price": "US$180,000 - US$350,000",
-      "completion": "June 2025",
+      "completion": "Juni 2025",
       "features": [
-        "Contemporary design",
-        "Resort amenities",
-        "Golf course",
-        "Private marina",
-        "Beach club",
-        "Guaranteed profitability"
+        "Zeitgenössisches Design",
+        "Resort-Ausstattung",
+        "Golfplatz",
+        "Private Marina",
+        "Beach Club",
+        "Garantierte Rentabilität"
       ]
     }
   },
   "modal": {
-    "close": "Close",
-    "features": "Features",
-    "completion": "Completion",
-    "price_range": "Price range",
-    "location": "Location",
-    "view_brochure": "View Brochure",
-    "contact_about": "Contact about this project"
+    "close": "Schließen",
+    "features": "Eigenschaften",
+    "completion": "Fertigstellung",
+    "price_range": "Preisbereich",
+    "location": "Standort",
+    "view_brochure": "Broschüre ansehen",
+    "contact_about": "Kontakt zu diesem Projekt"
   }
 }

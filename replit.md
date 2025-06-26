@@ -150,6 +150,25 @@ client/src/locales/
 - Globe icon language switcher in navigation
 - Mobile-responsive language selection
 
+### Translation Management System
+**For future content additions:**
+1. **Add new keys to Spanish (es) files first** - this is the source language
+2. **Use translation key structure**: `namespace:section.key` (e.g., `home:hero.title`)
+3. **Update all 6 languages simultaneously** when adding new content:
+   - Spanish (es) - Primary market
+   - English (en) - International market
+   - Russian (ru) - Growing segment
+   - French (fr) - European investors
+   - German (de) - Strong investor base
+   - Portuguese (pt) - Brazilian market
+4. **Namespace organization**:
+   - `common.json` - Navigation, buttons, general UI
+   - `home.json` - Homepage content, services, about
+   - `contact.json` - Contact forms and validation
+   - `projects.json` - Property listings and modals
+   - `legal.json` - CONFOTUR law and legal process
+5. **Quality assurance**: Always test language switching for new content to ensure complete translations
+
 ## User Preferences
 
 Preferred communication style: Simple, everyday language.

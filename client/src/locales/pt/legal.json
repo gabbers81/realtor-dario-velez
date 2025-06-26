@@ -1,40 +1,40 @@
 {
   "confotur": {
-    "title": "CONFOTUR Law",
-    "subtitle": "National Council for Tourism Development",
+    "title": "Lei CONFOTUR",
+    "subtitle": "Conselho Nacional de Desenvolvimento Turístico",
     "benefits": {
       "tax_exemption": {
-        "title": "Total Tax Exemption",
-        "description": "10 years without income taxes for approved tourism projects"
+        "title": "Isenção Fiscal Total",
+        "description": "10 anos sem impostos sobre a renda para projetos turísticos aprovados"
       },
       "import_exemption": {
-        "title": "Duty-Free Imports",
-        "description": "Construction materials and equipment for the project without import taxes"
+        "title": "Importações Livres de Impostos",
+        "description": "Materiais de construção e equipamentos para o projeto sem impostos de importação"
       },
       "transfer_exemption": {
-        "title": "Property Transfer",
-        "description": "Exemption from 3% transfer tax on first sale"
+        "title": "Transferência de Propriedade",
+        "description": "Isenção de 3% de imposto de transferência na primeira venda"
       }
     }
   },
   "process": {
-    "title": "Simplified Legal Process",
+    "title": "Processo Legal Simplificado",
     "steps": {
       "due_diligence": {
         "title": "Due Diligence",
-        "description": "Complete verification of titles and permits"
+        "description": "Verificação completa de títulos e permissões"
       },
       "purchase_contract": {
-        "title": "Purchase Agreement",
-        "description": "Drafting and signing before a public notary"
+        "title": "Contrato de Compra",
+        "description": "Redação e assinatura perante notário público"
       },
       "title_registration": {
-        "title": "Title Registration",
-        "description": "Registration in the National Title Registry"
+        "title": "Registro de Títulos",
+        "description": "Inscrição no Registro Nacional de Títulos"
       },
       "certificates": {
-        "title": "Certificate Acquisition",
-        "description": "CONFOTUR and construction permits as applicable"
+        "title": "Obtenção de Certificados",
+        "description": "CONFOTUR e licenças de construção conforme aplicável"
       }
     }
   }
