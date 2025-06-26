@@ -153,6 +153,7 @@
     "download_pdf": "Download PDF",
     "contact_project": "Contact about this Project",
     "view_brochure": "View Project Brochure",
-    "mobile_pdf_message": "For better mobile experience, download the PDF"
+    "mobile_pdf_message": "For better mobile experience, download the PDF",
+    "open_in_new_tab": "Open in new tab"
   }
 }
