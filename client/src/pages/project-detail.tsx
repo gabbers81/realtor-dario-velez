@@ -24,6 +24,26 @@ export default function ProjectDetailPage() {
     enabled: !!slug && slug !== '',
   });
 
+  // Function to get translated project data
+  const getTranslatedProject = (project: Project) => {
+    const projectKey = slug?.replace(/-/g, '_'); // Convert slug to translation key format
+    
+    const description = t(`projects:properties.${projectKey}.description`, { defaultValue: project.description });
+    const features = t(`projects:properties.${projectKey}.features`, { returnObjects: true, defaultValue: project.features }) as string[];
+    const location = t(`projects:properties.${projectKey}.location`, { defaultValue: project.location });
+    const price = t(`projects:properties.${projectKey}.price`, { defaultValue: project.price });
+    const completion = t(`projects:properties.${projectKey}.completion`, { defaultValue: project.completion });
+    
+    return {
+      ...project,
+      description,
+      features,
+      location,
+      price,
+      completion
+    };
+  };
+
   const goBack = () => {
     window.history.back();
   };
@@ -119,21 +139,21 @@ export default function ProjectDetailPage() {
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div>
               <h1 className="text-4xl font-bold text-gray-900 mb-4">{project.title}</h1>
-              <p className="text-xl text-gray-600 mb-6">{project.description}</p>
+              <p className="text-xl text-gray-600 mb-6">{getTranslatedProject(project).description}</p>
               
               <div className="grid grid-cols-2 gap-4 mb-6">
                 <div className="flex items-center text-gray-700">
                   <DollarSign className="mr-2 text-caribbean" size={20} />
                   <div>
                     <span className="block text-sm text-gray-500">{t('projects:detail.price')}</span>
-                    <span className="font-semibold text-lg">{project.price}</span>
+                    <span className="font-semibold text-lg">{getTranslatedProject(project).price}</span>
                   </div>
                 </div>
                 <div className="flex items-center text-gray-700">
                   <MapPin className="mr-2 text-turquoise" size={20} />
                   <div>
                     <span className="block text-sm text-gray-500">{t('projects:detail.location')}</span>
-                    <span className="font-semibold">{project.location}</span>
+                    <span className="font-semibold">{getTranslatedProject(project).location}</span>
                   </div>
                 </div>
               </div>
@@ -142,14 +162,14 @@ export default function ProjectDetailPage() {
                 <Clock className="mr-2 text-sage" size={20} />
                 <div>
                   <span className="block text-sm text-gray-500">{t('projects:detail.completion')}</span>
-                  <span className="font-semibold">{project.completion}</span>
+                  <span className="font-semibold">{getTranslatedProject(project).completion}</span>
                 </div>
               </div>
 
               <div className="mb-6">
                 <h3 className="font-semibold text-lg mb-3">{t('projects:detail.main_features')}</h3>
                 <div className="grid grid-cols-1 gap-2">
-                  {project.features.map((feature, index) => (
+                  {getTranslatedProject(project).features.map((feature, index) => (
                     <Badge key={index} variant="outline" className="justify-start p-2">
                       {feature}
                     </Badge>
