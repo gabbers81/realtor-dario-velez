@@ -313,62 +313,93 @@ export default function HomePage() {
         </div>
       </section>
       {/* Legal Information Section */}
-      <section id="info-legal" className="py-20 bg-white">
+      <section id="info-legal" className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="font-bold text-4xl text-gray-900 mb-4">Información Legal y Regulatoria</h2>
-            <p className="text-gray-600 text-lg max-w-3xl mx-auto">
-              Todo lo que necesitas saber sobre las leyes y regulaciones para invertir en República Dominicana
-            </p>
-          </div>
-
           <div className="grid md:grid-cols-2 gap-12">
-            <div>
-              <h3 className="font-semibold text-2xl mb-6 text-gray-900">CONFOTUR - Ley de Fomento Turístico</h3>
+            {/* Left Side - Ley CONFOTUR */}
+            <div className="bg-white rounded-lg p-8 shadow-lg">
+              <div className="flex items-center mb-6">
+                <div className="w-12 h-12 bg-turquoise rounded-lg flex items-center justify-center mr-4">
+                  <Shield className="text-white" size={24} />
+                </div>
+                <div>
+                  <h3 className="font-bold text-2xl text-gray-900">Ley CONFOTUR</h3>
+                  <p className="text-gray-600">Consejo Nacional de Fomento Turístico</p>
+                </div>
+              </div>
+              
               <div className="space-y-4">
                 <div className="flex items-start space-x-3">
-                  <CheckCircle className="text-turquoise mt-1" size={20} />
-                  <p className="text-gray-600">Exención del 100% del Impuesto sobre la Renta durante 15 años</p>
+                  <CheckCircle className="text-turquoise mt-1 flex-shrink-0" size={20} />
+                  <div>
+                    <h4 className="font-semibold text-gray-900">Exención Fiscal Total</h4>
+                    <p className="text-gray-600 text-sm">10 años sin impuestos sobre la renta para proyectos turísticos aprobados</p>
+                  </div>
                 </div>
                 <div className="flex items-start space-x-3">
-                  <CheckCircle className="text-turquoise mt-1" size={20} />
-                  <p className="text-gray-600">Exención del 100% de los impuestos municipales por 10 años</p>
+                  <CheckCircle className="text-turquoise mt-1 flex-shrink-0" size={20} />
+                  <div>
+                    <h4 className="font-semibold text-gray-900">Importación Libre de Aranceles</h4>
+                    <p className="text-gray-600 text-sm">Materiales de construcción y equipos para el proyecto sin impuestos de importación</p>
+                  </div>
                 </div>
                 <div className="flex items-start space-x-3">
-                  <CheckCircle className="text-turquoise mt-1" size={20} />
-                  <p className="text-gray-600">Exención total de impuestos de importación para equipos</p>
-                </div>
-                <div className="flex items-start space-x-3">
-                  <CheckCircle className="text-turquoise mt-1" size={20} />
-                  <p className="text-gray-600">Permiso para repatriar el 100% de las ganancias</p>
+                  <CheckCircle className="text-turquoise mt-1 flex-shrink-0" size={20} />
+                  <div>
+                    <h4 className="font-semibold text-gray-900">Transferencia de Propiedad</h4>
+                    <p className="text-gray-600 text-sm">Exención del 3% de impuesto de transferencia en la primera venta</p>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div>
-              <h3 className="font-semibold text-2xl mb-6 text-gray-900">Otros Beneficios Legales</h3>
-              <div className="space-y-4">
-                <div className="flex items-start space-x-3">
-                  <Shield className="text-sage mt-1" size={20} />
-                  <p className="text-gray-600">Derecho constitucional a la propiedad privada para extranjeros</p>
+            {/* Right Side - Proceso Legal Simplificado */}
+            <div className="bg-white rounded-lg p-8 shadow-lg">
+              <h3 className="font-bold text-2xl text-gray-900 mb-6">Proceso Legal Simplificado</h3>
+              
+              <div className="space-y-6">
+                <div className="flex items-start space-x-4">
+                  <div className="w-8 h-8 bg-turquoise rounded-full flex items-center justify-center flex-shrink-0">
+                    <span className="text-white font-bold text-sm">1</span>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-900">Due Diligence</h4>
+                    <p className="text-gray-600 text-sm">Verificación completa de títulos y permisos</p>
+                  </div>
                 </div>
-                <div className="flex items-start space-x-3">
-                  <Shield className="text-sage mt-1" size={20} />
-                  <p className="text-gray-600">Registro de la propiedad garantizado por el Estado</p>
+                
+                <div className="flex items-start space-x-4">
+                  <div className="w-8 h-8 bg-turquoise rounded-full flex items-center justify-center flex-shrink-0">
+                    <span className="text-white font-bold text-sm">2</span>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-900">Contrato de Compraventa</h4>
+                    <p className="text-gray-600 text-sm">Redacción y firma ante notario público</p>
+                  </div>
                 </div>
-                <div className="flex items-start space-x-3">
-                  <Shield className="text-sage mt-1" size={20} />
-                  <p className="text-gray-600">Libre convertibilidad del peso dominicano</p>
+                
+                <div className="flex items-start space-x-4">
+                  <div className="w-8 h-8 bg-turquoise rounded-full flex items-center justify-center flex-shrink-0">
+                    <span className="text-white font-bold text-sm">3</span>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-900">Registro de Títulos</h4>
+                    <p className="text-gray-600 text-sm">Inscripción en el Registro de Títulos Nacional</p>
+                  </div>
                 </div>
-                <div className="flex items-start space-x-3">
-                  <Shield className="text-sage mt-1" size={20} />
-                  <p className="text-gray-600">Facilidades para la obtención de residencia</p>
+                
+                <div className="flex items-start space-x-4">
+                  <div className="w-8 h-8 bg-turquoise rounded-full flex items-center justify-center flex-shrink-0">
+                    <span className="text-white font-bold text-sm">4</span>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-900">Obtención de Certificados</h4>
+                    <p className="text-gray-600 text-sm">CONFOTUR y permisos de construcción según aplique</p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-
-          
         </div>
       </section>
       {/* Footer */}
