@@ -18,7 +18,7 @@ interface ContactModalProps {
 }
 
 export function ContactModal({ isOpen, onClose, onOpenCalendly }: ContactModalProps) {
-  const { t } = useTranslation();
+  const { t } = useTranslation(['common', 'contact']);
   const [formData, setFormData] = useState<ContactFormData>({
     fullName: "",
     email: "",
@@ -69,8 +69,8 @@ export function ContactModal({ isOpen, onClose, onOpenCalendly }: ContactModalPr
     // Basic validation
     if (!formData.fullName || !formData.email || !formData.phone || !formData.budget) {
       toast({
-        title: "Campos requeridos",
-        description: "Por favor completa todos los campos marcados con *",
+        title: t('contact:validation.required_fields'),
+        description: t('contact:validation.complete_required'),
         variant: "destructive",
       });
       return;
@@ -81,7 +81,7 @@ export function ContactModal({ isOpen, onClose, onOpenCalendly }: ContactModalPr
     if (!phoneRegex.test(formData.phone)) {
       toast({
         title: t('contact:validation.invalid_phone'),
-        description: t('contact:validation.invalid_phone'),
+        description: t('contact:validation.phone_format'),
         variant: "destructive",
       });
       return;

@@ -141,13 +141,13 @@ export default function ProjectDetailPage() {
               <div className="flex items-center text-gray-700 mb-6">
                 <Clock className="mr-2 text-sage" size={20} />
                 <div>
-                  <span className="block text-sm text-gray-500">Entrega</span>
+                  <span className="block text-sm text-gray-500">{t('projects:detail.completion')}</span>
                   <span className="font-semibold">{project.completion}</span>
                 </div>
               </div>
 
               <div className="mb-6">
-                <h3 className="font-semibold text-lg mb-3">Características Principales</h3>
+                <h3 className="font-semibold text-lg mb-3">{t('projects:detail.main_features')}</h3>
                 <div className="grid grid-cols-1 gap-2">
                   {project.features.map((feature, index) => (
                     <Badge key={index} variant="outline" className="justify-start p-2">
@@ -174,10 +174,10 @@ export default function ProjectDetailPage() {
         <section className="py-8">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-2xl font-bold text-gray-900">Información Detallada del Proyecto</h2>
+              <h2 className="text-2xl font-bold text-gray-900">{t('projects:detail.detailed_info')}</h2>
               <Button onClick={downloadPDF} variant="outline">
                 <Download className="mr-2" size={16} />
-                Descargar PDF
+                {t('projects:detail.download_pdf')}
               </Button>
             </div>
             
@@ -199,7 +199,7 @@ export default function ProjectDetailPage() {
           className="bg-caribbean text-white hover:bg-caribbean/90 shadow-lg rounded-full p-4 h-auto"
         >
           <MessageCircle className="mr-2" size={20} />
-          Contactar
+          {t('projects:detail.contact_project')}
         </Button>
       </div>
 
