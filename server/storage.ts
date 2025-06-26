@@ -208,7 +208,12 @@ export class SupabaseStorage implements IStorage {
           throw new Error(`REST API error: ${restError.message}`);
         }
         
-        return data;
+        // Map snake_case to camelCase for API consistency
+        return {
+          ...data,
+          imageUrl: data.image_url,
+          pdfUrl: data.pdf_url
+        };
       }
       throw error;
     }
