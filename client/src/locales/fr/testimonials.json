@@ -1,0 +1,33 @@
+{
+  "section_title": "Témoignages de clients",
+  "section_subtitle": "Ce que disent nos investisseurs de leur expérience",
+  "testimonials": [
+    {
+      "name": "María González",
+      "country": "États-Unis",
+      "location": "Miami, FL",
+      "property_type": "Appartement à Bávaro",
+      "rating": 5,
+      "text": "Dario m'a aidée à trouver l'investissement parfait à Bávaro. Sa connaissance du marché dominicain et des avantages CONFOTUR ont été la clé pour maximiser mon retour. Hautement recommandé.",
+      "avatar": "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face"
+    },
+    {
+      "name": "James Mitchell",
+      "country": "Canada",
+      "location": "Toronto, ON",
+      "property_type": "Villa à Cap Cana",
+      "rating": 5,
+      "text": "Excellent service dès le premier contact. Dario nous a guidés à travers tout le processus juridique et maintenant nous avons une belle villa générant des revenus passifs exceptionnels.",
+      "avatar": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
+    },
+    {
+      "name": "Sophie Dubois",
+      "country": "France",
+      "location": "Paris",
+      "property_type": "Penthouse à Punta Cana",
+      "rating": 5,
+      "text": "En tant qu'investisseur européen, j'ai beaucoup apprécié la transparence et le professionnalisme de Dario. Mon penthouse à Punta Cana a dépassé toutes mes attentes de rentabilité.",
+      "avatar": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face"
+    }
+  ]
+}

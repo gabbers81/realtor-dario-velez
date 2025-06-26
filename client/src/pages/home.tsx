@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { ContactModal } from "@/components/contact-modal";
 import { ProjectModal } from "@/components/project-modal";
 import { CalendlyModal } from "@/components/calendly-modal";
-import { Home, Calendar, ArrowRight, Check, Shield, CheckCircle, Phone, Mail, MapPin, Scale, FileText } from "lucide-react";
+import { Home, Calendar, ArrowRight, Check, Shield, CheckCircle, Phone, Mail, MapPin, Scale, FileText, Star, Quote } from "lucide-react";
 import { FaFacebook, FaInstagram, FaLinkedin, FaWhatsapp, FaBars, FaTimes } from "react-icons/fa";
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from "@/components/language-switcher";
@@ -315,6 +315,58 @@ export default function HomePage() {
           )}
         </div>
       </section>
+      
+      {/* Testimonials Section */}
+      <section id="testimonials" className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="font-bold text-4xl text-gray-900 mb-4">{t('testimonials:section_title')}</h2>
+            <p className="text-gray-600 text-lg max-w-3xl mx-auto">
+              {t('testimonials:section_subtitle')}
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {t('testimonials:testimonials', { returnObjects: true }).map((testimonial: any, index: number) => (
+              <Card key={index} className="p-6 hover:shadow-lg transition-shadow bg-white border border-gray-100">
+                <CardContent className="p-0">
+                  {/* Quote Icon */}
+                  <div className="mb-4">
+                    <Quote className="text-turquoise opacity-20" size={32} />
+                  </div>
+                  
+                  {/* Rating Stars */}
+                  <div className="flex mb-4">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <Star key={i} className="text-yellow-400 fill-current" size={16} />
+                    ))}
+                  </div>
+                  
+                  {/* Testimonial Text */}
+                  <p className="text-gray-700 mb-6 italic leading-relaxed">
+                    "{testimonial.text}"
+                  </p>
+                  
+                  {/* Client Info */}
+                  <div className="flex items-center">
+                    <img 
+                      src={testimonial.avatar} 
+                      alt={testimonial.name}
+                      className="w-12 h-12 rounded-full object-cover mr-4"
+                    />
+                    <div>
+                      <h4 className="font-semibold text-gray-900">{testimonial.name}</h4>
+                      <p className="text-sm text-gray-600">{testimonial.location}</p>
+                      <p className="text-xs text-turquoise font-medium">{testimonial.property_type}</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+      
       {/* Legal Information Section */}
       <section id="info-legal" className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
