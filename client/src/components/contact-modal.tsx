@@ -18,6 +18,7 @@ interface ContactModalProps {
 }
 
 export function ContactModal({ isOpen, onClose, onOpenCalendly }: ContactModalProps) {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState<ContactFormData>({
     fullName: "",
     email: "",
@@ -35,8 +36,8 @@ export function ContactModal({ isOpen, onClose, onOpenCalendly }: ContactModalPr
     },
     onSuccess: () => {
       toast({
-        title: "¡Consulta enviada!",
-        description: "Te contactaremos pronto para agendar tu cita.",
+        title: t('contact:success.title'),
+        description: t('contact:success.description'),
       });
       queryClient.invalidateQueries({ queryKey: ["/api/contacts"] });
       resetForm();
@@ -44,8 +45,8 @@ export function ContactModal({ isOpen, onClose, onOpenCalendly }: ContactModalPr
     },
     onError: (error) => {
       toast({
-        title: "Error",
-        description: "Hubo un problema al enviar tu consulta. Inténtalo de nuevo.",
+        title: t('general.error'),
+        description: t('contact:validation.required'),
         variant: "destructive",
       });
       console.error("Error creating contact:", error);
@@ -79,8 +80,8 @@ export function ContactModal({ isOpen, onClose, onOpenCalendly }: ContactModalPr
     const phoneRegex = /^\+?1?\s?\(?[89]\d{2}\)?\s?\d{3}[-.\s]?\d{4}$/;
     if (!phoneRegex.test(formData.phone)) {
       toast({
-        title: "Teléfono inválido",
-        description: "Por favor ingresa un número de teléfono dominicano válido",
+        title: t('contact:validation.invalid_phone'),
+        description: t('contact:validation.invalid_phone'),
         variant: "destructive",
       });
       return;
@@ -98,13 +99,13 @@ export function ContactModal({ isOpen, onClose, onOpenCalendly }: ContactModalPr
     <Dialog open={isOpen} onOpenChange={handleClose}>
       <DialogContent className="max-w-md">
         <DialogHeader>
-          <DialogTitle className="text-2xl text-gray-900">Contacto Directo</DialogTitle>
+          <DialogTitle className="text-2xl text-gray-900">{t('contact:form.title')}</DialogTitle>
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <Label htmlFor="fullName" className="text-sm font-medium text-gray-700">
-              Nombre Completo *
+              {t('contact:form.full_name')} *
             </Label>
             <Input
               id="fullName"
@@ -112,7 +113,7 @@ export function ContactModal({ isOpen, onClose, onOpenCalendly }: ContactModalPr
               required
               value={formData.fullName}
               onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-              placeholder="Tu nombre completo"
+              placeholder={t('contact:form.full_name_placeholder')}
               className="mt-2"
             />
           </div>
