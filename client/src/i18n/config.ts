@@ -8,6 +8,7 @@ import homeEs from '../locales/es/home.json';
 import contactEs from '../locales/es/contact.json';
 import projectsEs from '../locales/es/projects.json';
 import legalEs from '../locales/es/legal.json';
+import testimonialsEs from '../locales/es/testimonials.json';
 
 // Import translation files - English
 import commonEn from '../locales/en/common.json';
@@ -15,6 +16,7 @@ import homeEn from '../locales/en/home.json';
 import contactEn from '../locales/en/contact.json';
 import projectsEn from '../locales/en/projects.json';
 import legalEn from '../locales/en/legal.json';
+import testimonialsEn from '../locales/en/testimonials.json';
 
 // Import translation files - Russian
 import commonRu from '../locales/ru/common.json';
@@ -22,6 +24,7 @@ import homeRu from '../locales/ru/home.json';
 import contactRu from '../locales/ru/contact.json';
 import projectsRu from '../locales/ru/projects.json';
 import legalRu from '../locales/ru/legal.json';
+import testimonialsRu from '../locales/ru/testimonials.json';
 
 // Import translation files - French
 import commonFr from '../locales/fr/common.json';
@@ -29,6 +32,7 @@ import homeFr from '../locales/fr/home.json';
 import contactFr from '../locales/fr/contact.json';
 import projectsFr from '../locales/fr/projects.json';
 import legalFr from '../locales/fr/legal.json';
+import testimonialsFr from '../locales/fr/testimonials.json';
 
 // Import translation files - German
 import commonDe from '../locales/de/common.json';
@@ -36,6 +40,7 @@ import homeDe from '../locales/de/home.json';
 import contactDe from '../locales/de/contact.json';
 import projectsDe from '../locales/de/projects.json';
 import legalDe from '../locales/de/legal.json';
+import testimonialsDe from '../locales/de/testimonials.json';
 
 // Import translation files - Portuguese
 import commonPt from '../locales/pt/common.json';
@@ -43,6 +48,7 @@ import homePt from '../locales/pt/home.json';
 import contactPt from '../locales/pt/contact.json';
 import projectsPt from '../locales/pt/projects.json';
 import legalPt from '../locales/pt/legal.json';
+import testimonialsPt from '../locales/pt/testimonials.json';
 
 const resources = {
   es: {
@@ -51,6 +57,7 @@ const resources = {
     contact: contactEs,
     projects: projectsEs,
     legal: legalEs,
+    testimonials: testimonialsEs,
   },
   en: {
     common: commonEn,
@@ -58,6 +65,7 @@ const resources = {
     contact: contactEn,
     projects: projectsEn,
     legal: legalEn,
+    testimonials: testimonialsEn,
   },
   ru: {
     common: commonRu,
@@ -65,6 +73,7 @@ const resources = {
     contact: contactRu,
     projects: projectsRu,
     legal: legalRu,
+    testimonials: testimonialsRu,
   },
   fr: {
     common: commonFr,
@@ -72,6 +81,7 @@ const resources = {
     contact: contactFr,
     projects: projectsFr,
     legal: legalFr,
+    testimonials: testimonialsFr,
   },
   de: {
     common: commonDe,
@@ -79,6 +89,7 @@ const resources = {
     contact: contactDe,
     projects: projectsDe,
     legal: legalDe,
+    testimonials: testimonialsDe,
   },
   pt: {
     common: commonPt,
@@ -86,6 +97,7 @@ const resources = {
     contact: contactPt,
     projects: projectsPt,
     legal: legalPt,
+    testimonials: testimonialsPt,
   },
 };
 
