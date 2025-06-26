@@ -15,6 +15,7 @@ export const contacts = pgTable("contacts", {
 export const projects = pgTable("projects", {
   id: serial("id").primaryKey(),
   title: text("title").notNull(),
+  slug: text("slug").notNull().unique(),
   description: text("description").notNull(),
   price: text("price").notNull(),
   location: text("location").notNull(),

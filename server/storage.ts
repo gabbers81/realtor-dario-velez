@@ -30,24 +30,26 @@ export class MemStorage implements IStorage {
   private initializeProjects() {
     const sampleProjects: InsertProject[] = [
       {
-        title: "Paradise Bay Resort",
-        description: "Condominios de lujo frente al mar en Bávaro con amenidades de clase mundial.",
-        price: "Desde US$180,000",
-        location: "Bávaro, Punta Cana",
+        title: "Aura Boulevard",
+        slug: "aura-boulevard",
+        description: "Moderno complejo residencial ubicado estratégicamente en Punta Cana Design District con plaza comercial exclusiva.",
+        price: "Desde US$89,000",
+        location: "Punta Cana Design District",
         completion: "Diciembre 2025",
         features: [
-          "Vista panorámica al mar Caribe",
-          "Piscina infinita y área de spa",
-          "Acceso directo a playa privada",
-          "Seguridad 24/7 con concierge",
-          "Gimnasio y áreas recreativas",
-          "Programa de alquiler garantizado"
+          "Suite hotelera y apartamentos de 1-2 habitaciones",
+          "Plaza comercial exclusiva en la entrada",
+          "Piscinas, jacuzzis climatizados y parque acuático", 
+          "Cancha de padel y baloncesto",
+          "Hotel boutique y centro de convenciones",
+          "A 5 minutos del aeropuerto internacional"
         ],
-        imageUrl: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=500",
-        pdfUrl: "/pdfs/paradise-bay-resort.pdf"
+        imageUrl: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=500",
+        pdfUrl: "/assets/pdfs/aura-boulevard.pdf"
       },
       {
         title: "Tropical Villas Cap Cana",
+        slug: "tropical-villas-cap-cana",
         description: "Villas exclusivas con acceso al prestigioso campo de golf de Cap Cana.",
         price: "Desde US$350,000",
         location: "Cap Cana",
@@ -65,6 +67,7 @@ export class MemStorage implements IStorage {
       },
       {
         title: "Ocean View Residences",
+        slug: "ocean-view-residences",
         description: "Apartamentos modernos con vistas espectaculares del océano Atlántico.",
         price: "Desde US$120,000",
         location: "Punta Cana Village",
