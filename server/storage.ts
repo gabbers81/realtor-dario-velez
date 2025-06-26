@@ -27,9 +27,14 @@ export class SupabaseStorage implements IStorage {
 
   private async initializeProjects() {
     try {
+      // Test connection first
+      await db.select().from(projects).limit(1);
+      console.log('✅ Supabase connection successful');
+      
       // Check if projects already exist
       const existingProjects = await db.select().from(projects).limit(1);
       if (existingProjects.length > 0) {
+        console.log('✅ Projects already exist in Supabase');
         return; // Projects already initialized
       }
 
