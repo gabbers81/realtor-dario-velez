@@ -2,81 +2,146 @@
   "properties": {
     "aura_boulevard": {
       "title": "Aura Boulevard",
-      "description": "Moderner Wohnkomplex strategisch gelegen im Punta Cana Design District mit exklusivem Einkaufszentrum.",
+      "description": "Moderne Wohnanlage strategisch gelegen im Punta Cana Design District mit exklusivem Einkaufszentrum.",
       "location": "Punta Cana Design District",
       "price": "Ab US$89,000",
       "completion": "Dezember 2025",
       "features": [
-        "Hotel-Suite und 1-2 Zimmer Apartments",
+        "Hotel-Suiten und 1-2 Zimmer Apartments",
         "Exklusives Einkaufszentrum am Eingang",
-        "Schwimmbäder, beheizte Whirlpools und Wasserpark",
-        "Padel- und Basketballplatz",
+        "Pools, beheizte Whirlpools und Wasserpark",
+        "Padel- und Basketballplätze",
         "Boutique-Hotel und Konferenzzentrum",
-        "5 Minuten vom internationalen Flughafen entfernt"
+        "5 Minuten vom internationalen Flughafen"
       ]
     },
-    "paradise_bay": {
-      "title": "Paradise Bay Resort",
-      "description": "Luxuriöser Hotelkomplex mit Meerblick in Punta Cana",
-      "location": "Punta Cana, Dominikanische Republik",
-      "price": "US$150,000 - US$300,000",
-      "completion": "Dezember 2024",
+    "secret_garden": {
+      "title": "Secret Garden",
+      "description": "Exklusive Boutique-Wohnanlage mit tropischen Gärten und Premium-Ausstattung.",
+      "location": "Cap Cana",
+      "price": "Ab US$195,000",
+      "completion": "August 2026",
       "features": [
-        "Meerblick",
-        "Infinity-Pool",
-        "Luxus-Spa",
-        "Gourmet-Restaurant",
-        "24/7-Sicherheit",
-        "Hotelmanagement inklusive"
+        "Apartments mit 1, 2 und 3 Schlafzimmern",
+        "Private tropische Gärten",
+        "Infinity-Pool mit Aqua-Bar",
+        "Spa und Wellness-Center",
+        "24/7 Concierge-Service",
+        "Sicherheit und kontrollierter Zugang",
+        "Überdachte private Parkplätze",
+        "Nähe zu Golfplatz und Marina"
       ]
     },
-    "coral_dreams": {
-      "title": "Coral Dreams Villa",
-      "description": "Private Villen mit direktem Strandzugang in Bávaro",
-      "location": "Bávaro, Dominikanische Republik",
-      "price": "US$200,000 - US$450,000",
-      "completion": "März 2025",
+    "the_reef": {
+      "title": "The Reef",
+      "description": "Luxus-Strandkomplex mit Hotel, Residenzen und natürlichen Pools in Las Terrenas.",
+      "location": "Las Terrenas, Samaná",
+      "price": "Ab US$165,000",
+      "completion": "März 2026",
       "features": [
-        "Direkter Strandzugang",
-        "Private Villen",
-        "Privater Pool",
-        "Tropischer Garten",
-        "Voll ausgestattete Küche",
-        "Concierge-Service"
+        "435 Apartments mit 2 und 3 Schlafzimmern",
+        "Integriertes Hotel mit 81 Zimmern",
+        "4 verbundene natürliche Pools",
+        "Exklusiver Strandclub",
+        "Vollständiges Spa und Fitnessstudio",
+        "Einkaufsbereich und Restaurants",
+        "Ökologischer Pfad und Obstwald",
+        "Tennis- und Padelplätze"
       ]
     },
-    "ocean_breeze": {
-      "title": "Ocean Breeze Condos",
-      "description": "Moderne Eigentumswohnungen mit Resort-Ausstattung",
-      "location": "Cap Cana, Dominikanische Republik",
-      "price": "US$180,000 - US$350,000",
-      "completion": "Juni 2025",
+    "palm_beach_residences": {
+      "title": "Palm Beach Residences",
+      "description": "Luxus-Wohnturm mit Resort-Annehmlichkeiten im prestigeträchtigen Cap Cana.",
+      "location": "Cap Cana",
+      "price": "Ab US$225,000",
+      "completion": "November 2025",
       "features": [
-        "Zeitgenössisches Design",
-        "Resort-Ausstattung",
-        "Golfplatz",
-        "Private Marina",
-        "Beach Club",
-        "Garantierte Rentabilität"
+        "Apartments mit 1 und 2 Schlafzimmern",
+        "Lobby mit doppelter Höhe",
+        "Infinity-Pool mit Bar",
+        "Kinderspielbereich",
+        "Haustierzone",
+        "Spielzimmer auf Ebene 3",
+        "Italienische Möbel inklusive",
+        "Zugang zu Cap Cana Golf und Marina"
+      ]
+    },
+    "solvamar_macao": {
+      "title": "Solvamar Macao",
+      "description": "Familien-Reihenhäuser und Villen nahe dem berühmten Macao Strand mit kompletter Ausstattung.",
+      "location": "Macao, Punta Cana",
+      "price": "Ab US$145,000",
+      "completion": "Juli 2026",
+      "features": [
+        "60m² Reihenhäuser und Villen bis 120m²",
+        "2 Schlafzimmer mit Einbauschränken",
+        "Optionaler Gemeinschaftspool",
+        "Mehrzweckplatz und Pavillon",
+        "BBQ-Bereich und Kinderzone",
+        "5 Minuten vom Macao Strand",
+        "Hochwertige Ausstattung",
+        "Überdachte Parkplätze inklusive"
+      ]
+    },
+    "amares_unique_homes": {
+      "title": "Amares Unique Homes",
+      "description": "Exklusive Villen mit geschwungenem Design am Meer auf der Halbinsel Samaná.",
+      "location": "Las Terrenas, Samaná",
+      "price": "Ab US$285,000",
+      "completion": "Oktober 2026",
+      "features": [
+        "36 einzigartige Villen mit 1 und 2 Schlafzimmern",
+        "Strandlage",
+        "Privater Strandclub",
+        "Privater Pool pro Villa",
+        "Lounge-Restaurant",
+        "Wellness-Center und Spa",
+        "Boutique-Geschäft",
+        "Über 750m² Gemeinschaftsbereiche"
+      ]
+    },
+    "tropical_beach_3_0": {
+      "title": "Tropical Beach 3.0",
+      "description": "Familien-Wohnprojekt mit modernem Design 4 Minuten vom Zentrum Bavaro.",
+      "location": "Bavaro",
+      "price": "Ab US$125,000",
+      "completion": "September 2025",
+      "features": [
+        "Familienhäuser mit 2 und 3 Schlafzimmern",
+        "Kompletter Freizeitbereich",
+        "Gemeinschaftspool",
+        "BBQ-Bereich und Pavillon",
+        "Überdachte Parkplätze",
+        "24-Stunden Sicherheit",
+        "4 Minuten von der Innenstadt",
+        "Konstruktion mit Qualitätsmaterialien"
+      ]
+    },
+    "las_cayas_residences": {
+      "title": "Las Cayas Residences",
+      "description": "Luxus-Wohnanlage mit 1- und 2-stöckigen Villen, Clubhaus und Premium-Ausstattung.",
+      "location": "Punta Cana",
+      "price": "Ab US$255,200",
+      "completion": "Dezember 2025",
+      "features": [
+        "3-Schlafzimmer Villen auf 2 Ebenen",
+        "175m² Baufläche",
+        "Clubhaus mit Lounge-Bereich",
+        "Pools für Kinder und Erwachsene",
+        "Fitnessstudio und BBQ-Bereich",
+        "Hundepark",
+        "Pavillon und Kinderbereich",
+        "Optionaler privater Pool"
       ]
     }
   },
   "modal": {
     "close": "Schließen",
-    "features": "Eigenschaften",
-    "completion": "Fertigstellung",
-    "price_range": "Preisbereich",
+    "features": "Ausstattung",
     "location": "Standort",
-    "view_brochure": "Broschüre ansehen",
-    "contact_about": "Kontakt zu diesem Projekt"
-  },
-  "detail": {
     "price": "Preis",
-    "location": "Standort", 
-    "completion": "Lieferung",
-    "main_features": "Hauptmerkmale",
-    "detailed_info": "Detaillierte Projektinformationen",
-    "download_pdf": "PDF herunterladen",
-    "contact_project": "Kontakt zu diesem Projekt"
+    "completion": "Fertigstellung",
+    "view_brochure": "Broschüre ansehen",
+    "contact_for_info": "Kontakt für Informationen"
   }
 }
