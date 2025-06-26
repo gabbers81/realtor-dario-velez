@@ -41,15 +41,22 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
-// Rate limiting
+// Rate limiting - more permissive for development
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
+  max: process.env.NODE_ENV === 'production' ? 200 : 1000, // More permissive in development
   message: {
     error: 'Too many requests from this IP, please try again later.'
   },
   standardHeaders: true,
   legacyHeaders: false,
+  skip: (req) => {
+    // Skip rate limiting for static assets in development
+    if (process.env.NODE_ENV === 'development') {
+      return req.path.startsWith('/@') || req.path.includes('node_modules') || req.path.includes('.js') || req.path.includes('.css');
+    }
+    return false;
+  }
 });
 
 const contactLimiter = rateLimit({
@@ -60,7 +67,8 @@ const contactLimiter = rateLimit({
   }
 });
 
-app.use(limiter);
+// Only apply general rate limiting to API routes, not static assets
+app.use('/api', limiter);
 app.use('/api/contacts', contactLimiter);
 
 // Compression middleware for better performance

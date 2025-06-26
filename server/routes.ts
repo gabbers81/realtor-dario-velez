@@ -62,6 +62,10 @@ Sitemap: ${process.env.NODE_ENV === 'production'
   // Get all projects
   app.get("/api/projects", async (_req, res) => {
     try {
+      // Add caching headers for API responses
+      res.setHeader('Cache-Control', 'public, max-age=3600, s-maxage=3600'); // 1 hour
+      res.setHeader('ETag', `"projects-${Date.now()}"`);
+      
       const projects = await storage.getProjects();
       res.json(projects);
     } catch (error: any) {
