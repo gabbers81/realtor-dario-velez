@@ -14,51 +14,6 @@
         "Hotel boutique y centro de convenciones",
         "A 5 minutos del aeropuerto internacional"
       ]
-    },
-    "paradise_bay": {
-      "title": "Paradise Bay Resort",
-      "description": "Complejo hotelero de lujo con vista al mar en Punta Cana",
-      "location": "Punta Cana, República Dominicana",
-      "price": "US$150,000 - US$300,000",
-      "completion": "Diciembre 2024",
-      "features": [
-        "Vista al mar",
-        "Piscina infinita",
-        "Spa de lujo",
-        "Restaurante gourmet",
-        "Seguridad 24/7",
-        "Gestión hotelera incluida"
-      ]
-    },
-    "coral_dreams": {
-      "title": "Coral Dreams Villa",
-      "description": "Villas privadas con acceso directo a la playa en Bávaro",
-      "location": "Bávaro, República Dominicana",
-      "price": "US$200,000 - US$450,000",
-      "completion": "Marzo 2025",
-      "features": [
-        "Acceso directo a playa",
-        "Villas privadas",
-        "Piscina privada",
-        "Jardín tropical",
-        "Cocina completamente equipada",
-        "Servicios de conserjería"
-      ]
-    },
-    "ocean_breeze": {
-      "title": "Ocean Breeze Condos",
-      "description": "Condominios modernos con amenidades de resort",
-      "location": "Cap Cana, República Dominicana",
-      "price": "US$180,000 - US$350,000",
-      "completion": "Junio 2025",
-      "features": [
-        "Diseño contemporáneo",
-        "Amenidades de resort",
-        "Campo de golf",
-        "Marina privada",
-        "Club de playa",
-        "Rentabilidad garantizada"
-      ]
     }
   },
   "modal": {
