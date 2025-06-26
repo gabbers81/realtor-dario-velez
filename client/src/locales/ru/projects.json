@@ -54,5 +54,14 @@
     "location": "Местоположение",
     "view_brochure": "Посмотреть брошюру",
     "contact_about": "Связаться по этому проекту"
+  },
+  "detail": {
+    "price": "Цена",
+    "location": "Местоположение", 
+    "completion": "Доставка",
+    "main_features": "Основные характеристики",
+    "detailed_info": "Подробная информация о проекте",
+    "download_pdf": "Скачать PDF",
+    "contact_project": "Связаться по этому проекту"
   }
 }

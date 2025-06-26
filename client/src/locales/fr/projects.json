@@ -54,5 +54,14 @@
     "location": "Localisation",
     "view_brochure": "Voir la Brochure",
     "contact_about": "Contact pour ce projet"
+  },
+  "detail": {
+    "price": "Prix",
+    "location": "Localisation", 
+    "completion": "Livraison",
+    "main_features": "Caractéristiques principales",
+    "detailed_info": "Informations détaillées du projet",
+    "download_pdf": "Télécharger PDF",
+    "contact_project": "Contacter pour ce projet"
   }
 }

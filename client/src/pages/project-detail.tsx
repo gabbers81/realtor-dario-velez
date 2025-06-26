@@ -125,14 +125,14 @@ export default function ProjectDetailPage() {
                 <div className="flex items-center text-gray-700">
                   <DollarSign className="mr-2 text-caribbean" size={20} />
                   <div>
-                    <span className="block text-sm text-gray-500">Precio</span>
+                    <span className="block text-sm text-gray-500">{t('projects:detail.price')}</span>
                     <span className="font-semibold text-lg">{project.price}</span>
                   </div>
                 </div>
                 <div className="flex items-center text-gray-700">
                   <MapPin className="mr-2 text-turquoise" size={20} />
                   <div>
-                    <span className="block text-sm text-gray-500">Ubicación</span>
+                    <span className="block text-sm text-gray-500">{t('projects:detail.location')}</span>
                     <span className="font-semibold">{project.location}</span>
                   </div>
                 </div>

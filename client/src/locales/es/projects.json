@@ -54,5 +54,14 @@
     "location": "Ubicación",
     "view_brochure": "Ver Folleto",
     "contact_about": "Contactar sobre este proyecto"
+  },
+  "detail": {
+    "price": "Precio",
+    "location": "Ubicación", 
+    "completion": "Entrega",
+    "main_features": "Características Principales",
+    "detailed_info": "Información Detallada del Proyecto",
+    "download_pdf": "Descargar PDF",
+    "contact_project": "Contactar sobre este Proyecto"
   }
 }

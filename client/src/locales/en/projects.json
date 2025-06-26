@@ -54,5 +54,14 @@
     "location": "Location",
     "view_brochure": "View Brochure",
     "contact_about": "Contact about this project"
+  },
+  "detail": {
+    "price": "Price",
+    "location": "Location", 
+    "completion": "Delivery",
+    "main_features": "Main Features",
+    "detailed_info": "Detailed Project Information",
+    "download_pdf": "Download PDF",
+    "contact_project": "Contact About This Project"
   }
 }
