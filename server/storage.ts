@@ -1,6 +1,7 @@
 import { drizzle } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
 import { eq } from 'drizzle-orm';
+import { createClient } from '@supabase/supabase-js';
 import { contacts, projects, type Contact, type InsertContact, type Project, type InsertProject } from "@shared/schema";
 
 export interface IStorage {
@@ -15,9 +16,11 @@ export interface IStorage {
   createProject(project: InsertProject): Promise<Project>;
 }
 
-// Initialize Supabase connection with proper URL encoding
+// Initialize both direct Postgres connection and Supabase REST API client
 let sql: any;
 let db: any;
+let supabaseClient: any;
+let useRestAPI = false;
 
 try {
   const databaseUrl = process.env.DATABASE_URL!.trim();
@@ -41,6 +44,15 @@ try {
   
   db = drizzle(sql);
   console.log('Supabase client initialized successfully with encoded URL');
+  
+  // Initialize Supabase REST API client as fallback
+  if (process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
+    supabaseClient = createClient(
+      process.env.SUPABASE_URL,
+      process.env.SUPABASE_SERVICE_ROLE_KEY
+    );
+    console.log('✅ Supabase REST API client initialized as fallback');
+  }
 } catch (error) {
   console.error('Error initializing Supabase connection:', error);
   throw error;
