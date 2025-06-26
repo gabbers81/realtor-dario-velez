@@ -423,12 +423,11 @@ export default function HomePage() {
                 </div>
                 <div>
                   <h3 className="font-semibold text-lg">Dario Velez</h3>
-                  <p className="text-gray-400">Realtor Especializado</p>
+                  <p className="text-gray-400">{t('home:hero.specialist_title')}</p>
                 </div>
               </div>
               <p className="text-gray-400 mb-4">
-                Tu experto en inversiones inmobiliarias turísticas en República Dominicana. 
-                Convirtiendo sueños caribeños en realidades rentables.
+                {t('home:footer.description')}
               </p>
               <div className="flex space-x-4">
                 <a href="#" className="text-gray-400 hover:text-turquoise transition-colors">
@@ -447,27 +446,27 @@ export default function HomePage() {
             </div>
 
             <div>
-              <h4 className="font-semibold mb-4">Contacto</h4>
+              <h4 className="font-semibold mb-4">{t('general.contact')}</h4>
               <div className="space-y-2 text-gray-400">
                 <p className="flex items-center"><Phone className="mr-2" size={16} /> +1 (829) 123-4567</p>
                 <p className="flex items-center"><Mail className="mr-2" size={16} /> dario@caribeinversiones.com</p>
-                <p className="flex items-center"><MapPin className="mr-2" size={16} /> Punta Cana, República Dominicana</p>
+                <p className="flex items-center"><MapPin className="mr-2" size={16} /> Punta Cana, {t('general.dominican_republic')}</p>
               </div>
             </div>
 
             <div>
-              <h4 className="font-semibold mb-4">Servicios</h4>
+              <h4 className="font-semibold mb-4">{t('general.services')}</h4>
               <ul className="space-y-2 text-gray-400">
-                <li>Inversiones Turísticas</li>
-                <li>Asesoría CONFOTUR</li>
-                <li>Gestión de Propiedades</li>
-                <li>Consultoría Legal</li>
+                <li>{t('home:footer.services_list.tourism_investments')}</li>
+                <li>{t('home:footer.services_list.confotur_advisory')}</li>
+                <li>{t('home:footer.services_list.property_management')}</li>
+                <li>{t('home:footer.services_list.legal_consulting')}</li>
               </ul>
             </div>
           </div>
           
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 Dario Velez - Realtor Especializado. Todos los derechos reservados.</p>
+            <p>{t('home:footer.copyright')}</p>
           </div>
         </div>
       </footer>
