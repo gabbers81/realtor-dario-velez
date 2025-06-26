@@ -219,10 +219,9 @@ export default function HomePage() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="font-bold text-4xl text-gray-900 mb-4">Sobre Dario Velez</h2>
+            <h2 className="font-bold text-4xl text-gray-900 mb-4">{t('home:about.title')}</h2>
             <p className="text-gray-600 text-lg max-w-3xl mx-auto">
-              Especialista certificado en inversiones turísticas del Este Dominicano, con un historial comprobado 
-              de éxito ayudando a inversionistas internacionales a encontrar las mejores oportunidades.
+              {t('home:about.experience')}
             </p>
           </div>
 
@@ -263,9 +262,9 @@ export default function HomePage() {
       <section id="proyectos" className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="font-bold text-4xl text-gray-900 mb-4">Proyectos Inmobiliarios</h2>
+            <h2 className="font-bold text-4xl text-gray-900 mb-4">{t('home:projects.title')}</h2>
             <p className="text-gray-600 text-lg max-w-3xl mx-auto">
-              Descubre las mejores oportunidades de inversión en propiedades turísticas del Este Dominicano
+              {t('home:projects.subtitle')}
             </p>
           </div>
 
@@ -327,8 +326,8 @@ export default function HomePage() {
                   <Scale className="text-white" size={24} />
                 </div>
                 <div>
-                  <h3 className="font-bold text-2xl text-gray-900">Ley CONFOTUR</h3>
-                  <p className="text-gray-600">Consejo Nacional de Fomento Turístico</p>
+                  <h3 className="font-bold text-2xl text-gray-900">{t('legal:confotur.title')}</h3>
+                  <p className="text-gray-600">{t('legal:confotur.subtitle')}</p>
                 </div>
               </div>
               
@@ -336,22 +335,22 @@ export default function HomePage() {
                 <div className="flex items-start space-x-3">
                   <CheckCircle className="text-turquoise mt-1 flex-shrink-0" size={20} />
                   <div>
-                    <h4 className="font-semibold text-gray-900">Exención Fiscal Total</h4>
-                    <p className="text-gray-600 text-sm">10 años sin impuestos sobre la renta para proyectos turísticos aprobados</p>
+                    <h4 className="font-semibold text-gray-900">{t('legal:confotur.benefits.tax_exemption.title')}</h4>
+                    <p className="text-gray-600 text-sm">{t('legal:confotur.benefits.tax_exemption.description')}</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
                   <CheckCircle className="text-turquoise mt-1 flex-shrink-0" size={20} />
                   <div>
-                    <h4 className="font-semibold text-gray-900">Importación Libre de Aranceles</h4>
-                    <p className="text-gray-600 text-sm">Materiales de construcción y equipos para el proyecto sin impuestos de importación</p>
+                    <h4 className="font-semibold text-gray-900">{t('legal:confotur.benefits.import_exemption.title')}</h4>
+                    <p className="text-gray-600 text-sm">{t('legal:confotur.benefits.import_exemption.description')}</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-3">
                   <CheckCircle className="text-turquoise mt-1 flex-shrink-0" size={20} />
                   <div>
-                    <h4 className="font-semibold text-gray-900">Transferencia de Propiedad</h4>
-                    <p className="text-gray-600 text-sm">Exención del 3% de impuesto de transferencia en la primera venta</p>
+                    <h4 className="font-semibold text-gray-900">{t('legal:confotur.benefits.transfer_exemption.title')}</h4>
+                    <p className="text-gray-600 text-sm">{t('legal:confotur.benefits.transfer_exemption.description')}</p>
                   </div>
                 </div>
               </div>
@@ -364,7 +363,7 @@ export default function HomePage() {
                   <FileText className="text-white" size={24} />
                 </div>
                 <div>
-                  <h3 className="font-bold text-2xl text-gray-900">Proceso Legal Simplificado</h3>
+                  <h3 className="font-bold text-2xl text-gray-900">{t('legal:process.title')}</h3>
                 </div>
               </div>
               
@@ -374,8 +373,8 @@ export default function HomePage() {
                     <span className="text-white font-bold text-sm">1</span>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Due Diligence</h4>
-                    <p className="text-gray-600 text-sm">Verificación completa de títulos y permisos</p>
+                    <h4 className="font-semibold text-gray-900">{t('legal:process.steps.due_diligence.title')}</h4>
+                    <p className="text-gray-600 text-sm">{t('legal:process.steps.due_diligence.description')}</p>
                   </div>
                 </div>
                 
@@ -384,8 +383,8 @@ export default function HomePage() {
                     <span className="text-white font-bold text-sm">2</span>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Contrato de Compraventa</h4>
-                    <p className="text-gray-600 text-sm">Redacción y firma ante notario público</p>
+                    <h4 className="font-semibold text-gray-900">{t('legal:process.steps.purchase_contract.title')}</h4>
+                    <p className="text-gray-600 text-sm">{t('legal:process.steps.purchase_contract.description')}</p>
                   </div>
                 </div>
                 
@@ -394,8 +393,8 @@ export default function HomePage() {
                     <span className="text-white font-bold text-sm">3</span>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Registro de Títulos</h4>
-                    <p className="text-gray-600 text-sm">Inscripción en el Registro de Títulos Nacional</p>
+                    <h4 className="font-semibold text-gray-900">{t('legal:process.steps.title_registration.title')}</h4>
+                    <p className="text-gray-600 text-sm">{t('legal:process.steps.title_registration.description')}</p>
                   </div>
                 </div>
                 
@@ -404,8 +403,8 @@ export default function HomePage() {
                     <span className="text-white font-bold text-sm">4</span>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-gray-900">Obtención de Certificados</h4>
-                    <p className="text-gray-600 text-sm">CONFOTUR y permisos de construcción según aplique</p>
+                    <h4 className="font-semibold text-gray-900">{t('legal:process.steps.certificates.title')}</h4>
+                    <p className="text-gray-600 text-sm">{t('legal:process.steps.certificates.description')}</p>
                   </div>
                 </div>
               </div>
