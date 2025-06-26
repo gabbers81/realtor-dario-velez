@@ -1,0 +1,54 @@
+{
+  "hero": {
+    "title": "Real Estate Investments in Caribbean Paradise",
+    "specialist_title": "Tourism Property Specialist",
+    "description": "Discover unique investment opportunities on the eastern coast of the Dominican Republic",
+    "cta": "Explore Properties"
+  },
+  "about": {
+    "title": "About Dario Velez",
+    "subtitle": "Your Expert in Tourism Investments",
+    "experience": "5 years of experience helping international investors find the best real estate opportunities in the Dominican Republic.",
+    "specialization": "Specialized in tourism properties in the eastern region of the country, including Punta Cana, Bávaro and surroundings.",
+    "commitment": "Committed to providing personalized and transparent service to maximize my clients' return on investment."
+  },
+  "services": {
+    "title": "My Services",
+    "subtitle": "Comprehensive Solutions for Your Investment",
+    "investment_advisory": {
+      "title": "Investment Advisory",
+      "description": "Detailed market analysis and personalized investment opportunities according to your budget and objectives."
+    },
+    "confotur_guidance": {
+      "title": "CONFOTUR Guidance",
+      "description": "I guide you through tax benefits and processes to make the most of the Tourism Development Law."
+    },
+    "property_management": {
+      "title": "Property Management",
+      "description": "Complete administration services to maximize the profitability of your tourism investment."
+    }
+  },
+  "projects": {
+    "title": "Featured Projects",
+    "subtitle": "Exclusive Investment Opportunities",
+    "completion": "Completion",
+    "features": "Features",
+    "view_pdf": "View Plans"
+  },
+  "stats": {
+    "years_experience": "Years of Experience",
+    "satisfied_clients": "Satisfied Clients",
+    "projects_completed": "Projects Completed",
+    "investment_managed": "Investment Managed"
+  },
+  "footer": {
+    "description": "Your expert in tourism real estate investments in the Dominican Republic. Turning Caribbean dreams into profitable realities.",
+    "copyright": "Dario Velez - Specialized Realtor. All rights reserved.",
+    "services_list": {
+      "tourism_investments": "Tourism Investments",
+      "confotur_advisory": "CONFOTUR Advisory",
+      "property_management": "Property Management",
+      "legal_consulting": "Legal Consulting"
+    }
+  }
+}

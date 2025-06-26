@@ -1,0 +1,31 @@
+{
+  "navigation": {
+    "home": "Главная",
+    "about": "Обо мне",
+    "services": "Услуги",
+    "projects": "Проекты",
+    "legal": "Правовая информация",
+    "contact": "Контакт"
+  },
+  "buttons": {
+    "contact_me": "Связаться со мной",
+    "view_details": "Подробнее",
+    "schedule_appointment": "Записаться на встречу",
+    "close": "Закрыть",
+    "send": "Отправить",
+    "schedule_directly": "Записаться на встречу напрямую",
+    "contact_for_project": "Связаться по этому проекту"
+  },
+  "general": {
+    "loading": "Загрузка...",
+    "error": "Ошибка",
+    "success": "Успех",
+    "phone": "Телефон",
+    "email": "Электронная почта",
+    "location": "Местоположение",
+    "services": "Услуги",
+    "contact": "Контакт",
+    "years_experience": "лет опыта",
+    "dominican_republic": "Доминиканская Республика"
+  }
+}
