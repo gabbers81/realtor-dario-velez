@@ -191,7 +191,7 @@ export default function HomePage() {
                   <div className="text-gray-600 text-sm">Proyectos Completados</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-yellow-500">200+</div>
+                  <div className="text-3xl font-bold text-yellow-500">10+</div>
                   <div className="text-gray-600 text-sm">Clientes Satisfechos</div>
                 </div>
               </div>
