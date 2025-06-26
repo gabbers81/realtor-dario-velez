@@ -83,8 +83,57 @@ export default function ProjectDetailPage() {
     );
   }
 
+  const translatedProject = getTranslatedProject(project);
+  const projectImage = project.imageUrl || "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=630";
+
   return (
     <div className="min-h-screen bg-white">
+      <SEOHead 
+        title={`${translatedProject.title} - ${translatedProject.location}`}
+        description={`${translatedProject.description} ${translatedProject.price} - ${t('projects:detail.contact_project')}`}
+        image={projectImage}
+        url={`/proyecto/${project.slug}`}
+        type="article"
+      />
+      
+      {/* JSON-LD Structured Data */}
+      <script type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "RealEstateAgent",
+          "name": "Dario Velez",
+          "url": window.location.origin,
+          "image": projectImage,
+          "description": translatedProject.description,
+          "areaServed": {
+            "@type": "Place",
+            "name": "República Dominicana"
+          },
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Propiedades Exclusivas",
+            "itemListElement": {
+              "@type": "RealEstateListing",
+              "name": translatedProject.title,
+              "description": translatedProject.description,
+              "price": translatedProject.price,
+              "image": projectImage,
+              "url": `${window.location.origin}/proyecto/${project.slug}`,
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": translatedProject.location,
+                "addressCountry": "DO"
+              },
+              "offers": {
+                "@type": "Offer",
+                "price": translatedProject.price,
+                "priceCurrency": "USD",
+                "availability": "https://schema.org/InStock"
+              }
+            }
+          }
+        })}
+      </script>
       {/* Header */}
       <header className="bg-white shadow-sm sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

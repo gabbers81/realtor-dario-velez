@@ -14,7 +14,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     });
   });
 
-  // Sitemap XML endpoint
+  // Sitemap XML endpoint with multilingual support
   app.get("/sitemap.xml", async (_req, res) => {
     try {
       const projects = await storage.getProjects();
@@ -22,21 +22,41 @@ export async function registerRoutes(app: Express): Promise<Server> {
         ? 'https://dominican-real-estate.replit.app' 
         : 'http://localhost:5000';
       
-      const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+      const languages = ['es', 'en', 'ru', 'fr', 'de', 'pt'];
+      const currentDate = new Date().toISOString();
+
+      let urls = '';
+
+      // Add home page for each language
+      languages.forEach(lang => {
+        const langUrl = lang === 'es' ? baseUrl : `${baseUrl}/${lang}`;
+        urls += `
   <url>
-    <loc>${baseUrl}/</loc>
-    <lastmod>${new Date().toISOString()}</lastmod>
+    <loc>${langUrl}/</loc>
+    <lastmod>${currentDate}</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-  ${projects.map(project => `
+    <priority>${lang === 'es' ? '1.0' : '0.9'}</priority>
+  </url>`;
+      });
+
+      // Add project pages for each language
+      projects.forEach(project => {
+        languages.forEach(lang => {
+          const langPrefix = lang === 'es' ? '' : `/${lang}`;
+          const projectUrl = `${baseUrl}${langPrefix}/proyecto/${project.slug}`;
+          urls += `
   <url>
-    <loc>${baseUrl}/proyecto/${project.slug}</loc>
-    <lastmod>${new Date().toISOString()}</lastmod>
+    <loc>${projectUrl}</loc>
+    <lastmod>${currentDate}</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>`).join('')}
+    <priority>${lang === 'es' ? '0.8' : '0.7'}</priority>
+  </url>`;
+        });
+      });
+
+      const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+${urls}
 </urlset>`;
 
       res.header('Content-Type', 'application/xml');

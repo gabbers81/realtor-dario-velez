@@ -15,18 +15,37 @@ export function SEOHead({
   url = "",
   type = "website" 
 }: SEOHeadProps) {
-  const { t } = useTranslation(['common']);
+  const { t, i18n } = useTranslation(['common']);
   
-  const siteTitle = "Dario Velez - Propiedades en República Dominicana";
-  const defaultDescription = t('common:seo.description', 'Propiedades exclusivas en Punta Cana, Bávaro y Costa Este. Inversiones inmobiliarias de lujo con Dario Velez, especialista en turismo residencial dominicano.');
+  const currentLang = i18n.language || 'es';
+  const siteTitle = t('common:seo.siteTitle', 'Dario Velez - Propiedades en República Dominicana');
+  const defaultDescription = t('common:seo.description');
   
   const fullTitle = title ? `${title} | ${siteTitle}` : siteTitle;
   const metaDescription = description || defaultDescription;
   const currentUrl = `${window.location.origin}${url}`;
 
+  // Language-specific locale mapping
+  const localeMap: Record<string, string> = {
+    'es': 'es_DO',
+    'en': 'en_US', 
+    'ru': 'ru_RU',
+    'fr': 'fr_FR',
+    'de': 'de_DE',
+    'pt': 'pt_BR'
+  };
+
+  // Alternative language URLs for hreflang
+  const languages = ['es', 'en', 'ru', 'fr', 'de', 'pt'];
+  const baseUrl = window.location.origin;
+  const pathWithoutLang = url.replace(/^\/(es|en|ru|fr|de|pt)/, '') || '/';
+
   // Update document head
   if (typeof document !== 'undefined') {
     document.title = fullTitle;
+    
+    // Set document language
+    document.documentElement.lang = currentLang;
     
     // Meta description
     let metaDescTag = document.querySelector('meta[name="description"]');
@@ -37,7 +56,46 @@ export function SEOHead({
     }
     metaDescTag.setAttribute('content', metaDescription);
 
-    // Open Graph tags
+    // Language and content type meta tags
+    const metaTags = [
+      { name: 'language', content: currentLang },
+      { name: 'content-language', content: currentLang },
+      { httpEquiv: 'content-language', content: currentLang }
+    ];
+
+    metaTags.forEach(({ name, httpEquiv, content }) => {
+      const selector = name ? `meta[name="${name}"]` : `meta[http-equiv="${httpEquiv}"]`;
+      let tag = document.querySelector(selector);
+      if (!tag) {
+        tag = document.createElement('meta');
+        if (name) tag.setAttribute('name', name);
+        if (httpEquiv) tag.setAttribute('http-equiv', httpEquiv);
+        document.head.appendChild(tag);
+      }
+      tag.setAttribute('content', content);
+    });
+
+    // Hreflang tags for language alternatives
+    // Remove existing hreflang tags
+    document.querySelectorAll('link[hreflang]').forEach(tag => tag.remove());
+    
+    languages.forEach(lang => {
+      const hreflangUrl = lang === 'es' ? `${baseUrl}${pathWithoutLang}` : `${baseUrl}/${lang}${pathWithoutLang}`;
+      const link = document.createElement('link');
+      link.setAttribute('rel', 'alternate');
+      link.setAttribute('hreflang', lang);
+      link.setAttribute('href', hreflangUrl);
+      document.head.appendChild(link);
+    });
+
+    // x-default hreflang for default language
+    const defaultLink = document.createElement('link');
+    defaultLink.setAttribute('rel', 'alternate');
+    defaultLink.setAttribute('hreflang', 'x-default');
+    defaultLink.setAttribute('href', `${baseUrl}${pathWithoutLang}`);
+    document.head.appendChild(defaultLink);
+
+    // Open Graph tags with locale information
     const ogTags = [
       { property: 'og:title', content: fullTitle },
       { property: 'og:description', content: metaDescription },
@@ -45,8 +103,16 @@ export function SEOHead({
       { property: 'og:url', content: currentUrl },
       { property: 'og:type', content: type },
       { property: 'og:site_name', content: siteTitle },
-      { property: 'og:locale', content: 'es_DO' },
+      { property: 'og:locale', content: localeMap[currentLang] || 'es_DO' },
     ];
+
+    // Add alternate locales for Open Graph
+    languages.filter(lang => lang !== currentLang).forEach(lang => {
+      ogTags.push({ 
+        property: 'og:locale:alternate', 
+        content: localeMap[lang] || 'es_DO' 
+      });
+    });
 
     ogTags.forEach(({ property, content }) => {
       let tag = document.querySelector(`meta[property="${property}"]`);
@@ -76,7 +142,7 @@ export function SEOHead({
       tag.setAttribute('content', content);
     });
 
-    // Canonical URL
+    // Canonical URL (always points to current language version)
     let canonicalTag = document.querySelector('link[rel="canonical"]');
     if (!canonicalTag) {
       canonicalTag = document.createElement('link');
