@@ -5,7 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { ContactModal } from "@/components/contact-modal";
 import { ProjectModal } from "@/components/project-modal";
 import { CalendlyModal } from "@/components/calendly-modal";
-import { Home, Calendar, ArrowRight, Check, Shield, CheckCircle, Phone, Mail, MapPin } from "lucide-react";
+import { Home, Calendar, ArrowRight, Check, Shield, CheckCircle, Phone, Mail, MapPin, Scale, FileText } from "lucide-react";
 import { FaFacebook, FaInstagram, FaLinkedin, FaWhatsapp, FaBars, FaTimes } from "react-icons/fa";
 import type { Project } from "@/lib/types";
 
@@ -320,7 +320,7 @@ export default function HomePage() {
             <div className="bg-white rounded-lg p-8 shadow-lg">
               <div className="flex items-center mb-6">
                 <div className="w-12 h-12 bg-turquoise rounded-lg flex items-center justify-center mr-4">
-                  <Shield className="text-white" size={24} />
+                  <Scale className="text-white" size={24} />
                 </div>
                 <div>
                   <h3 className="font-bold text-2xl text-gray-900">Ley CONFOTUR</h3>
@@ -355,7 +355,14 @@ export default function HomePage() {
 
             {/* Right Side - Proceso Legal Simplificado */}
             <div className="bg-white rounded-lg p-8 shadow-lg">
-              <h3 className="font-bold text-2xl text-gray-900 mb-6">Proceso Legal Simplificado</h3>
+              <div className="flex items-center mb-6">
+                <div className="w-12 h-12 bg-turquoise rounded-lg flex items-center justify-center mr-4">
+                  <FileText className="text-white" size={24} />
+                </div>
+                <div>
+                  <h3 className="font-bold text-2xl text-gray-900">Proceso Legal Simplificado</h3>
+                </div>
+              </div>
               
               <div className="space-y-6">
                 <div className="flex items-start space-x-4">
