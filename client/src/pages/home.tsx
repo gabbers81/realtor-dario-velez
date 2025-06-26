@@ -253,8 +253,7 @@ export default function HomePage() {
                   <CheckCircle className="text-caribbean text-2xl" size={32} />
                 </div>
                 <h3 className="font-semibold text-xl mb-2">Especializado</h3>
-                <p className="text-gray-600">Asesor inmobiliario,  miembro de AEI, especializado en propiedades turísticas del Este de República Dominicana
-</p>
+                <p className="text-gray-600">Asesor inmobiliario,  miembro de AEI, especializado en propiedades turísticas de República Dominicana</p>
               </CardContent>
             </Card>
 
