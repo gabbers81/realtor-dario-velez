@@ -46,27 +46,27 @@ export class MemStorage implements IStorage {
           "A 5 minutos del aeropuerto internacional"
         ],
         imageUrl: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=500",
-        pdfUrl: "/assets/pdfs/aura-boulevard.pdf"
+        pdfUrl: "/pdfs/aura-boulevard.pdf"
       },
       {
         title: "Secret Garden",
         slug: "secret-garden",
-        description: "Exclusivo desarrollo residencial boutique con jardines tropicales y amenidades premium.",
-        price: "Desde US$195,000",
-        location: "Cap Cana",
-        completion: "Agosto 2026",
+        description: "Proyecto cerrado exclusivo en el corazón de Bávaro con área comercial, viviendas unifamiliares y condos.",
+        price: "Desde US$160,000",
+        location: "Bávaro",
+        completion: "Marzo 2026",
         features: [
-          "Apartamentos de 1, 2 y 3 habitaciones",
-          "Jardines tropicales privados",
-          "Piscina infinity con bar acuático",
-          "Spa y centro de wellness",
-          "Concierge service 24/7",
-          "Seguridad y acceso controlado",
-          "Parqueo privado cubierto",
-          "Cerca de campo de golf y marina"
+          "327 unidades: 19 duplex, 64 estudios y 278 condos",
+          "1, 2 y 3 habitaciones disponibles",
+          "Área comercial integrada",
+          "Piscina de 1,800m² con pool bar",
+          "Gimnasio, coworking y mini-golf",
+          "Pista de volley-playa",
+          "Restaurante y amplias zonas ajardinadas",
+          "A pasos de Playa Bávaro"
         ],
         imageUrl: "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=500",
-        pdfUrl: "/assets/pdfs/secret-garden.pdf"
+        pdfUrl: "/pdfs/secret-garden.pdf"
       },
       {
         title: "The Reef",
@@ -86,7 +86,7 @@ export class MemStorage implements IStorage {
           "Canchas de tenis y pádel"
         ],
         imageUrl: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=500",
-        pdfUrl: "/assets/pdfs/the-reef.pdf"
+        pdfUrl: "/pdfs/the-reef.pdf"
       },
       {
         title: "Palm Beach Residences",
@@ -106,7 +106,7 @@ export class MemStorage implements IStorage {
           "Acceso a golf y marina de Cap Cana"
         ],
         imageUrl: "https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=500",
-        pdfUrl: "/assets/pdfs/palm-beach-residences.pdf"
+        pdfUrl: "/pdfs/palm-beach-residences.pdf"
       },
       {
         title: "Solvamar Macao",
@@ -126,7 +126,7 @@ export class MemStorage implements IStorage {
           "Parqueo techado incluido"
         ],
         imageUrl: "https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=500",
-        pdfUrl: "/assets/pdfs/solvamar-macao.pdf"
+        pdfUrl: "/pdfs/solvamar-macao.pdf"
       },
       {
         title: "Amares Unique Homes",
@@ -146,7 +146,7 @@ export class MemStorage implements IStorage {
           "Más de 750m² de áreas comunes"
         ],
         imageUrl: "https://images.unsplash.com/photo-1613490493576-7fde63acd811?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=500",
-        pdfUrl: "/assets/pdfs/amares-unique-homes.pdf"
+        pdfUrl: "/pdfs/amares-unique-homes.pdf"
       },
       {
         title: "Tropical Beach 3.0",
@@ -166,7 +166,7 @@ export class MemStorage implements IStorage {
           "Construcción con materiales de calidad"
         ],
         imageUrl: "https://images.unsplash.com/photo-1592595896616-c37162298647?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=500",
-        pdfUrl: "/assets/pdfs/tropical-beach-3-0.pdf"
+        pdfUrl: "/pdfs/tropical-beach-3-0.pdf"
       },
       {
         title: "Las Cayas Residences",
@@ -186,7 +186,7 @@ export class MemStorage implements IStorage {
           "Piscina privada opcional"
         ],
         imageUrl: "https://images.unsplash.com/photo-1605146769289-440113cc3d00?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=500",
-        pdfUrl: "/assets/pdfs/las-cayas-residences.pdf"
+        pdfUrl: "/pdfs/las-cayas-residences.pdf"
       }
     ];
 

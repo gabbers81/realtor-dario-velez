@@ -17,19 +17,19 @@
     },
     "secret_garden": {
       "title": "Secret Garden",
-      "description": "Exclusivo desarrollo residencial boutique con jardines tropicales y amenidades premium.",
-      "location": "Cap Cana",
-      "price": "Desde US$195,000",
-      "completion": "Agosto 2026",
+      "description": "Proyecto cerrado exclusivo en el corazón de Bávaro con área comercial, viviendas unifamiliares y condos.",
+      "location": "Bávaro",
+      "price": "Desde US$160,000",
+      "completion": "Marzo 2026",
       "features": [
-        "Apartamentos de 1, 2 y 3 habitaciones",
-        "Jardines tropicales privados",
-        "Piscina infinity con bar acuático",
-        "Spa y centro de wellness",
-        "Concierge service 24/7",
-        "Seguridad y acceso controlado",
-        "Parqueo privado cubierto",
-        "Cerca de campo de golf y marina"
+        "327 unidades: 19 duplex, 64 estudios y 278 condos",
+        "1, 2 y 3 habitaciones disponibles",
+        "Área comercial integrada",
+        "Piscina de 1,800m² con pool bar",
+        "Gimnasio, coworking y mini-golf",
+        "Pista de volley-playa",
+        "Restaurante y amplias zonas ajardinadas",
+        "A pasos de Playa Bávaro"
       ]
     },
     "the_reef": {
