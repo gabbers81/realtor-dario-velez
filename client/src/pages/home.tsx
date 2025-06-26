@@ -71,30 +71,31 @@ export default function HomePage() {
               </div>
             </div>
             
-            <nav className="hidden md:flex space-x-8">
+            <nav className="hidden md:flex items-center space-x-8">
               <button 
                 onClick={() => scrollToSection('inicio')}
                 className="text-gray-700 hover:text-caribbean font-medium transition-colors"
               >
-                Inicio
+                {t('navigation.home')}
               </button>
               <button 
                 onClick={() => scrollToSection('proyectos')}
                 className="text-gray-700 hover:text-caribbean font-medium transition-colors"
               >
-                Proyectos
+                {t('navigation.projects')}
               </button>
               <button 
                 onClick={() => scrollToSection('info-legal')}
                 className="text-gray-700 hover:text-caribbean font-medium transition-colors"
               >
-                Info Legal
+                {t('navigation.legal')}
               </button>
+              <LanguageSwitcher />
               <Button 
                 onClick={() => setIsContactModalOpen(true)}
                 className="bg-caribbean text-white hover:bg-caribbean/90"
               >
-                Contacto
+                {t('navigation.contact')}
               </Button>
             </nav>
 
@@ -115,20 +116,23 @@ export default function HomePage() {
                 onClick={() => scrollToSection('inicio')}
                 className="block w-full text-left text-gray-700 font-medium py-2"
               >
-                Inicio
+                {t('navigation.home')}
               </button>
               <button 
                 onClick={() => scrollToSection('proyectos')}
                 className="block w-full text-left text-gray-700 font-medium py-2"
               >
-                Proyectos
+                {t('navigation.projects')}
               </button>
               <button 
                 onClick={() => scrollToSection('info-legal')}
                 className="block w-full text-left text-gray-700 font-medium py-2"
               >
-                Info Legal
+                {t('navigation.legal')}
               </button>
+              <div className="py-2">
+                <LanguageSwitcher />
+              </div>
               <Button 
                 onClick={() => {
                   setIsContactModalOpen(true);
@@ -136,7 +140,7 @@ export default function HomePage() {
                 }}
                 className="w-full bg-caribbean text-white hover:bg-caribbean/90"
               >
-                Contacto
+                {t('navigation.contact')}
               </Button>
             </div>
           </div>
@@ -153,17 +157,14 @@ export default function HomePage() {
             {/* Left content */}
             <div className="space-y-8">
               <div>
-                <p className="text-turquoise font-medium text-lg mb-4">Especialista en Propiedades Turísticas</p>
+                <p className="text-turquoise font-medium text-lg mb-4">{t('home:hero.specialist_title')}</p>
                 <h1 className="font-bold text-5xl lg:text-6xl text-gray-900 leading-tight">
-                  Inversiones <br />
-                  <span className="text-turquoise">Caribeñas</span> que <br />
-                  Transforman Vidas
+                  {t('home:hero.title')}
                 </h1>
               </div>
               
               <p className="text-gray-600 text-lg leading-relaxed max-w-lg">
-                Con más de 5 años de experiencia en el mercado inmobiliario del Este de República Dominicana, 
-                te guío hacia las mejores oportunidades de inversión en propiedades turísticas.
+                {t('home:hero.description')}
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4">
@@ -172,14 +173,14 @@ export default function HomePage() {
                   className="bg-caribbean text-white hover:bg-caribbean/90 px-8 py-4 text-base font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"
                 >
                   <Calendar className="mr-2" size={20} />
-                  Agendar Consulta
+                  {t('buttons.schedule_appointment')}
                 </Button>
                 <Button 
                   variant="outline"
                   onClick={() => scrollToSection('proyectos')}
                   className="border-2 border-turquoise text-turquoise hover:bg-turquoise hover:text-white px-8 py-4 text-base font-semibold transition-all duration-300"
                 >
-                  Ver Proyectos
+                  {t('home:hero.cta')}
                 </Button>
               </div>
 

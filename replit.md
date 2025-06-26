@@ -81,12 +81,12 @@ The application is configured for Replit deployment with:
 
 ## Recent Changes
 
+- June 26, 2025. Added comprehensive multilanguage support with react-i18next
+- June 26, 2025. Implemented language switcher component with 6 languages (ES, EN, RU, FR, DE, PT)
+- June 26, 2025. Created translation files for navigation, content, forms, and legal sections
+- June 26, 2025. Updated Montserrat + Open Sans typography for international appeal
 - June 25, 2025. Changed realtor name from María Elena Santos to Dario Velez with masculine pronouns
-- June 25, 2025. Updated all text references throughout the website to reflect male realtor
-- June 25, 2025. Changed profile image to professional male realtor photo
-- June 25, 2025. Updated email address from maria@caribeinversiones.com to dario@caribeinversiones.com
-- June 25, 2025. Updated profile to 5 years experience with 5-question contact form
-- June 25, 2025. Added Calendly integration structure ready for implementation
+- June 25, 2025. Updated legal information section with CONFOTUR law and simplified process
 
 ## Contact Form Structure
 
@@ -104,6 +104,48 @@ Additional feature: "¿Cuándo prefieres que te contactemos?" leads to Calendly 
 - Ready for implementation with iframe embed structure
 - Placeholder URL needs to be replaced with actual Calendly link
 - Modal opens when user clicks "Agendar Cita Directamente" from contact form
+
+## Multilanguage Support
+
+The website now supports 6 languages to attract international buyers:
+
+### Implemented Languages
+1. **Spanish (es)** - Default language, Dominican Republic market
+2. **English (en)** - Primary international market  
+3. **Russian (ru)** - Growing buyer segment in Caribbean real estate
+4. **French (fr)** - European Caribbean investors
+5. **German (de)** - Strong international real estate investor base
+6. **Portuguese (pt)** - Brazilian market proximity
+
+### Technical Implementation
+- **i18next**: Core internationalization framework
+- **react-i18next**: React integration with hooks
+- **Language Detection**: Automatic browser language detection with localStorage persistence
+- **Language Switcher**: Dropdown component in navigation with country flags
+- **Translation Structure**: Organized by namespaces (common, home, contact, projects, legal)
+
+### Translation Files Structure
+```
+client/src/locales/
+├── es/ (Spanish - default)
+├── en/ (English)  
+├── ru/ (Russian)
+├── fr/ (French)
+├── de/ (German)
+└── pt/ (Portuguese)
+    ├── common.json (navigation, buttons, general UI)
+    ├── home.json (homepage content)
+    ├── contact.json (contact form)
+    ├── projects.json (property descriptions)
+    └── legal.json (CONFOTUR legal info)
+```
+
+### Features
+- Language preference stored in localStorage
+- Seamless switching without page reload
+- All content translated including forms, legal info, and property details
+- Globe icon language switcher in navigation
+- Mobile-responsive language selection
 
 ## User Preferences
 
