@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ContactModal } from "@/components/contact-modal";
@@ -15,6 +16,7 @@ import WhatsApp_Image_2025_06_25_at_19_11_55 from "@assets/WhatsApp Image 2025-0
 
 export default function HomePage() {
   const { t } = useTranslation(['common', 'home', 'contact', 'projects', 'legal', 'testimonials']);
+  const [, setLocation] = useLocation();
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [isProjectModalOpen, setIsProjectModalOpen] = useState(false);
   const [isCalendlyModalOpen, setIsCalendlyModalOpen] = useState(false);
@@ -44,9 +46,8 @@ export default function HomePage() {
     setIsMobileMenuOpen(false);
   };
 
-  const openProjectModal = (project: Project) => {
-    setSelectedProject(project);
-    setIsProjectModalOpen(true);
+  const navigateToProject = (project: Project) => {
+    setLocation(`/proyecto/${project.slug}`);
   };
 
   const openContactFromProject = () => {
@@ -313,7 +314,7 @@ export default function HomePage() {
                 <Card 
                   key={project.id} 
                   className="overflow-hidden hover:shadow-xl transition-shadow group cursor-pointer"
-                  onClick={() => openProjectModal(project)}
+                  onClick={() => navigateToProject(project)}
                 >
                   <div className="overflow-hidden">
                     <img 

@@ -16,7 +16,7 @@ export default function ProjectDetailPage() {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [isCalendlyModalOpen, setIsCalendlyModalOpen] = useState(false);
 
-  const { data: project, isLoading, error } = useQuery({
+  const { data: project, isLoading, error } = useQuery<Project>({
     queryKey: [`/api/project/${params?.slug}`],
     enabled: !!params?.slug,
   });
@@ -26,7 +26,7 @@ export default function ProjectDetailPage() {
   };
 
   const downloadPDF = () => {
-    if (project?.pdfUrl) {
+    if (project && project.pdfUrl) {
       const link = document.createElement('a');
       link.href = project.pdfUrl;
       link.download = `${project.slug}.pdf`;

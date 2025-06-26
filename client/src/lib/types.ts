@@ -9,6 +9,7 @@ export interface ContactFormData {
 export interface Project {
   id: number;
   title: string;
+  slug: string;
   description: string;
   price: string;
   location: string;
