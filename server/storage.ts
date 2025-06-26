@@ -15,8 +15,13 @@ export interface IStorage {
   createProject(project: InsertProject): Promise<Project>;
 }
 
-// Initialize Supabase connection
-const sql = postgres(process.env.DATABASE_URL!.trim());
+// Initialize Supabase connection with additional configuration
+const sql = postgres(process.env.DATABASE_URL!.trim(), {
+  ssl: { rejectUnauthorized: false },
+  max: 10,
+  idle_timeout: 20,
+  connect_timeout: 10,
+});
 const db = drizzle(sql);
 
 export class SupabaseStorage implements IStorage {

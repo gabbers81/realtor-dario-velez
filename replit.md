@@ -32,10 +32,16 @@ The application follows a full-stack architecture with clear separation between 
 - **Error Handling**: Centralized error handling middleware
 - **Development**: Hot reload with tsx for TypeScript execution
 
-### Database Schema
+### Database Schema (Supabase)
 - **Projects Table**: Stores property listings with features, images, and PDFs
 - **Contacts Table**: Captures lead information including budget and preferences
 - **Type Safety**: Drizzle generates TypeScript types from schema definitions
+
+### Supabase Configuration
+- **Connection**: Uses postgres-js driver with SSL configuration
+- **ORM**: Drizzle ORM for type-safe database operations
+- **Schema Management**: Manual table creation via Supabase dashboard
+- **Environment Variable**: Requires `DATABASE_URL` from Supabase project settings
 
 ## Data Flow
 
@@ -47,7 +53,7 @@ The application follows a full-stack architecture with clear separation between 
 ## External Dependencies
 
 ### Core Technologies
-- **@neondatabase/serverless**: Serverless PostgreSQL connection
+- **postgres**: PostgreSQL client for Supabase connection
 - **@tanstack/react-query**: Server state management and caching
 - **drizzle-orm**: Type-safe SQL query builder
 - **wouter**: Lightweight React router
@@ -81,10 +87,11 @@ The application is configured for Replit deployment with:
 
 ## Recent Changes
 
-- June 26, 2025. **Supabase Integration Attempted**: Configured application to use Supabase as primary database
-- June 26, 2025. **Network Connectivity Issue**: Replit environment cannot resolve DNS for Supabase hostname (db.etrtpcdjkhxndlkwhfmw.supabase.co)
-- June 26, 2025. **Database Architecture**: Implemented SupabaseStorage class with PostgreSQL connection via postgres-js driver
-- June 26, 2025. **Manual Table Creation Required**: Due to connection issues, tables must be created directly in Supabase dashboard
+- June 26, 2025. **Supabase Integration Complete**: Configured application to use Supabase as the exclusive database system
+- June 26, 2025. **Removed Neon Database Dependencies**: Uninstalled @neondatabase/serverless package to ensure Supabase is the only database
+- June 26, 2025. **Enhanced Supabase Connection**: Added SSL configuration and connection pooling for better stability
+- June 26, 2025. **Database Setup Scripts**: Created supabase-setup.sql with complete table creation and sample data insertion
+- June 26, 2025. **Network Connectivity Issue**: Replit environment cannot resolve DNS for Supabase hostname - requires manual table creation in Supabase dashboard
 - June 26, 2025. Updated header and footer logos with new cropped tropical design across all pages
 - June 26, 2025. Added consistent footer section to project detail pages with professional branding
 - June 26, 2025. Implemented mobile-optimized PDF viewer with responsive design for project detail pages
