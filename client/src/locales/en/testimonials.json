@@ -3,13 +3,13 @@
   "section_subtitle": "What our investors say about their experience",
   "testimonials": [
     {
-      "name": "María González",
+      "name": "Luis Cruz",
       "country": "United States",
-      "location": "Miami, FL",
-      "property_type": "Apartment in Bávaro",
+      "location": "Bronx, NY",
+      "property_type": "Aura Boulevard Penthouse",
       "rating": 5,
       "text": "Dario helped me find the perfect investment in Bávaro. His knowledge of the Dominican market and CONFOTUR benefits were key to maximizing my return. Highly recommended.",
-      "avatar": "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face"
+      "avatar": "/assets/Luis Cruz Testimonio_1750975270938.jpeg"
     },
     {
       "name": "James Mitchell",

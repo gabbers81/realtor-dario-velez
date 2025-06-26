@@ -81,6 +81,8 @@ The application is configured for Replit deployment with:
 
 ## Recent Changes
 
+- June 26, 2025. Updated header and footer logos with new cropped tropical design across all pages
+- June 26, 2025. Added consistent footer section to project detail pages with professional branding
 - June 26, 2025. Implemented mobile-optimized PDF viewer with responsive design for project detail pages
 - June 26, 2025. Mobile devices now show download-first interface while desktop maintains embedded viewer
 - June 26, 2025. Successfully added 7 new real estate projects with complete multilanguage support
