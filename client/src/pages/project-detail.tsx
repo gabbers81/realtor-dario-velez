@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useRoute } from "wouter";
+import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ContactModal } from "@/components/contact-modal";
@@ -12,13 +12,18 @@ import type { Project } from "@/lib/types";
 
 export default function ProjectDetailPage() {
   const { t } = useTranslation(['common', 'home', 'contact', 'projects']);
-  const [match, params] = useRoute("/proyecto/:slug");
+  const [location] = useLocation();
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [isCalendlyModalOpen, setIsCalendlyModalOpen] = useState(false);
 
+  // Extract slug from location
+  const slug = location.split('/proyecto/')[1];
+  
+  console.log('Current location:', location, 'extracted slug:', slug);
+
   const { data: project, isLoading, error } = useQuery<Project>({
-    queryKey: [`/api/project/${params?.slug}`],
-    enabled: !!params?.slug,
+    queryKey: [`/api/project/${slug}`],
+    enabled: !!slug && slug !== '',
   });
 
   const goBack = () => {
