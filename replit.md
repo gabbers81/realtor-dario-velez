@@ -89,9 +89,10 @@ The application is configured for Replit deployment with:
 
 - June 26, 2025. **Supabase Integration Complete**: Configured application to use Supabase as the exclusive database system
 - June 26, 2025. **Removed Neon Database Dependencies**: Uninstalled @neondatabase/serverless package to ensure Supabase is the only database
-- June 26, 2025. **Enhanced Supabase Connection**: Added SSL configuration and connection pooling for better stability
+- June 26, 2025. **Enhanced Supabase Connection**: Added SSL configuration, URL encoding for special characters, and connection pooling
 - June 26, 2025. **Database Setup Scripts**: Created supabase-setup.sql with complete table creation and sample data insertion
-- June 26, 2025. **Network Connectivity Issue**: Replit environment cannot resolve DNS for Supabase hostname - requires manual table creation in Supabase dashboard
+- June 26, 2025. **Network Connectivity Diagnosis**: Environment has IPv6 connectivity issues with Supabase hostnames - requires manual table creation
+- June 26, 2025. **Enhanced Error Handling**: Added detailed error messages and connection diagnostics for better troubleshooting
 - June 26, 2025. Updated header and footer logos with new cropped tropical design across all pages
 - June 26, 2025. Added consistent footer section to project detail pages with professional branding
 - June 26, 2025. Implemented mobile-optimized PDF viewer with responsive design for project detail pages

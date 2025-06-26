@@ -10,8 +10,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const projects = await storage.getProjects();
       res.json(projects);
-    } catch (error) {
-      res.status(500).json({ message: "Error fetching projects" });
+    } catch (error: any) {
+      console.error('API Error - fetching projects:', error);
+      if (error?.code === 'ENOTFOUND') {
+        res.status(503).json({ 
+          message: "Database connection unavailable", 
+          details: "DNS resolution issue with Supabase hostname" 
+        });
+      } else {
+        res.status(500).json({ message: "Error fetching projects" });
+      }
     }
   });
 

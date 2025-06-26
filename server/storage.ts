@@ -54,9 +54,10 @@ export class SupabaseStorage implements IStorage {
 
   private async initializeProjects() {
     try {
-      // Test connection first
-      await db.select().from(projects).limit(1);
-      console.log('✅ Supabase connection successful');
+      // Test connection first with a simple query
+      console.log('Testing Supabase connection...');
+      const testResult = await sql`SELECT 1 as test`;
+      console.log('✅ Supabase connection successful, test result:', testResult);
       
       // Check if projects already exist
       const existingProjects = await db.select().from(projects).limit(1);
@@ -235,6 +236,8 @@ export class SupabaseStorage implements IStorage {
       console.log('✅ Supabase projects initialized successfully');
     } catch (error) {
       console.error('Error initializing projects in Supabase:', error);
+      console.log('ℹ️  Note: DNS resolution issues may prevent connection to Supabase from this environment');
+      console.log('ℹ️  Please ensure tables are created manually in Supabase dashboard using supabase-setup.sql');
     }
   }
 
