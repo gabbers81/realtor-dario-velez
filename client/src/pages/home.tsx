@@ -12,6 +12,7 @@ import { LanguageSwitcher } from "@/components/language-switcher";
 import type { Project } from "@/lib/types";
 
 import WhatsApp_Image_2025_06_25_at_19_11_55 from "@assets/WhatsApp Image 2025-06-25 at 19.11.55.jpeg";
+import DarioVelezLogo from "@assets/infected7975_logo_Dario_Velez_Realtor_Property_Dominican_Repu_cc5896bd-5515-4b6b-bcb4-4ed00fb46175_2 (1)_1750972994476.png";
 
 export default function HomePage() {
   const { t } = useTranslation(['common', 'home', 'contact', 'projects', 'legal', 'testimonials']);
@@ -66,8 +67,12 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
             <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-turquoise rounded-full flex items-center justify-center">
-                <Home className="text-white text-lg" size={20} />
+              <div className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center">
+                <img 
+                  src={DarioVelezLogo} 
+                  alt="Dario Velez Real Estate Logo" 
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div>
                 <h1 className="font-semibold text-gray-900 text-lg">Dario Velez</h1>
@@ -489,8 +494,12 @@ export default function HomePage() {
           <div className="grid md:grid-cols-4 gap-8">
             <div className="col-span-2">
               <div className="flex items-center space-x-3 mb-4">
-                <div className="w-10 h-10 bg-turquoise rounded-full flex items-center justify-center">
-                  <Home className="text-white" size={20} />
+                <div className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center">
+                  <img 
+                    src={DarioVelezLogo} 
+                    alt="Dario Velez Real Estate Logo" 
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <div>
                   <h3 className="font-semibold text-lg">Dario Velez</h3>
