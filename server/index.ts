@@ -12,9 +12,9 @@ const app = express();
 // Trust proxy for rate limiting in production environments
 app.set('trust proxy', 1);
 
-// Security middleware
+// Security middleware - more permissive in development
 app.use(helmet({
-  contentSecurityPolicy: {
+  contentSecurityPolicy: process.env.NODE_ENV === 'production' ? {
     directives: {
       defaultSrc: ["'self'"],
       styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
@@ -24,12 +24,12 @@ app.use(helmet({
       objectSrc: ["'none'"],
       frameSrc: ["'self'", "https://calendly.com"],
     }
-  },
-  hsts: {
+  } : false, // Disable CSP in development for Vite
+  hsts: process.env.NODE_ENV === 'production' ? {
     maxAge: 31536000,
     includeSubDomains: true,
     preload: true
-  }
+  } : false // Disable HSTS in development
 }));
 
 app.use(cors({
