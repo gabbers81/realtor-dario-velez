@@ -218,19 +218,40 @@ export default function ProjectDetailPage() {
                   asChild
                   className="bg-caribbean text-white hover:bg-caribbean/90 w-full"
                 >
-                  <a href={project.pdfUrl} download target="_blank">
+                  <a href={project.pdfUrl} download target="_blank" rel="noopener noreferrer">
                     <Download className="mr-2" size={20} />
                     {t('projects:detail.download_pdf')}
                   </a>
                 </Button>
               </div>
               
-              {/* Desktop: Embedded viewer */}
-              <iframe
-                src={project.pdfUrl}
-                className="hidden md:block w-full h-[600px] lg:h-[800px]"
-                title={`${project.title} - Información detallada`}
-              />
+              {/* Desktop: Enhanced PDF viewer with fallback */}
+              <div className="hidden md:block relative">
+                <iframe
+                  src={project.pdfUrl}
+                  className="w-full h-[600px] lg:h-[800px] border-0"
+                  title={`${project.title} - Información detallada`}
+                  allow="fullscreen"
+                  onError={() => {
+                    console.log('PDF iframe failed to load, showing fallback');
+                  }}
+                />
+                
+                {/* Fallback option for when iframe doesn't work */}
+                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-lg p-3 shadow-lg">
+                  <Button
+                    asChild
+                    variant="outline"
+                    size="sm"
+                    className="text-sm"
+                  >
+                    <a href={project.pdfUrl} target="_blank" rel="noopener noreferrer">
+                      <FileText className="mr-2" size={16} />
+                      {t('projects:detail.open_in_new_tab', 'Abrir en nueva pestaña')}
+                    </a>
+                  </Button>
+                </div>
+              </div>
             </div>
           </div>
         </section>
