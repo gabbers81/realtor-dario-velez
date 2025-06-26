@@ -156,7 +156,12 @@ export class SupabaseStorage implements IStorage {
         }
         
         console.log(`✅ Retrieved ${data?.length || 0} projects via REST API`);
-        return data || [];
+        // Map snake_case to camelCase for API consistency
+        return (data || []).map((project: any) => ({
+          ...project,
+          imageUrl: project.image_url,
+          pdfUrl: project.pdf_url
+        }));
       }
       throw error;
     }
@@ -182,7 +187,12 @@ export class SupabaseStorage implements IStorage {
           throw new Error(`REST API error: ${restError.message}`);
         }
         
-        return data;
+        // Map snake_case to camelCase for API consistency
+        return {
+          ...data,
+          imageUrl: data.image_url,
+          pdfUrl: data.pdf_url
+        };
       }
       throw error;
     }
