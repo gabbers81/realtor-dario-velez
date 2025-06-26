@@ -29,7 +29,10 @@
   "validation": {
     "required": "Dieses Feld ist erforderlich",
     "invalid_email": "Ungültige E-Mail-Adresse",
-    "invalid_phone": "Ungültiges Telefonformat"
+    "invalid_phone": "Ungültiges Telefonformat",
+    "required_fields": "Pflichtfelder",
+    "complete_required": "Bitte füllen Sie alle mit * markierten Felder aus",
+    "phone_format": "Verwenden Sie das dominikanische Format: +1 (829) 123-4567"
   },
   "success": {
     "title": "Nachricht Gesendet!",

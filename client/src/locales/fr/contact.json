@@ -24,12 +24,18 @@
     },
     "when_contact": "Quand préféreriez-vous être contacté?",
     "submit": "Envoyer la Demande",
-    "schedule_directly": "Prendre Rendez-vous Directement"
+    "schedule_directly": "Prendre Rendez-vous Directement",
+    "sending": "Envoi en cours...",
+    "send_inquiry": "Envoyer la Demande",
+    "schedule_appointment": "Prendre Rendez-vous Directement"
   },
   "validation": {
     "required": "Ce champ est requis",
     "invalid_email": "Adresse email invalide",
-    "invalid_phone": "Format de téléphone invalide"
+    "invalid_phone": "Format de téléphone invalide",
+    "required_fields": "Champs obligatoires",
+    "complete_required": "Veuillez remplir tous les champs marqués d'un *",
+    "phone_format": "Utilisez le format dominicain: +1 (829) 123-4567"
   },
   "success": {
     "title": "Message Envoyé!",
