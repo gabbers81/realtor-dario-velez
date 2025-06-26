@@ -120,7 +120,7 @@ export function ContactModal({ isOpen, onClose, onOpenCalendly }: ContactModalPr
 
           <div>
             <Label htmlFor="email" className="text-sm font-medium text-gray-700">
-              Correo Electrónico *
+              {t('contact:form.email')} *
             </Label>
             <Input
               id="email"
@@ -128,14 +128,14 @@ export function ContactModal({ isOpen, onClose, onOpenCalendly }: ContactModalPr
               required
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              placeholder="tu@email.com"
+              placeholder={t('contact:form.email_placeholder')}
               className="mt-2"
             />
           </div>
 
           <div>
             <Label htmlFor="phone" className="text-sm font-medium text-gray-700">
-              Teléfono (formato dominicano) *
+              {t('contact:form.phone')} *
             </Label>
             <Input
               id="phone"
@@ -150,14 +150,14 @@ export function ContactModal({ isOpen, onClose, onOpenCalendly }: ContactModalPr
 
           <div>
             <Label htmlFor="budget" className="text-sm font-medium text-gray-700">
-              Presupuesto a Invertir *
+              {t('contact:form.budget')} *
             </Label>
             <Select
               value={formData.budget}
               onValueChange={(value) => setFormData({ ...formData, budget: value })}
             >
               <SelectTrigger className="mt-2">
-                <SelectValue placeholder="Selecciona tu rango" />
+                <SelectValue placeholder={t('contact:form.budget_placeholder')} />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="80k-120k">US$80k-US$120k</SelectItem>
@@ -169,14 +169,14 @@ export function ContactModal({ isOpen, onClose, onOpenCalendly }: ContactModalPr
 
           <div>
             <Label htmlFor="downPayment" className="text-sm font-medium text-gray-700">
-              Inicial Disponible (Opcional)
+              {t('contact:form.down_payment')}
             </Label>
             <Select
               value={formData.downPayment}
               onValueChange={(value) => setFormData({ ...formData, downPayment: value })}
             >
               <SelectTrigger className="mt-2">
-                <SelectValue placeholder="No especificado" />
+                <SelectValue placeholder={t('contact:form.down_payment_placeholder')} />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="10%">10%</SelectItem>
@@ -193,10 +193,10 @@ export function ContactModal({ isOpen, onClose, onOpenCalendly }: ContactModalPr
               disabled={createContactMutation.isPending}
             >
               <Send className="mr-2" size={16} />
-              {createContactMutation.isPending ? "Enviando..." : "Enviar Consulta"}
+              {createContactMutation.isPending ? t('contact:form.sending') : t('contact:form.send_inquiry')}
             </Button>
             
-            <div className="text-center text-gray-600">o</div>
+            <div className="text-center text-gray-600">{t('common:or')}</div>
             
             <Button 
               type="button" 
