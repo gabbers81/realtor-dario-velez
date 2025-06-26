@@ -1,31 +1,31 @@
 {
   "navigation": {
-    "home": "Home",
-    "about": "About Me",
+    "home": "Accueil",
+    "about": "À propos",
     "services": "Services",
-    "projects": "Projects",
-    "legal": "Legal Info",
+    "projects": "Projets",
+    "legal": "Info Légale",
     "contact": "Contact"
   },
   "buttons": {
-    "contact_me": "Contact Me",
-    "view_details": "View Details",
-    "schedule_appointment": "Schedule Appointment",
-    "close": "Close",
-    "send": "Send",
-    "schedule_directly": "Schedule Appointment Directly",
-    "contact_for_project": "Contact About This Project"
+    "contact_me": "Me contacter",
+    "view_details": "Voir les détails",
+    "schedule_appointment": "Prendre rendez-vous",
+    "close": "Fermer",
+    "send": "Envoyer",
+    "schedule_directly": "Prendre rendez-vous directement",
+    "contact_for_project": "Contact pour ce projet"
   },
   "general": {
-    "loading": "Loading...",
-    "error": "Error",
-    "success": "Success",
-    "phone": "Phone",
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "success": "Succès",
+    "phone": "Téléphone",
     "email": "Email",
-    "location": "Location",
+    "location": "Localisation",
     "services": "Services",
     "contact": "Contact",
-    "years_experience": "years of experience",
-    "dominican_republic": "Dominican Republic"
+    "years_experience": "années d'expérience",
+    "dominican_republic": "République Dominicaine"
   }
 }

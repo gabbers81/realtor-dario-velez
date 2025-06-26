@@ -1,31 +1,31 @@
 {
   "navigation": {
-    "home": "Home",
-    "about": "About Me",
-    "services": "Services",
-    "projects": "Projects",
-    "legal": "Legal Info",
-    "contact": "Contact"
+    "home": "Início",
+    "about": "Sobre mim",
+    "services": "Serviços",
+    "projects": "Projetos",
+    "legal": "Info Legal",
+    "contact": "Contato"
   },
   "buttons": {
-    "contact_me": "Contact Me",
-    "view_details": "View Details",
-    "schedule_appointment": "Schedule Appointment",
-    "close": "Close",
-    "send": "Send",
-    "schedule_directly": "Schedule Appointment Directly",
-    "contact_for_project": "Contact About This Project"
+    "contact_me": "Entre em contato",
+    "view_details": "Ver detalhes",
+    "schedule_appointment": "Agendar consulta",
+    "close": "Fechar",
+    "send": "Enviar",
+    "schedule_directly": "Agendar consulta diretamente",
+    "contact_for_project": "Contato sobre este projeto"
   },
   "general": {
-    "loading": "Loading...",
-    "error": "Error",
-    "success": "Success",
-    "phone": "Phone",
+    "loading": "Carregando...",
+    "error": "Erro",
+    "success": "Sucesso",
+    "phone": "Telefone",
     "email": "Email",
-    "location": "Location",
-    "services": "Services",
-    "contact": "Contact",
-    "years_experience": "years of experience",
-    "dominican_republic": "Dominican Republic"
+    "location": "Localização",
+    "services": "Serviços",
+    "contact": "Contato",
+    "years_experience": "anos de experiência",
+    "dominican_republic": "República Dominicana"
   }
 }
