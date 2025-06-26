@@ -71,7 +71,7 @@ export default function HomePage() {
               </div>
               <div>
                 <h1 className="font-semibold text-gray-900 text-lg">Dario Velez</h1>
-                <p className="text-sm text-gray-600">Realtor Especializado</p>
+                <p className="text-sm text-gray-600">{t('tagline')}</p>
               </div>
             </div>
             

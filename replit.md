@@ -81,6 +81,9 @@ The application is configured for Replit deployment with:
 
 ## Recent Changes
 
+- June 26, 2025. Fixed tagline consistency across all pages - updated to "Realtor Especializado" with proper translations
+- June 26, 2025. Implemented project detail page header with complete navigation and branding
+- June 26, 2025. Fixed PDF file path and resolved 404 errors on project detail pages
 - June 26, 2025. Successfully implemented Testimonials section between Projects and Legal sections
 - June 26, 2025. Added 3 professional testimonials from international DR property investors (US, Canada, France)
 - June 26, 2025. Created testimonials translation files for all 6 languages with minimalistic design
@@ -196,12 +199,18 @@ client/src/locales/
    - German (de) - Strong investor base
    - Portuguese (pt) - Brazilian market
 4. **Namespace organization**:
-   - `common.json` - Navigation, buttons, general UI
+   - `common.json` - Navigation, buttons, general UI, tagline
    - `home.json` - Homepage content, services, about
    - `contact.json` - Contact forms and validation
    - `projects.json` - Property listings and modals
    - `legal.json` - CONFOTUR law and legal process
 5. **Quality assurance**: Always test language switching for new content to ensure complete translations
+
+**CRITICAL: Translation Consistency Rules**
+- **Never hardcode text** - always use translation keys like `{t('tagline')}` 
+- **Tagline must be consistent** across all pages using `{t('common:tagline')}`
+- **All common elements** (navigation, tagline, buttons) must use `common.json` translations
+- **Test all pages** when updating translations to ensure consistency
 
 ## User Preferences
 
