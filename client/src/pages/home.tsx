@@ -216,7 +216,7 @@ export default function HomePage() {
                   <div className="text-gray-600 text-sm">Proyectos Completados</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-yellow-500">10+</div>
+                  <div className="text-3xl font-bold text-yellow-500">15+</div>
                   <div className="text-gray-600 text-sm">Clientes Satisfechos</div>
                 </div>
               </div>
@@ -336,7 +336,6 @@ export default function HomePage() {
           )}
         </div>
       </section>
-      
       {/* Testimonials Section */}
       <section id="testimonials" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -387,7 +386,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-      
       {/* Legal Information Section */}
       <section id="info-legal" className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -559,7 +557,6 @@ export default function HomePage() {
           setIsCalendlyModalOpen(true);
         }}
       />
-
       <CalendlyModal 
         isOpen={isCalendlyModalOpen} 
         onClose={() => setIsCalendlyModalOpen(false)}
