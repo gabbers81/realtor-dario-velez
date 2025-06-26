@@ -2,6 +2,7 @@ import express, { type Request, Response, NextFunction } from "express";
 import cors from "cors";
 import helmet from "helmet";
 import rateLimit from "express-rate-limit";
+import compression from "compression";
 import { body, validationResult } from "express-validator";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
@@ -62,17 +63,46 @@ const contactLimiter = rateLimit({
 app.use(limiter);
 app.use('/api/contacts', contactLimiter);
 
+// Compression middleware for better performance
+app.use(compression({
+  level: 6,
+  threshold: 1024,
+  filter: (req, res) => {
+    if (req.headers['x-no-compression']) {
+      return false;
+    }
+    return compression.filter(req, res);
+  }
+}));
+
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: false, limit: '10mb' }));
 
-// Serve PDFs with proper headers for iframe embedding
+// Serve PDFs with proper headers for iframe embedding and caching
 app.use('/pdfs', express.static('client/public/pdfs', {
+  maxAge: '7d', // 7 days cache
+  etag: true,
+  lastModified: true,
   setHeaders: (res, path) => {
     if (path.endsWith('.pdf')) {
       res.setHeader('Content-Type', 'application/pdf');
       res.setHeader('X-Frame-Options', 'SAMEORIGIN');
       res.setHeader('Content-Disposition', 'inline');
-      res.setHeader('Cache-Control', 'public, max-age=86400'); // 24 hours
+      res.setHeader('Cache-Control', 'public, max-age=604800, immutable'); // 7 days
+      res.setHeader('Accept-Ranges', 'bytes');
+    }
+  }
+}));
+
+// Serve assets with aggressive caching
+app.use('/assets', express.static('client/public/assets', {
+  maxAge: '30d', // 30 days cache for assets
+  etag: true,
+  lastModified: true,
+  setHeaders: (res, path) => {
+    const isImage = /\.(jpg|jpeg|png|gif|webp|svg)$/i.test(path);
+    if (isImage) {
+      res.setHeader('Cache-Control', 'public, max-age=2592000, immutable'); // 30 days
     }
   }
 }));

@@ -14,6 +14,51 @@ export async function registerRoutes(app: Express): Promise<Server> {
     });
   });
 
+  // Sitemap XML endpoint
+  app.get("/sitemap.xml", async (_req, res) => {
+    try {
+      const projects = await storage.getProjects();
+      const baseUrl = process.env.NODE_ENV === 'production' 
+        ? 'https://dominican-real-estate.replit.app' 
+        : 'http://localhost:5000';
+      
+      const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>${baseUrl}/</loc>
+    <lastmod>${new Date().toISOString()}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  ${projects.map(project => `
+  <url>
+    <loc>${baseUrl}/proyecto/${project.slug}</loc>
+    <lastmod>${new Date().toISOString()}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>`).join('')}
+</urlset>`;
+
+      res.header('Content-Type', 'application/xml');
+      res.send(sitemap);
+    } catch (error) {
+      res.status(500).send('Error generating sitemap');
+    }
+  });
+
+  // Robots.txt endpoint
+  app.get("/robots.txt", (_req, res) => {
+    const robotsTxt = `User-agent: *
+Allow: /
+
+Sitemap: ${process.env.NODE_ENV === 'production' 
+  ? 'https://dominican-real-estate.replit.app' 
+  : 'http://localhost:5000'}/sitemap.xml`;
+
+    res.header('Content-Type', 'text/plain');
+    res.send(robotsTxt);
+  });
+
   // Get all projects
   app.get("/api/projects", async (_req, res) => {
     try {

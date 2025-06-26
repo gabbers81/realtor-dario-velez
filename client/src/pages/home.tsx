@@ -9,6 +9,7 @@ import { Home, Calendar, ArrowRight, Check, Shield, CheckCircle, Phone, Mail, Ma
 import { FaFacebook, FaInstagram, FaLinkedin, FaWhatsapp, FaBars, FaTimes } from "react-icons/fa";
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from "@/components/language-switcher";
+import { SEOHead } from "@/components/seo-head";
 import type { Project } from "@/lib/types";
 
 import WhatsApp_Image_2025_06_25_at_19_11_55 from "@assets/WhatsApp Image 2025-06-25 at 19.11.55.jpeg";
@@ -62,6 +63,10 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-white">
+      <SEOHead 
+        title={t('home:seo.title', 'Dario Velez - Propiedades Exclusivas en República Dominicana')}
+        description={t('common:seo.description')}
+      />
       {/* Header */}
       <header className="bg-white shadow-sm sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
