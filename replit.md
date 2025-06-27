@@ -130,6 +130,8 @@ The application is configured for Replit deployment with:
 
 ## Recent Changes
 
+- June 26, 2025. **Multilingual Project Translation Fixed**: Resolved language switching issue in "Proyectos Destacados" section - project cards now properly translate titles, descriptions, and price prefixes across all 6 languages
+- June 26, 2025. **Complete Translation System**: Fixed translation key mapping structure (properties vs projects) and added translatable price prefixes ("Desde"/"From"/"От"/"À partir de"/"Ab"/"A partir de")
 - June 26, 2025. **Production Security Hardening**: Implemented comprehensive security with CORS, helmet, rate limiting, input validation, and trust proxy configuration
 - June 26, 2025. **SEO & Error Handling**: Added SEO meta tags, sitemap.xml, robots.txt, proper 404 error page with translations for all languages  
 - June 26, 2025. **Performance Optimization**: Implemented compression middleware, aggressive caching for PDFs (7 days) and assets (30 days), optimized image component with lazy loading

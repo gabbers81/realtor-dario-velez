@@ -143,7 +143,7 @@ export function ContactModal({ isOpen, onClose, onOpenCalendly }: ContactModalPr
               required
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-              placeholder="+1 (829) 123-4567"
+              placeholder="+1 (829) 334-4567"
               className="mt-2"
             />
           </div>
