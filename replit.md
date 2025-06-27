@@ -130,6 +130,7 @@ The application is configured for Replit deployment with:
 
 ## Recent Changes
 
+- June 27, 2025. **Location Section Multilingual Fix**: Fixed hardcoded Spanish labels in project detail location section - now properly translates "Location & Accessibility", "Airport", "Beach", and "Nearby Amenities" across all 6 languages
 - June 27, 2025. **Enhanced Location Schema Implementation**: Added comprehensive location-based structured data for all 8 properties with precise coordinates, nearby amenities, distances to airports/beaches, and local attractions for improved local SEO
 - June 27, 2025. **Project Images Updated**: Updated Las Cayas Residences and Tropical Beach 3.0 with custom property images showcasing actual architectural designs and tropical settings
 - June 27, 2025. **Las Cayas Residences Image Updated**: Replaced generic stock photo with custom tropical villa image showing infinity pool and beachfront architecture
