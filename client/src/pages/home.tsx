@@ -85,7 +85,6 @@ export default function HomePage() {
         title={t('home:seo.title', 'Dario Velez - Propiedades Exclusivas en República Dominicana')}
         description={t('common:seo.description')}
       />
-      
       {/* Header */}
       <header className="bg-white shadow-sm sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -571,7 +570,7 @@ export default function HomePage() {
           
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
             <p>{t('home:footer.copyright')}</p>
-            <p className="text-xs mt-2 opacity-70">Hecho por Agentic Innovations</p>
+            <p className="text-xs mt-2 opacity-70">Website hecho por Agentic Innovations</p>
           </div>
         </div>
       </footer>
