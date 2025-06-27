@@ -130,6 +130,7 @@ The application is configured for Replit deployment with:
 
 ## Recent Changes
 
+- June 27, 2025. **Project Images Updated**: Updated Las Cayas Residences and Tropical Beach 3.0 with custom property images showcasing actual architectural designs and tropical settings
 - June 27, 2025. **Las Cayas Residences Image Updated**: Replaced generic stock photo with custom tropical villa image showing infinity pool and beachfront architecture
 - June 27, 2025. **Production Domain Configuration**: Updated robots.txt and sitemap.xml to use custom domain https://dariovelez.com.do for production deployment
 - June 26, 2025. **Multilingual Project Translation Fixed**: Resolved language switching issue in "Proyectos Destacados" section - project cards now properly translate titles, descriptions, and price prefixes across all 6 languages
