@@ -169,9 +169,9 @@ export default function ProjectDetailPage() {
                   alt="Dario Velez Realtor Logo" 
                   className="w-16 h-16 object-contain"
                 />
-                <div>
-                  <h1 className="font-bold text-xl text-gray-900">Dario Velez</h1>
-                  <p className="text-sm text-gray-600">{t('common:tagline')}</p>
+                <div className="text-left">
+                  <h1 className="font-bold text-xl text-gray-900 text-left">Dario Velez</h1>
+                  <p className="text-sm text-gray-600 text-left">{t('common:tagline')}</p>
                 </div>
               </a>
               

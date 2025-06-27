@@ -97,9 +97,9 @@ export default function HomePage() {
                   className="w-full h-full object-cover"
                 />
               </div>
-              <div>
-                <h1 className="font-semibold text-gray-900 text-lg">Dario Velez</h1>
-                <p className="text-sm text-gray-600">{t('tagline')}</p>
+              <div className="text-left">
+                <h1 className="font-semibold text-gray-900 text-lg text-left">Dario Velez</h1>
+                <p className="text-sm text-gray-600 text-left">{t('tagline')}</p>
               </div>
             </button>
             
