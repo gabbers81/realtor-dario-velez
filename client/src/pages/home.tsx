@@ -15,6 +15,7 @@ import type { Project } from "@/lib/types";
 
 import WhatsApp_Image_2025_06_25_at_19_11_55 from "@assets/WhatsApp Image 2025-06-25 at 19.11.55.jpeg";
 import DarioVelezLogo from "@assets/DarioRealtorLogo_cropped_1750974653123.png";
+import HeroBackgroundImage from "@assets/infected7975_website_landing_page_premium_realstate_tourism_P_0a690a1f-fbcd-4f65-9516-17d27771aba4_3_1751009731063.png";
 
 export default function HomePage() {
   const { t, i18n } = useTranslation(['common', 'home', 'contact', 'projects', 'legal', 'testimonials']);
@@ -213,23 +214,31 @@ export default function HomePage() {
         </div>
       </header>
       {/* Hero Section */}
-      <section id="inicio" className="relative bg-gradient-to-br from-slate-100 via-blue-50 to-cyan-50 min-h-screen flex items-center overflow-hidden">
-        {/* Background decorative elements */}
-        <div className="absolute top-20 right-20 w-32 h-32 bg-yellow-200 rounded-full opacity-60 blur-2xl"></div>
-        <div className="absolute bottom-32 left-20 w-48 h-48 bg-turquoise/20 rounded-full opacity-60 blur-3xl"></div>
+      <section id="inicio" className="relative min-h-screen flex items-center overflow-hidden">
+        {/* Background Image */}
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `url(${HeroBackgroundImage})`,
+          }}
+        >
+          {/* Overlay for text readability */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-black/20"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+        </div>
         
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left content */}
             <div className="space-y-8">
               <div>
-                <p className="text-turquoise font-medium text-lg mb-4">{t('home:hero.specialist_title')}</p>
-                <h1 className="font-bold text-5xl lg:text-6xl text-gray-900 leading-tight">
+                <p className="text-turquoise font-medium text-lg mb-4 drop-shadow-lg">{t('home:hero.specialist_title')}</p>
+                <h1 className="font-bold text-5xl lg:text-6xl text-white leading-tight drop-shadow-xl">
                   {t('home:hero.title')}
                 </h1>
               </div>
               
-              <p className="text-gray-600 text-lg leading-relaxed max-w-lg">
+              <p className="text-gray-100 text-lg leading-relaxed max-w-lg drop-shadow-lg">
                 {t('home:hero.description')}
               </p>
 
@@ -251,18 +260,18 @@ export default function HomePage() {
               </div>
 
               {/* Statistics */}
-              <div className="grid grid-cols-3 gap-8 pt-8">
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-caribbean">5+</div>
-                  <div className="text-gray-600 text-sm">Años de Experiencia</div>
+              <div className="grid grid-cols-3 gap-4 sm:gap-8 pt-8">
+                <div className="text-center bg-white/10 backdrop-blur-sm rounded-lg p-3 sm:p-4 border border-white/20">
+                  <div className="text-2xl sm:text-3xl font-bold text-turquoise drop-shadow-lg">5+</div>
+                  <div className="text-gray-200 text-xs sm:text-sm drop-shadow">Años de Experiencia</div>
                 </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-sage">5+</div>
-                  <div className="text-gray-600 text-sm">Proyectos Completados</div>
+                <div className="text-center bg-white/10 backdrop-blur-sm rounded-lg p-3 sm:p-4 border border-white/20">
+                  <div className="text-2xl sm:text-3xl font-bold text-sage drop-shadow-lg">8</div>
+                  <div className="text-gray-200 text-xs sm:text-sm drop-shadow">Proyectos Activos</div>
                 </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-yellow-500">15+</div>
-                  <div className="text-gray-600 text-sm">Clientes Satisfechos</div>
+                <div className="text-center bg-white/10 backdrop-blur-sm rounded-lg p-3 sm:p-4 border border-white/20">
+                  <div className="text-2xl sm:text-3xl font-bold text-caribbean drop-shadow-lg">15+</div>
+                  <div className="text-gray-200 text-xs sm:text-sm drop-shadow">Clientes Satisfechos</div>
                 </div>
               </div>
             </div>
