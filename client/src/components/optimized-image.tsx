@@ -89,22 +89,44 @@ export function OptimizedImage({
   const finalSrc = imageSrc === src ? optimizeSrc(imageSrc) : imageSrc;
 
   return (
-    <img
+    <div 
       ref={imgRef}
-      src={finalSrc}
-      alt={alt}
-      width={width}
-      height={height}
-      loading={priority ? 'eager' : 'lazy'}
-      decoding="async"
       className={cn(
-        'transition-opacity duration-300',
-        isLoaded ? 'opacity-100' : 'opacity-70',
+        'relative overflow-hidden bg-gray-100',
         className
       )}
       style={{
         aspectRatio: width && height ? `${width}/${height}` : undefined
       }}
-    />
+    >
+      {/* Loading placeholder */}
+      {!isLoaded && (
+        <div className="absolute inset-0 bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 animate-pulse">
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-8 h-8 border-2 border-gray-400 border-t-transparent rounded-full animate-spin"></div>
+          </div>
+        </div>
+      )}
+      
+      <img
+        src={finalSrc}
+        alt={alt}
+        width={width}
+        height={height}
+        loading={priority ? 'eager' : 'lazy'}
+        decoding="async"
+        className={cn(
+          'w-full h-full object-cover transition-all duration-500 ease-in-out transform',
+          isLoaded 
+            ? 'opacity-100 scale-100' 
+            : 'opacity-0 scale-105',
+          'hover:scale-105 active:scale-95'
+        )}
+        style={{
+          aspectRatio: width && height ? `${width}/${height}` : undefined,
+          imageRendering: 'auto'
+        }}
+      />
+    </div>
   );
 }

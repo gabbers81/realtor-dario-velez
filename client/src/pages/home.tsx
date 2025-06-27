@@ -139,56 +139,78 @@ export default function HomePage() {
 
             <button 
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden text-gray-700"
+              className="md:hidden text-gray-700 p-2 hover:bg-gray-100 rounded-lg transition-colors touch-manipulation"
+              aria-label={isMobileMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
             >
-              {isMobileMenuOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
+              <div className="relative w-6 h-6">
+                <div className={`absolute transition-all duration-300 ${isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`}>
+                  <FaBars size={20} className={isMobileMenuOpen ? 'opacity-0' : 'opacity-100'} />
+                </div>
+                <div className={`absolute transition-all duration-300 ${isMobileMenuOpen ? 'opacity-100' : 'opacity-0 rotate-45'}`}>
+                  <FaTimes size={20} />
+                </div>
+              </div>
             </button>
           </div>
         </div>
 
         {/* Mobile menu */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden bg-white border-t">
-            <div className="px-4 py-3 space-y-3">
-              <button 
-                onClick={() => scrollToSection('inicio')}
-                className="block w-full text-left text-gray-700 font-medium py-2"
-              >
+        <div className={`md:hidden bg-white border-t overflow-hidden transition-all duration-300 ease-in-out ${
+          isMobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+        }`}>
+          <div className="px-4 py-3 space-y-1">
+            <button 
+              onClick={() => scrollToSection('inicio')}
+              className="block w-full text-left text-gray-700 hover:text-caribbean hover:bg-gray-50 font-medium py-3 px-3 rounded-lg transition-all duration-200 touch-manipulation"
+            >
+              <div className="flex items-center">
+                <Home className="mr-3" size={18} />
                 {t('navigation.home')}
-              </button>
-              <button 
-                onClick={() => scrollToSection('proyectos')}
-                className="block w-full text-left text-gray-700 font-medium py-2"
-              >
-                {t('navigation.projects')}
-              </button>
-              <button 
-                onClick={() => scrollToSection('testimonials')}
-                className="block w-full text-left text-gray-700 font-medium py-2"
-              >
-                {t('navigation.testimonials')}
-              </button>
-              <button 
-                onClick={() => scrollToSection('info-legal')}
-                className="block w-full text-left text-gray-700 font-medium py-2"
-              >
-                {t('navigation.legal')}
-              </button>
-              <div className="py-2">
-                <LanguageSwitcher />
               </div>
+            </button>
+            <button 
+              onClick={() => scrollToSection('proyectos')}
+              className="block w-full text-left text-gray-700 hover:text-caribbean hover:bg-gray-50 font-medium py-3 px-3 rounded-lg transition-all duration-200 touch-manipulation"
+            >
+              <div className="flex items-center">
+                <ArrowRight className="mr-3" size={18} />
+                {t('navigation.projects')}
+              </div>
+            </button>
+            <button 
+              onClick={() => scrollToSection('testimonials')}
+              className="block w-full text-left text-gray-700 hover:text-caribbean hover:bg-gray-50 font-medium py-3 px-3 rounded-lg transition-all duration-200 touch-manipulation"
+            >
+              <div className="flex items-center">
+                <Star className="mr-3" size={18} />
+                {t('navigation.testimonials')}
+              </div>
+            </button>
+            <button 
+              onClick={() => scrollToSection('info-legal')}
+              className="block w-full text-left text-gray-700 hover:text-caribbean hover:bg-gray-50 font-medium py-3 px-3 rounded-lg transition-all duration-200 touch-manipulation"
+            >
+              <div className="flex items-center">
+                <Scale className="mr-3" size={18} />
+                {t('navigation.legal')}
+              </div>
+            </button>
+            <div className="py-2 px-3">
+              <LanguageSwitcher />
+            </div>
+            <div className="px-3 pt-2">
               <Button 
                 onClick={() => {
                   setIsContactModalOpen(true);
                   setIsMobileMenuOpen(false);
                 }}
-                className="w-full bg-caribbean text-white hover:bg-caribbean/90"
+                className="w-full bg-caribbean text-white hover:bg-caribbean/90 h-12 text-base touch-manipulation"
               >
                 {t('navigation.contact')}
               </Button>
             </div>
           </div>
-        )}
+        </div>
       </header>
       {/* Hero Section */}
       <section id="inicio" className="relative bg-gradient-to-br from-slate-100 via-blue-50 to-cyan-50 min-h-screen flex items-center overflow-hidden">
@@ -329,30 +351,33 @@ export default function HomePage() {
               ))}
             </div>
           ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
               {(projects as Project[])?.map((project: Project) => {
                 const translatedProject = getTranslatedProject(project);
                 return (
                   <Card 
                     key={project.id} 
-                    className="overflow-hidden hover:shadow-xl transition-shadow group cursor-pointer"
+                    className="overflow-hidden hover:shadow-xl active:shadow-lg transition-all duration-300 group cursor-pointer transform hover:scale-[1.02] active:scale-[0.98] touch-manipulation"
                     onClick={() => navigateToProject(project)}
                   >
-                    <div className="overflow-hidden">
+                    <div className="overflow-hidden relative">
                       <img 
                         src={project.imageUrl} 
                         alt={translatedProject.title}
-                        className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                        className="w-full h-48 sm:h-52 object-cover group-hover:scale-105 group-active:scale-100 transition-transform duration-500"
+                        loading="lazy"
                       />
+                      {/* Mobile touch indicator */}
+                      <div className="absolute inset-0 bg-black bg-opacity-0 group-active:bg-opacity-10 transition-all duration-200 sm:hidden"></div>
                     </div>
-                    <CardContent className="p-6">
-                      <h3 className="font-semibold text-xl mb-2">{translatedProject.title}</h3>
-                      <p className="text-gray-600 mb-4">{translatedProject.description}</p>
-                      <div className="flex justify-between items-center">
-                        <span className="text-caribbean font-bold text-lg">
+                    <CardContent className="p-4 sm:p-6">
+                      <h3 className="font-semibold text-lg sm:text-xl mb-2 leading-tight">{translatedProject.title}</h3>
+                      <p className="text-gray-600 mb-4 text-sm sm:text-base leading-relaxed">{translatedProject.description}</p>
+                      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-0">
+                        <span className="text-caribbean font-bold text-lg sm:text-xl">
                           {t('common:general.from')} {project.price.replace(/^(Desde|From)\s*/i, '')}
                         </span>
-                        <button className="text-turquoise hover:text-caribbean font-medium flex items-center">
+                        <button className="text-turquoise hover:text-caribbean active:text-caribbean/80 font-medium flex items-center justify-center sm:justify-start h-10 sm:h-auto transition-colors duration-200">
                           {t('actions.view_details')} <ArrowRight className="ml-1" size={16} />
                         </button>
                       </div>
@@ -574,6 +599,47 @@ export default function HomePage() {
           </div>
         </div>
       </footer>
+      {/* Floating WhatsApp Button */}
+      <div className="fixed bottom-6 right-6 z-50">
+        <a
+          href="https://wa.me/18294444431?text=Hola%20Dario,%20estoy%20interesado%20en%20tus%20propiedades%20en%20República%20Dominicana"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-green-500 hover:bg-green-600 active:bg-green-700 text-white rounded-full p-4 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 active:scale-95 touch-manipulation group"
+          aria-label="Contactar por WhatsApp"
+        >
+          <FaWhatsapp size={24} className="group-hover:scale-110 transition-transform duration-200" />
+          
+          {/* Mobile tooltip */}
+          <div className="absolute bottom-full right-0 mb-2 hidden group-hover:block sm:group-hover:block">
+            <div className="bg-gray-900 text-white text-sm rounded-lg px-3 py-2 whitespace-nowrap">
+              {t('contact:whatsapp_tooltip', 'Contactar por WhatsApp')}
+              <div className="absolute top-full right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      {/* Quick Action Bar for Mobile */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 z-40 sm:hidden">
+        <div className="flex space-x-3">
+          <Button
+            onClick={() => setIsContactModalOpen(true)}
+            className="flex-1 bg-caribbean text-white hover:bg-caribbean/90 active:bg-caribbean/80 h-12 text-base"
+          >
+            <Mail className="mr-2" size={18} />
+            {t('contact:form.title')}
+          </Button>
+          <Button
+            onClick={() => setIsCalendlyModalOpen(true)}
+            className="flex-1 bg-turquoise text-white hover:bg-turquoise/90 active:bg-turquoise/80 h-12 text-base"
+          >
+            <Calendar className="mr-2" size={18} />
+            {t('contact:form.schedule_appointment')}
+          </Button>
+        </div>
+      </div>
+
       {/* Modals */}
       <ContactModal 
         isOpen={isContactModalOpen} 
