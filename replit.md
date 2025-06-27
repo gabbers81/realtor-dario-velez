@@ -130,6 +130,7 @@ The application is configured for Replit deployment with:
 
 ## Recent Changes
 
+- June 27, 2025. **Budget Field Made Optional**: Removed required validation from "Presupuesto a Invertir" field in contact form - users can now submit without specifying budget
 - June 27, 2025. **Calendly Integration Completed**: Successfully integrated https://calendly.com/gabriel-garrido18/30min with full multilingual support and responsive modal
 - June 27, 2025. **Added Agentic Innovations Credit**: Added subtle "Hecho por Agentic Innovations" attribution in footer corners with small font and transparency
 - June 27, 2025. **Location Section Multilingual Fix**: Fixed hardcoded Spanish labels in project detail location section - now properly translates "Location & Accessibility", "Airport", "Beach", and "Nearby Amenities" across all 6 languages
