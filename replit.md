@@ -130,6 +130,7 @@ The application is configured for Replit deployment with:
 
 ## Recent Changes
 
+- June 27, 2025. **Calendly Integration Completed**: Successfully integrated https://calendly.com/gabriel-garrido18/30min with full multilingual support and responsive modal
 - June 27, 2025. **Added Agentic Innovations Credit**: Added subtle "Hecho por Agentic Innovations" attribution in footer corners with small font and transparency
 - June 27, 2025. **Location Section Multilingual Fix**: Fixed hardcoded Spanish labels in project detail location section - now properly translates "Location & Accessibility", "Airport", "Beach", and "Nearby Amenities" across all 6 languages
 - June 27, 2025. **Enhanced Location Schema Implementation**: Added comprehensive location-based structured data for all 8 properties with precise coordinates, nearby amenities, distances to airports/beaches, and local attractions for improved local SEO
@@ -193,9 +194,10 @@ Additional feature: "¿Cuándo prefieres que te contactemos?" leads to Calendly 
 
 ## Calendly Integration
 
-- Ready for implementation with iframe embed structure
-- Placeholder URL needs to be replaced with actual Calendly link
-- Modal opens when user clicks "Agendar Cita Directamente" from contact form
+- **Active Integration**: https://calendly.com/gabriel-garrido18/30min embedded in modal
+- **Multilingual Support**: Calendly modal titles translate across all 6 languages
+- **User Flow**: Contact Form → "¿Cuándo prefieres que te contactemos?" → Calendly Modal opens for direct scheduling
+- **Mobile Responsive**: Optimized iframe display for desktop and mobile devices
 
 ## Testimonials Section
 
