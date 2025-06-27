@@ -535,16 +535,13 @@ export default function HomePage() {
                 {t('home:footer.description')}
               </p>
               <div className="flex space-x-4">
-                <a href="#" className="text-gray-400 hover:text-turquoise transition-colors">
+                <a href="https://www.facebook.com/profile.php?id=61553046359767" className="text-gray-400 hover:text-turquoise transition-colors">
                   <FaFacebook size={20} />
                 </a>
-                <a href="#" className="text-gray-400 hover:text-turquoise transition-colors">
+                <a href="https://www.instagram.com/dariovelez.oird/" className="text-gray-400 hover:text-turquoise transition-colors">
                   <FaInstagram size={20} />
                 </a>
-                <a href="#" className="text-gray-400 hover:text-turquoise transition-colors">
-                  <FaLinkedin size={20} />
-                </a>
-                <a href="#" className="text-gray-400 hover:text-turquoise transition-colors">
+                <a href="" className="text-gray-400 hover:text-turquoise transition-colors">
                   <FaWhatsapp size={20} />
                 </a>
               </div>
