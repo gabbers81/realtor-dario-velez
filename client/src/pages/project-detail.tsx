@@ -9,6 +9,7 @@ import { ArrowLeft, Download, Calendar, MapPin, Clock, DollarSign, MessageCircle
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { SEOHead } from "@/components/seo-head";
+import { generatePropertySchema, getLocationData } from "@/lib/property-schema";
 import type { Project } from "@/lib/types";
 import DarioVelezLogo from "@assets/DarioRealtorLogo_cropped_1750974653123.png";
 
@@ -86,6 +87,8 @@ export default function ProjectDetailPage() {
 
   const translatedProject = getTranslatedProject(project);
   const projectImage = project.imageUrl || "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=630";
+  const locationData = getLocationData(project.slug);
+  const { i18n } = useTranslation();
 
   return (
     <div className="min-h-screen bg-white">
@@ -97,13 +100,18 @@ export default function ProjectDetailPage() {
         type="article"
       />
       
-      {/* JSON-LD Structured Data */}
+      {/* Enhanced JSON-LD Structured Data with Location Schema */}
+      <script type="application/ld+json">
+        {JSON.stringify(generatePropertySchema(project, i18n.language))}
+      </script>
+      
+      {/* Additional Local Business Schema */}
       <script type="application/ld+json">
         {JSON.stringify({
           "@context": "https://schema.org",
           "@type": "RealEstateAgent",
           "name": "Dario Velez",
-          "url": window.location.origin,
+          "url": "https://dariovelez.com.do",
           "image": projectImage,
           "description": translatedProject.description,
           "areaServed": {
@@ -229,6 +237,37 @@ export default function ProjectDetailPage() {
                   ))}
                 </div>
               </div>
+
+              {/* Location Information */}
+              {locationData && (
+                <div className="mb-6">
+                  <h3 className="font-semibold text-lg mb-3">Ubicación y Accesibilidad</h3>
+                  <div className="bg-gray-50 rounded-lg p-4 space-y-3">
+                    <div className="flex items-center text-gray-700">
+                      <MapPin className="mr-2 text-turquoise" size={16} />
+                      <span className="text-sm">
+                        <strong>Aeropuerto:</strong> {locationData.distanceToAirport}
+                      </span>
+                    </div>
+                    <div className="flex items-center text-gray-700">
+                      <MapPin className="mr-2 text-caribbean" size={16} />
+                      <span className="text-sm">
+                        <strong>Playa:</strong> {locationData.distanceToBeach}
+                      </span>
+                    </div>
+                    <div className="mt-3">
+                      <h4 className="text-sm font-medium text-gray-800 mb-2">Amenidades Cercanas:</h4>
+                      <div className="flex flex-wrap gap-1">
+                        {locationData.nearbyAmenities.slice(0, 4).map((amenity, index) => (
+                          <Badge key={index} variant="secondary" className="text-xs">
+                            {amenity}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
             
             <div>

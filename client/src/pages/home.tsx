@@ -10,13 +10,14 @@ import { FaFacebook, FaInstagram, FaLinkedin, FaWhatsapp, FaBars, FaTimes } from
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { SEOHead } from "@/components/seo-head";
+import { generatePropertySchema } from "@/lib/property-schema";
 import type { Project } from "@/lib/types";
 
 import WhatsApp_Image_2025_06_25_at_19_11_55 from "@assets/WhatsApp Image 2025-06-25 at 19.11.55.jpeg";
 import DarioVelezLogo from "@assets/DarioRealtorLogo_cropped_1750974653123.png";
 
 export default function HomePage() {
-  const { t } = useTranslation(['common', 'home', 'contact', 'projects', 'legal', 'testimonials']);
+  const { t, i18n } = useTranslation(['common', 'home', 'contact', 'projects', 'legal', 'testimonials']);
   const [, setLocation] = useLocation();
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [isCalendlyModalOpen, setIsCalendlyModalOpen] = useState(false);
@@ -84,6 +85,26 @@ export default function HomePage() {
         title={t('home:seo.title', 'Dario Velez - Propiedades Exclusivas en República Dominicana')}
         description={t('common:seo.description')}
       />
+      
+      {/* Enhanced Location Schema for All Properties */}
+      {projects && Array.isArray(projects) && projects.length > 0 && (
+        <script 
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "ItemList",
+              "name": "Propiedades Premium en República Dominicana",
+              "description": "Exclusivas propiedades de turismo e inversión en las mejores ubicaciones de República Dominicana",
+              "itemListElement": (projects as Project[]).map((project: Project, index: number) => ({
+                "@type": "ListItem",
+                "position": index + 1,
+                "item": generatePropertySchema(project, i18n.language)
+              }))
+            })
+          }}
+        />
+      )}
       {/* Header */}
       <header className="bg-white shadow-sm sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
