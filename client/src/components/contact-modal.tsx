@@ -103,14 +103,14 @@ export function ContactModal({ isOpen, onClose, onOpenCalendly, projectSlug }: C
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="max-w-md">
+      <DialogContent className="max-w-md max-h-[90vh] overflow-y-auto mx-4 sm:mx-0">
         <DialogHeader>
-          <DialogTitle className="text-2xl text-gray-900">{t('contact:form.title')}</DialogTitle>
+          <DialogTitle className="text-xl sm:text-2xl text-gray-900">{t('contact:form.title')}</DialogTitle>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-4">
           <div>
-            <Label htmlFor="fullName" className="text-sm font-medium text-gray-700">
+            <Label htmlFor="fullName" className="text-sm font-medium text-gray-700 mb-2 block">
               {t('contact:form.full_name')} *
             </Label>
             <Input
@@ -120,12 +120,12 @@ export function ContactModal({ isOpen, onClose, onOpenCalendly, projectSlug }: C
               value={formData.fullName}
               onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
               placeholder={t('contact:form.full_name_placeholder')}
-              className="mt-2"
+              className="h-12 text-base focus:ring-2 focus:ring-caribbean"
             />
           </div>
 
           <div>
-            <Label htmlFor="email" className="text-sm font-medium text-gray-700">
+            <Label htmlFor="email" className="text-sm font-medium text-gray-700 mb-2 block">
               {t('contact:form.email')} *
             </Label>
             <Input
@@ -135,12 +135,12 @@ export function ContactModal({ isOpen, onClose, onOpenCalendly, projectSlug }: C
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
               placeholder={t('contact:form.email_placeholder')}
-              className="mt-2"
+              className="h-12 text-base focus:ring-2 focus:ring-caribbean"
             />
           </div>
 
           <div>
-            <Label htmlFor="phone" className="text-sm font-medium text-gray-700">
+            <Label htmlFor="phone" className="text-sm font-medium text-gray-700 mb-2 block">
               {t('contact:form.phone')} *
             </Label>
             <Input
@@ -150,19 +150,19 @@ export function ContactModal({ isOpen, onClose, onOpenCalendly, projectSlug }: C
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
               placeholder="+1 (829) 334-4567"
-              className="mt-2"
+              className="h-12 text-base focus:ring-2 focus:ring-caribbean"
             />
           </div>
 
           <div>
-            <Label htmlFor="budget" className="text-sm font-medium text-gray-700">
+            <Label htmlFor="budget" className="text-sm font-medium text-gray-700 mb-2 block">
               {t('contact:form.budget')}
             </Label>
             <Select
               value={formData.budget}
               onValueChange={(value) => setFormData({ ...formData, budget: value })}
             >
-              <SelectTrigger className="mt-2">
+              <SelectTrigger className="h-12 text-base focus:ring-2 focus:ring-caribbean">
                 <SelectValue placeholder={t('contact:form.budget_placeholder')} />
               </SelectTrigger>
               <SelectContent>
@@ -174,14 +174,14 @@ export function ContactModal({ isOpen, onClose, onOpenCalendly, projectSlug }: C
           </div>
 
           <div>
-            <Label htmlFor="downPayment" className="text-sm font-medium text-gray-700">
+            <Label htmlFor="downPayment" className="text-sm font-medium text-gray-700 mb-2 block">
               {t('contact:form.down_payment')}
             </Label>
             <Select
               value={formData.downPayment}
               onValueChange={(value) => setFormData({ ...formData, downPayment: value })}
             >
-              <SelectTrigger className="mt-2">
+              <SelectTrigger className="h-12 text-base focus:ring-2 focus:ring-caribbean">
                 <SelectValue placeholder={t('contact:form.down_payment_placeholder')} />
               </SelectTrigger>
               <SelectContent>
@@ -193,7 +193,7 @@ export function ContactModal({ isOpen, onClose, onOpenCalendly, projectSlug }: C
           </div>
 
           <div>
-            <Label htmlFor="whatInMind" className="text-sm font-medium text-gray-700">
+            <Label htmlFor="whatInMind" className="text-sm font-medium text-gray-700 mb-2 block">
               {t('contact:form.what_in_mind')}
             </Label>
             <textarea
@@ -201,28 +201,28 @@ export function ContactModal({ isOpen, onClose, onOpenCalendly, projectSlug }: C
               value={formData.whatInMind || ""}
               onChange={(e) => setFormData({ ...formData, whatInMind: e.target.value })}
               placeholder={t('contact:form.what_in_mind_placeholder')}
-              className="mt-2 w-full min-h-[80px] px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-caribbean focus:border-transparent resize-y"
+              className="w-full min-h-[100px] sm:min-h-[80px] px-4 py-3 text-base border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-caribbean focus:border-transparent resize-y"
             />
           </div>
 
-          <div className="pt-4 space-y-3">
+          <div className="pt-6 space-y-4">
             <Button 
               type="submit" 
-              className="w-full bg-caribbean text-white hover:bg-caribbean/90"
+              className="w-full h-12 text-base bg-caribbean text-white hover:bg-caribbean/90 active:bg-caribbean/80 transition-colors duration-200"
               disabled={createContactMutation.isPending}
             >
-              <Send className="mr-2" size={16} />
+              <Send className="mr-2" size={18} />
               {createContactMutation.isPending ? t('contact:form.sending') : t('contact:form.send_inquiry')}
             </Button>
             
-            <div className="text-center text-gray-600">{t('common:or')}</div>
+            <div className="text-center text-gray-600 text-sm">{t('common:or')}</div>
             
             <Button 
               type="button" 
               onClick={onOpenCalendly}
-              className="w-full bg-turquoise text-white hover:bg-turquoise/90"
+              className="w-full h-12 text-base bg-turquoise text-white hover:bg-turquoise/90 active:bg-turquoise/80 transition-colors duration-200"
             >
-              <Calendar className="mr-2" size={16} />
+              <Calendar className="mr-2" size={18} />
               {t('contact:form.schedule_appointment')}
             </Button>
           </div>
