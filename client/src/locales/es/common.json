@@ -33,7 +33,8 @@
   "actions": {
     "back": "Volver",
     "download": "Descargar",
-    "contact": "Contactar"
+    "contact": "Contactar",
+    "view_details": "Ver Detalles"
   },
   "seo": {
     "siteTitle": "Dario Velez - Propiedades Exclusivas en República Dominicana",

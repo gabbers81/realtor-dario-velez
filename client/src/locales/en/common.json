@@ -33,7 +33,8 @@
   "actions": {
     "back": "Back",
     "download": "Download",
-    "contact": "Contact"
+    "contact": "Contact",
+    "view_details": "View Details"
   },
   "seo": {
     "siteTitle": "Dario Velez - Exclusive Properties in Dominican Republic",

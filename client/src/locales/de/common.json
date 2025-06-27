@@ -35,5 +35,11 @@
     "download": "Herunterladen",
     "contact": "Kontakt"
   },
+  "actions": {
+    "back": "Zurück",
+    "download": "Herunterladen",
+    "contact": "Kontakt",
+    "view_details": "Details Ansehen"
+  },
   "or": "oder"
 }

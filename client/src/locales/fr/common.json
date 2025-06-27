@@ -33,7 +33,8 @@
   "actions": {
     "back": "Retour",
     "download": "Télécharger",
-    "contact": "Contacter"
+    "contact": "Contacter",
+    "view_details": "Voir Détails"
   },
   "or": "ou"
 }

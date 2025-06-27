@@ -49,6 +49,20 @@ export default function HomePage() {
     setLocation(`/proyecto/${project.slug}`);
   };
 
+  // Function to get translated project content
+  const getTranslatedProject = (project: Project) => {
+    const translatedTitle = t(`projects:projects.${project.slug}.title`, { defaultValue: project.title });
+    const translatedDescription = t(`projects:projects.${project.slug}.description`, { defaultValue: project.description });
+    const translatedLocation = t(`projects:projects.${project.slug}.location`, { defaultValue: project.location });
+    
+    return {
+      ...project,
+      title: translatedTitle,
+      description: translatedDescription,
+      location: translatedLocation
+    };
+  };
+
   useEffect(() => {
     if (isMobileMenuOpen) {
       document.body.style.overflow = 'hidden';
@@ -312,31 +326,34 @@ export default function HomePage() {
             </div>
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {(projects as Project[])?.map((project: Project) => (
-                <Card 
-                  key={project.id} 
-                  className="overflow-hidden hover:shadow-xl transition-shadow group cursor-pointer"
-                  onClick={() => navigateToProject(project)}
-                >
-                  <div className="overflow-hidden">
-                    <img 
-                      src={project.imageUrl} 
-                      alt={project.title}
-                      className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                  <CardContent className="p-6">
-                    <h3 className="font-semibold text-xl mb-2">{project.title}</h3>
-                    <p className="text-gray-600 mb-4">{project.description}</p>
-                    <div className="flex justify-between items-center">
-                      <span className="text-caribbean font-bold text-lg">{project.price}</span>
-                      <button className="text-turquoise hover:text-caribbean font-medium flex items-center">
-                        Ver Detalles <ArrowRight className="ml-1" size={16} />
-                      </button>
+              {(projects as Project[])?.map((project: Project) => {
+                const translatedProject = getTranslatedProject(project);
+                return (
+                  <Card 
+                    key={project.id} 
+                    className="overflow-hidden hover:shadow-xl transition-shadow group cursor-pointer"
+                    onClick={() => navigateToProject(project)}
+                  >
+                    <div className="overflow-hidden">
+                      <img 
+                        src={project.imageUrl} 
+                        alt={translatedProject.title}
+                        className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
                     </div>
-                  </CardContent>
-                </Card>
-              ))}
+                    <CardContent className="p-6">
+                      <h3 className="font-semibold text-xl mb-2">{translatedProject.title}</h3>
+                      <p className="text-gray-600 mb-4">{translatedProject.description}</p>
+                      <div className="flex justify-between items-center">
+                        <span className="text-caribbean font-bold text-lg">{project.price}</span>
+                        <button className="text-turquoise hover:text-caribbean font-medium flex items-center">
+                          {t('actions.view_details')} <ArrowRight className="ml-1" size={16} />
+                        </button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                );
+              })}
             </div>
           )}
         </div>
