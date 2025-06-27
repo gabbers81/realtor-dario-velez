@@ -15,7 +15,7 @@
       "121k_200k": "US$121,000 - US$200,000",
       "200k_plus": "US$200,000+"
     },
-    "down_payment": "Anzahlung, die Sie leisten können (Optional)",
+    "down_payment": "Anzahlung, die Sie leisten können",
     "down_payment_placeholder": "Prozentsatz auswählen",
     "down_payment_options": {
       "10_percent": "10%",

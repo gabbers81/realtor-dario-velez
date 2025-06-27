@@ -15,7 +15,7 @@
       "121k_200k": "US$121,000 - US$200,000",
       "200k_plus": "US$200,000+"
     },
-    "down_payment": "Entrada que você pode dar (Opcional)",
+    "down_payment": "Entrada que você pode dar",
     "down_payment_placeholder": "Selecione a porcentagem",
     "down_payment_options": {
       "10_percent": "10%",

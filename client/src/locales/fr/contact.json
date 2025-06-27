@@ -15,7 +15,7 @@
       "121k_200k": "US$121,000 - US$200,000",
       "200k_plus": "US$200,000+"
     },
-    "down_payment": "Acompte que vous pouvez verser (Optionnel)",
+    "down_payment": "Acompte que vous pouvez verser",
     "down_payment_placeholder": "Sélectionnez le pourcentage",
     "down_payment_options": {
       "10_percent": "10%",

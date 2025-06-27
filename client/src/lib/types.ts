@@ -4,6 +4,7 @@ export interface ContactFormData {
   phone: string;
   budget: string;
   downPayment?: string;
+  whatInMind?: string;
 }
 
 export interface Project {

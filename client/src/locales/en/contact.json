@@ -15,8 +15,10 @@
       "121k_200k": "US$121,000 - US$200,000",
       "200k_plus": "US$200,000+"
     },
-    "down_payment": "Down Payment You Can Make (Optional)",
+    "down_payment": "Down Payment You Can Make",
     "down_payment_placeholder": "Select percentage",
+    "what_in_mind": "What do you have in mind?",
+    "what_in_mind_placeholder": "Tell us your ideas or questions...",
     "down_payment_options": {
       "10_percent": "10%",
       "15_percent": "15%",
