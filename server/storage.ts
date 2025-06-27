@@ -27,9 +27,13 @@ try {
   console.log('Attempting to connect to Supabase with URL:', databaseUrl.replace(/:[^:@]+@/, ':***@'));
   
   // Handle special characters in password by URL encoding
-  const encodedUrl = databaseUrl.replace(/(:)([^:@]+)(@)/, (match, colon, password, at) => {
-    return colon + encodeURIComponent(password) + at;
-  });
+  let encodedUrl = databaseUrl;
+  const urlMatch = databaseUrl.match(/^postgresql:\/\/([^:]+):([^@]+)@(.+)$/);
+  if (urlMatch) {
+    const [, username, password, hostPart] = urlMatch;
+    const encodedPassword = encodeURIComponent(password);
+    encodedUrl = `postgresql://${username}:${encodedPassword}@${hostPart}`;
+  }
   
   console.log('Using encoded URL for connection');
   
