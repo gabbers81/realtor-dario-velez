@@ -187,7 +187,7 @@ The contact form now includes 5 questions as specified:
 1. Nombre completo (required)
 2. Correo electrónico (required) 
 3. Teléfono formato dominicano (required)
-4. Presupuesto a Invertir (required): US$80k-120k, US$121k-200k, US$200k+
+4. Presupuesto a Invertir (optional): US$80k-120k, US$121k-200k, US$200k+
 5. Inicial que puede pagar (optional): 10%, 15%, 20%
 
 Additional feature: "¿Cuándo prefieres que te contactemos?" leads to Calendly integration for appointment scheduling.

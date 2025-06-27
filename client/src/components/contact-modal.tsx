@@ -67,7 +67,7 @@ export function ContactModal({ isOpen, onClose, onOpenCalendly }: ContactModalPr
     e.preventDefault();
     
     // Basic validation
-    if (!formData.fullName || !formData.email || !formData.phone || !formData.budget) {
+    if (!formData.fullName || !formData.email || !formData.phone) {
       toast({
         title: t('contact:validation.required_fields'),
         description: t('contact:validation.complete_required'),
@@ -150,7 +150,7 @@ export function ContactModal({ isOpen, onClose, onOpenCalendly }: ContactModalPr
 
           <div>
             <Label htmlFor="budget" className="text-sm font-medium text-gray-700">
-              {t('contact:form.budget')} *
+              {t('contact:form.budget')}
             </Label>
             <Select
               value={formData.budget}
