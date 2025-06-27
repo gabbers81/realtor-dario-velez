@@ -295,9 +295,13 @@ export default function ProjectDetailPage() {
       {project.pdfUrl && (
         <section className="py-8">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-between items-center mb-6">
+            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 gap-4">
               <h2 className="text-2xl font-bold text-gray-900">{t('projects:detail.detailed_info')}</h2>
-              <Button onClick={downloadPDF} variant="outline">
+              <Button 
+                onClick={downloadPDF} 
+                variant="outline" 
+                className="hidden sm:flex touch-manipulation"
+              >
                 <Download className="mr-2" size={16} />
                 {t('projects:detail.download_pdf')}
               </Button>
@@ -412,33 +416,36 @@ export default function ProjectDetailPage() {
       </div>
 
       {/* Mobile Quick Action Bar */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 z-40 sm:hidden">
-        <div className="flex space-x-3">
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-3 z-40 sm:hidden shadow-lg">
+        <div className="flex space-x-2 max-w-screen-sm mx-auto">
           <Button
             onClick={() => setIsContactModalOpen(true)}
-            className="flex-1 bg-caribbean text-white hover:bg-caribbean/90 active:bg-caribbean/80 h-12 text-base touch-manipulation"
+            className="flex-1 bg-caribbean text-white hover:bg-caribbean/90 active:bg-caribbean/80 h-11 text-sm touch-manipulation min-w-0"
           >
-            <MessageCircle className="mr-2" size={18} />
-            {t('contact:form.title')}
+            <MessageCircle className="mr-1 flex-shrink-0" size={16} />
+            <span className="truncate">{t('contact:form.title')}</span>
           </Button>
           <Button
             onClick={() => setIsCalendlyModalOpen(true)}
-            className="flex-1 bg-turquoise text-white hover:bg-turquoise/90 active:bg-turquoise/80 h-12 text-base touch-manipulation"
+            className="flex-1 bg-turquoise text-white hover:bg-turquoise/90 active:bg-turquoise/80 h-11 text-sm touch-manipulation min-w-0"
           >
-            <Calendar className="mr-2" size={18} />
-            {t('contact:form.schedule_appointment')}
+            <Calendar className="mr-1 flex-shrink-0" size={16} />
+            <span className="truncate">{t('contact:form.schedule_appointment')}</span>
           </Button>
           {project.pdfUrl && (
             <Button
               onClick={downloadPDF}
               variant="outline"
-              className="px-4 h-12 touch-manipulation border-caribbean text-caribbean hover:bg-caribbean hover:text-white"
+              className="px-3 h-11 touch-manipulation border-caribbean text-caribbean hover:bg-caribbean hover:text-white flex-shrink-0"
             >
-              <Download size={18} />
+              <Download size={16} />
             </Button>
           )}
         </div>
       </div>
+
+      {/* Mobile content bottom padding to prevent overlap with action bar */}
+      <div className="h-20 sm:hidden"></div>
 
       {/* Desktop CTA Button */}
       <div className="hidden sm:block fixed bottom-6 right-6 z-50">
