@@ -144,15 +144,15 @@ Sitemap: ${process.env.NODE_ENV === 'production'
   // Create contact
   app.post("/api/contacts", async (req, res) => {
     try {
-      // Transform camelCase frontend fields to snake_case backend fields
+      // Keep camelCase for schema validation (Drizzle will handle the database mapping)
       const transformedData = {
-        full_name: req.body.fullName,
+        fullName: req.body.fullName,
         email: req.body.email,
         phone: req.body.phone,
-        budget: req.body.budget || null,
-        down_payment: req.body.downPayment || null,
-        what_in_mind: req.body.whatInMind || null,
-        project_slug: req.body.projectSlug || null,
+        budget: req.body.budget || 'No especificado', // Default value since DB has NOT NULL constraint
+        downPayment: req.body.downPayment || null,
+        whatInMind: req.body.whatInMind || null,
+        projectSlug: req.body.projectSlug || null,
       };
 
       const validatedData = insertContactSchema.parse(transformedData);
