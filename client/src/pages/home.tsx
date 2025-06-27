@@ -600,21 +600,21 @@ export default function HomePage() {
         </div>
       </footer>
       {/* Floating WhatsApp Button */}
-      <div className="fixed bottom-6 right-6 z-50">
+      <div className="fixed bottom-6 right-4 z-50 sm:right-6">
         <a
           href="https://wa.me/18294444431?text=Hola%20Dario,%20estoy%20interesado%20en%20tus%20propiedades%20en%20República%20Dominicana"
           target="_blank"
           rel="noopener noreferrer"
-          className="bg-green-500 hover:bg-green-600 active:bg-green-700 text-white rounded-full p-4 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 active:scale-95 touch-manipulation group"
+          className="bg-green-500 hover:bg-green-600 active:bg-green-700 text-white rounded-full p-3 sm:p-4 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 active:scale-95 touch-manipulation group flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16"
           aria-label="Contactar por WhatsApp"
         >
-          <FaWhatsapp size={24} className="group-hover:scale-110 transition-transform duration-200" />
+          <FaWhatsapp size={20} className="sm:w-6 sm:h-6 group-hover:scale-110 transition-transform duration-200" />
           
           {/* Mobile tooltip */}
           <div className="absolute bottom-full right-0 mb-2 hidden group-hover:block sm:group-hover:block">
-            <div className="bg-gray-900 text-white text-sm rounded-lg px-3 py-2 whitespace-nowrap">
+            <div className="bg-gray-900 text-white text-xs sm:text-sm rounded-lg px-2 py-1 sm:px-3 sm:py-2 whitespace-nowrap">
               {t('contact:whatsapp_tooltip', 'Contactar por WhatsApp')}
-              <div className="absolute top-full right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+              <div className="absolute top-full right-2 sm:right-4 w-0 h-0 border-l-2 border-r-2 border-t-2 sm:border-l-4 sm:border-r-4 sm:border-t-4 border-transparent border-t-gray-900"></div>
             </div>
           </div>
         </a>

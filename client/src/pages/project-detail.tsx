@@ -397,17 +397,17 @@ export default function ProjectDetailPage() {
       </footer>
 
       {/* Floating WhatsApp Button */}
-      <div className="fixed bottom-20 right-6 z-50 sm:bottom-6">
+      <div className="fixed bottom-20 right-4 z-50 sm:bottom-6 sm:right-6">
         <a
           href={`https://wa.me/18294444431?text=${encodeURIComponent(
             `Hola Dario, estoy interesado en el proyecto ${translatedProject.title} en ${translatedProject.location}. ¿Podrías darme más información?`
           )}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="bg-green-500 hover:bg-green-600 active:bg-green-700 text-white rounded-full p-4 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 active:scale-95 touch-manipulation group block"
+          className="bg-green-500 hover:bg-green-600 active:bg-green-700 text-white rounded-full p-3 sm:p-4 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 active:scale-95 touch-manipulation group flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16"
           aria-label="Contactar por WhatsApp"
         >
-          <FaWhatsapp size={24} className="group-hover:scale-110 transition-transform duration-200" />
+          <FaWhatsapp size={20} className="sm:w-6 sm:h-6 group-hover:scale-110 transition-transform duration-200" />
         </a>
       </div>
 
