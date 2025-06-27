@@ -100,9 +100,21 @@ export class SupabaseStorage implements IStorage {
 
   async createContact(insertContact: InsertContact): Promise<Contact> {
     try {
-      const [contact] = await db.insert(contacts).values(insertContact).returning();
+      // Handle missing projectSlug column gracefully for direct DB connection
+      const contactData = { ...insertContact };
+      
+      const [contact] = await db.insert(contacts).values(contactData).returning();
       return contact;
     } catch (error: any) {
+      // Handle missing project_slug column in direct connection
+      if (error?.code === '42703' && error?.message?.includes('project_slug')) {
+        console.log('⚠️ project_slug column does not exist in direct connection, creating contact without it...');
+        const contactWithoutSlug = { ...insertContact };
+        delete contactWithoutSlug.projectSlug;
+        
+        const [retryContact] = await db.insert(contacts).values(contactWithoutSlug).returning();
+        return retryContact;
+      }
       if ((error?.code === 'ENOTFOUND' || error?.errno === -3007) && supabaseClient) {
         console.log('🔄 Direct connection failed, using REST API fallback for contact creation...');
         const { data, error: restError } = await supabaseClient
@@ -112,11 +124,12 @@ export class SupabaseStorage implements IStorage {
           .single();
         
         if (restError) {
+          console.error('REST API error details:', restError);
           // Handle case where project_slug column doesn't exist yet
           if (restError.code === '42703' && restError.message.includes('project_slug')) {
             console.log('⚠️ project_slug column does not exist, creating contact without it...');
             const contactWithoutSlug = { ...insertContact };
-            delete contactWithoutSlug.projectSlug;
+            delete contactWithoutSlug.project_slug;
             
             const { data: retryData, error: retryError } = await supabaseClient
               .from('contacts')
@@ -125,6 +138,7 @@ export class SupabaseStorage implements IStorage {
               .single();
             
             if (retryError) {
+              console.error('REST API retry error:', retryError);
               throw new Error(`REST API retry error: ${retryError.message}`);
             }
             

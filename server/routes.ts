@@ -144,17 +144,29 @@ Sitemap: ${process.env.NODE_ENV === 'production'
   // Create contact
   app.post("/api/contacts", async (req, res) => {
     try {
-      const validatedData = insertContactSchema.parse(req.body);
+      // Transform camelCase frontend fields to snake_case backend fields
+      const transformedData = {
+        full_name: req.body.fullName,
+        email: req.body.email,
+        phone: req.body.phone,
+        budget: req.body.budget || null,
+        down_payment: req.body.downPayment || null,
+        what_in_mind: req.body.whatInMind || null,
+        project_slug: req.body.projectSlug || null,
+      };
+
+      const validatedData = insertContactSchema.parse(transformedData);
       const contact = await storage.createContact(validatedData);
       res.status(201).json(contact);
     } catch (error) {
+      console.error('Contact creation error:', error);
       if (error instanceof z.ZodError) {
         return res.status(400).json({ 
           message: "Validation error", 
           errors: error.errors 
         });
       }
-      res.status(500).json({ message: "Error creating contact" });
+      res.status(500).json({ message: "Error creating contact", error: error instanceof Error ? error.message : String(error) });
     }
   });
 
