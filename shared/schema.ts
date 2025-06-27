@@ -10,6 +10,7 @@ export const contacts = pgTable("contacts", {
   budget: text("budget"),
   downPayment: text("down_payment"),
   whatInMind: text("what_in_mind"),
+  projectSlug: text("project_slug"),
   createdAt: timestamp("created_at").defaultNow(),
 });
 

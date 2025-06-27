@@ -15,9 +15,10 @@ interface ContactModalProps {
   isOpen: boolean;
   onClose: () => void;
   onOpenCalendly: () => void;
+  projectSlug?: string;
 }
 
-export function ContactModal({ isOpen, onClose, onOpenCalendly }: ContactModalProps) {
+export function ContactModal({ isOpen, onClose, onOpenCalendly, projectSlug }: ContactModalProps) {
   const { t } = useTranslation(['common', 'contact']);
   const [formData, setFormData] = useState<ContactFormData>({
     fullName: "",
@@ -88,7 +89,11 @@ export function ContactModal({ isOpen, onClose, onOpenCalendly }: ContactModalPr
       return;
     }
 
-    createContactMutation.mutate(formData);
+    const submissionData = { ...formData };
+    if (projectSlug) {
+      submissionData.projectSlug = projectSlug;
+    }
+    createContactMutation.mutate(submissionData);
   };
 
   const handleClose = () => {

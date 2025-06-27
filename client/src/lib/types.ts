@@ -5,6 +5,7 @@ export interface ContactFormData {
   budget: string;
   downPayment?: string;
   whatInMind?: string;
+  projectSlug?: string;
 }
 
 export interface Project {

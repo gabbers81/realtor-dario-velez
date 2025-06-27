@@ -404,6 +404,7 @@ export default function ProjectDetailPage() {
           setIsContactModalOpen(false);
           setIsCalendlyModalOpen(true);
         }}
+        projectSlug={slug}
       />
       <CalendlyModal 
         isOpen={isCalendlyModalOpen} 
