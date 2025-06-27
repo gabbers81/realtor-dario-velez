@@ -308,7 +308,7 @@ export default function HomePage() {
                   <Shield className="text-turquoise text-2xl" size={32} />
                 </div>
                 <h3 className="font-semibold text-xl mb-2">Experiencia</h3>
-                <p className="text-gray-600">Más de 15+ transacciones exitosas en la zona turística de Punta Cana y Bávaro</p>
+                <p className="text-gray-600">Más de 15+ transacciones exitosas en la zona turística de Punta Cana, Bávaro, Bayahibe, Las Terrenas y Santo Domingo</p>
               </CardContent>
             </Card>
 
