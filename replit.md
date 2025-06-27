@@ -130,7 +130,9 @@ The application is configured for Replit deployment with:
 
 ## Recent Changes
 
-- June 27, 2025. **Project Tracking System Implemented**: Contact submissions from project pages now capture project slug for lead attribution with graceful database fallback
+- June 27, 2025. **Direct Supabase Connection Established**: Fixed URL encoding issues and established direct database connection using Transaction Pooler for full database operations
+- June 27, 2025. **Complete Database Schema Updated**: Added project_slug, what_in_mind, and down_payment columns with all contact form fields now properly saved
+- June 27, 2025. **Project Tracking System Implemented**: Contact submissions from project pages now capture project slug for lead attribution with direct database operations
 - June 27, 2025. **Contact Form Enhanced**: Added new "¿Qué tienes en mente?" text area field and updated down payment label to remove "(Opcional)" text - form now has 6 fields total with multilingual support
 - June 27, 2025. **Budget Field Made Optional**: Removed required validation from "Presupuesto a Invertir" field in contact form - users can now submit without specifying budget
 - June 27, 2025. **Calendly Integration Completed**: Successfully integrated https://calendly.com/gabriel-garrido18/30min with full multilingual support and responsive modal
