@@ -14,7 +14,7 @@ import type { Project } from "@/lib/types";
 import DarioVelezLogo from "@assets/DarioRealtorLogo_cropped_1750974653123.png";
 
 export default function ProjectDetailPage() {
-  const { t } = useTranslation(['common', 'home', 'contact', 'projects']);
+  const { t, i18n } = useTranslation(['common', 'home', 'contact', 'projects']);
   const [location] = useLocation();
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [isCalendlyModalOpen, setIsCalendlyModalOpen] = useState(false);
@@ -88,7 +88,6 @@ export default function ProjectDetailPage() {
   const translatedProject = getTranslatedProject(project);
   const projectImage = project.imageUrl || "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=630";
   const locationData = getLocationData(project.slug);
-  const { i18n } = useTranslation();
 
   return (
     <div className="min-h-screen bg-white">
