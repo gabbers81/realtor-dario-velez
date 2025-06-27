@@ -240,22 +240,22 @@ export default function ProjectDetailPage() {
               {/* Location Information */}
               {locationData && (
                 <div className="mb-6">
-                  <h3 className="font-semibold text-lg mb-3">Ubicación y Accesibilidad</h3>
+                  <h3 className="font-semibold text-lg mb-3">{t('projects:detail.location_accessibility')}</h3>
                   <div className="bg-gray-50 rounded-lg p-4 space-y-3">
                     <div className="flex items-center text-gray-700">
                       <MapPin className="mr-2 text-turquoise" size={16} />
                       <span className="text-sm">
-                        <strong>Aeropuerto:</strong> {locationData.distanceToAirport}
+                        <strong>{t('projects:detail.airport')}:</strong> {locationData.distanceToAirport}
                       </span>
                     </div>
                     <div className="flex items-center text-gray-700">
                       <MapPin className="mr-2 text-caribbean" size={16} />
                       <span className="text-sm">
-                        <strong>Playa:</strong> {locationData.distanceToBeach}
+                        <strong>{t('projects:detail.beach')}:</strong> {locationData.distanceToBeach}
                       </span>
                     </div>
                     <div className="mt-3">
-                      <h4 className="text-sm font-medium text-gray-800 mb-2">Amenidades Cercanas:</h4>
+                      <h4 className="text-sm font-medium text-gray-800 mb-2">{t('projects:detail.nearby_amenities')}:</h4>
                       <div className="flex flex-wrap gap-1">
                         {locationData.nearbyAmenities.slice(0, 4).map((amenity, index) => (
                           <Badge key={index} variant="secondary" className="text-xs">
