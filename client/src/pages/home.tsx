@@ -619,7 +619,6 @@ export default function HomePage() {
           </div>
         </a>
       </div>
-
       {/* Quick Action Bar for Mobile */}
       <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-3 z-40 sm:hidden shadow-lg">
         <div className="flex space-x-2 max-w-screen-sm mx-auto">
@@ -628,18 +627,17 @@ export default function HomePage() {
             className="flex-1 bg-caribbean text-white hover:bg-caribbean/90 active:bg-caribbean/80 h-12 text-xs touch-manipulation min-w-0 px-3"
           >
             <Mail className="mr-1 flex-shrink-0" size={14} />
-            <span className="truncate">{t('common:buttons.contact_me')}</span>
+            <span className="truncate text-[16px]">{t('common:buttons.contact_me')}</span>
           </Button>
           <Button
             onClick={() => setIsCalendlyModalOpen(true)}
             className="flex-1 bg-turquoise text-white hover:bg-turquoise/90 active:bg-turquoise/80 h-12 text-xs touch-manipulation min-w-0 px-3"
           >
             <Calendar className="mr-1 flex-shrink-0" size={14} />
-            <span className="truncate">{t('common:buttons.schedule_appointment')}</span>
+            <span className="truncate text-[16px]">{t('common:buttons.schedule_appointment')}</span>
           </Button>
         </div>
       </div>
-
       {/* Modals */}
       <ContactModal 
         isOpen={isContactModalOpen} 
