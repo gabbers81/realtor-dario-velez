@@ -33,7 +33,8 @@
   "actions": {
     "back": "Voltar",
     "download": "Baixar",
-    "contact": "Contato"
+    "contact": "Contato",
+    "view_details": "Ver Detalhes"
   },
   "or": "ou"
 }
