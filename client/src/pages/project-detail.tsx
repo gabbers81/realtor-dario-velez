@@ -380,6 +380,7 @@ export default function ProjectDetailPage() {
           
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
             <p>© 2025 Dario Velez. Todos los derechos reservados.</p>
+            <p className="text-xs mt-2 opacity-70">Hecho por Agentic Innovations</p>
           </div>
         </div>
       </footer>

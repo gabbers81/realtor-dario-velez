@@ -571,6 +571,7 @@ export default function HomePage() {
           
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
             <p>{t('home:footer.copyright')}</p>
+            <p className="text-xs mt-2 opacity-70">Hecho por Agentic Innovations</p>
           </div>
         </div>
       </footer>
