@@ -28,7 +28,8 @@
     "services": "Servicios",
     "contact": "Contacto",
     "years_experience": "años de experiencia",
-    "dominican_republic": "República Dominicana"
+    "dominican_republic": "República Dominicana",
+    "from": "Desde"
   },
   "actions": {
     "back": "Volver",

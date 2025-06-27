@@ -54,16 +54,9 @@ export default function HomePage() {
     // Convert slug to the format used in translation files (replace hyphens with underscores)
     const translationKey = project.slug.replace(/-/g, '_');
     
-    // Debug log to check translation keys
-    console.log('Translation key:', translationKey, 'for project:', project.slug);
-    console.log('Looking for:', `projects:properties.${translationKey}.title`);
-    
     const translatedTitle = t(`projects:properties.${translationKey}.title`, { defaultValue: project.title });
     const translatedDescription = t(`projects:properties.${translationKey}.description`, { defaultValue: project.description });
     const translatedLocation = t(`projects:properties.${translationKey}.location`, { defaultValue: project.location });
-    
-    console.log('Translated title:', translatedTitle);
-    console.log('Translated description:', translatedDescription);
     
     return {
       ...project,
@@ -355,7 +348,9 @@ export default function HomePage() {
                       <h3 className="font-semibold text-xl mb-2">{translatedProject.title}</h3>
                       <p className="text-gray-600 mb-4">{translatedProject.description}</p>
                       <div className="flex justify-between items-center">
-                        <span className="text-caribbean font-bold text-lg">{project.price}</span>
+                        <span className="text-caribbean font-bold text-lg">
+                          {t('common:general.from')} {project.price.replace(/^(Desde|From)\s*/i, '')}
+                        </span>
                         <button className="text-turquoise hover:text-caribbean font-medium flex items-center">
                           {t('actions.view_details')} <ArrowRight className="ml-1" size={16} />
                         </button>
