@@ -44,5 +44,8 @@
   "project_interest": {
     "title": "Interesado en {{projectTitle}}",
     "description": "Me gustaría obtener más información sobre este proyecto y explorar oportunidades de inversión."
+  },
+  "calendly": {
+    "title": "Agendar Consulta"
   }
 }
