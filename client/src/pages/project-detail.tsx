@@ -21,12 +21,20 @@ export default function ProjectDetailPage() {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [isCalendlyModalOpen, setIsCalendlyModalOpen] = useState(false);
 
+  // Navigation function
+  const goBack = () => {
+    // Check if there's history to go back to
+    if (window.history.length > 1) {
+      window.history.back();
+    } else {
+      // Fallback to home page if no history
+      setLocation('/');
+    }
+  };
+
   // Swipe gestures for navigation
   const swipeHandlers = useSwipe({
-    onSwipeRight: () => {
-      // Go back on right swipe
-      window.history.back();
-    },
+    onSwipeRight: goBack,
     threshold: 100,
   });
 
