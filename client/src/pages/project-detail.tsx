@@ -5,19 +5,30 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ContactModal } from "@/components/contact-modal";
 import { CalendlyModal } from "@/components/calendly-modal";
-import { ArrowLeft, Download, Calendar, MapPin, Clock, DollarSign, MessageCircle, Home, FileText } from "lucide-react";
+import { ArrowLeft, Download, Calendar, MapPin, Clock, DollarSign, MessageCircle, Home, FileText, ExternalLink, Navigation, Phone } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { SEOHead } from "@/components/seo-head";
 import { generatePropertySchema, getLocationData } from "@/lib/property-schema";
+import { useSwipe } from "@/hooks/use-swipe";
 import type { Project } from "@/lib/types";
 import DarioVelezLogo from "@assets/DarioRealtorLogo_cropped_1750974653123.png";
 
 export default function ProjectDetailPage() {
   const { t, i18n } = useTranslation(['common', 'home', 'contact', 'projects']);
-  const [location] = useLocation();
+  const [location, setLocation] = useLocation();
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [isCalendlyModalOpen, setIsCalendlyModalOpen] = useState(false);
+
+  // Swipe gestures for navigation
+  const swipeHandlers = useSwipe({
+    onSwipeRight: () => {
+      // Go back on right swipe
+      window.history.back();
+    },
+    threshold: 100,
+  });
 
   // Extract slug from location
   const slug = location.split('/proyecto/')[1];
@@ -90,7 +101,7 @@ export default function ProjectDetailPage() {
   const locationData = getLocationData(project.slug);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white" {...swipeHandlers}>
       <SEOHead 
         title={`${translatedProject.title} - ${translatedProject.location}`}
         description={`${translatedProject.description} ${translatedProject.price} - ${t('projects:detail.contact_project')}`}
