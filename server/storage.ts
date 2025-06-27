@@ -117,23 +117,45 @@ export class SupabaseStorage implements IStorage {
       }
       if ((error?.code === 'ENOTFOUND' || error?.errno === -3007) && supabaseClient) {
         console.log('🔄 Direct connection failed, using REST API fallback for contact creation...');
+        
+        // Transform camelCase to snake_case for REST API
+        const restApiData = {
+          full_name: insertContact.fullName,
+          email: insertContact.email,
+          phone: insertContact.phone,
+          budget: insertContact.budget,
+          down_payment: insertContact.downPayment,
+          what_in_mind: insertContact.whatInMind,
+          project_slug: insertContact.projectSlug,
+        };
+        
         const { data, error: restError } = await supabaseClient
           .from('contacts')
-          .insert(insertContact)
+          .insert(restApiData)
           .select()
           .single();
         
         if (restError) {
           console.error('REST API error details:', restError);
-          // Handle case where project_slug column doesn't exist yet
-          if (restError.code === '42703' && restError.message.includes('project_slug')) {
-            console.log('⚠️ project_slug column does not exist, creating contact without it...');
-            const contactWithoutSlug = { ...insertContact };
-            delete (contactWithoutSlug as any).projectSlug;
+          console.log('Checking error conditions:');
+          console.log('- restError.code:', restError.code);
+          console.log('- message includes column:', restError.message.includes('column'));
+          console.log('- message includes schema cache:', restError.message.includes('schema cache'));
+          
+          // Handle case where new columns don't exist yet - create minimal contact
+          if (restError.code === 'PGRST204' || restError.code === '42703' || restError.message.includes('column') || restError.message.includes('schema cache')) {
+            console.log('⚠️ Some columns do not exist, creating contact with basic fields only...');
+            
+            const minimalData = {
+              full_name: insertContact.fullName,
+              email: insertContact.email,
+              phone: insertContact.phone,
+              budget: insertContact.budget || 'No especificado'
+            };
             
             const { data: retryData, error: retryError } = await supabaseClient
               .from('contacts')
-              .insert(contactWithoutSlug)
+              .insert(minimalData)
               .select()
               .single();
             
@@ -142,6 +164,7 @@ export class SupabaseStorage implements IStorage {
               throw new Error(`REST API retry error: ${retryError.message}`);
             }
             
+            console.log('✅ Contact created successfully with basic fields');
             return retryData;
           }
           throw new Error(`REST API error: ${restError.message}`);
