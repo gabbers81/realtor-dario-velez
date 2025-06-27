@@ -66,10 +66,6 @@ export default function ProjectDetailPage() {
     };
   };
 
-  const goBack = () => {
-    window.history.back();
-  };
-
   const downloadPDF = () => {
     if (project && project.pdfUrl) {
       const link = document.createElement('a');
