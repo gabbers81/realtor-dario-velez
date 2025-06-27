@@ -17,6 +17,8 @@
     },
     "down_payment": "Anzahlung, die Sie leisten können",
     "down_payment_placeholder": "Prozentsatz auswählen",
+    "what_in_mind": "Was haben Sie im Sinn?",
+    "what_in_mind_placeholder": "Erzählen Sie uns Ihre Ideen oder Fragen...",
     "down_payment_options": {
       "10_percent": "10%",
       "15_percent": "15%",

@@ -60,6 +60,7 @@ export function ContactModal({ isOpen, onClose, onOpenCalendly }: ContactModalPr
       phone: "",
       budget: "",
       downPayment: "",
+      whatInMind: "",
     });
   };
 
@@ -184,6 +185,19 @@ export function ContactModal({ isOpen, onClose, onOpenCalendly }: ContactModalPr
                 <SelectItem value="20%">20%</SelectItem>
               </SelectContent>
             </Select>
+          </div>
+
+          <div>
+            <Label htmlFor="whatInMind" className="text-sm font-medium text-gray-700">
+              {t('contact:form.what_in_mind')}
+            </Label>
+            <textarea
+              id="whatInMind"
+              value={formData.whatInMind || ""}
+              onChange={(e) => setFormData({ ...formData, whatInMind: e.target.value })}
+              placeholder={t('contact:form.what_in_mind_placeholder')}
+              className="mt-2 w-full min-h-[80px] px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-caribbean focus:border-transparent resize-y"
+            />
           </div>
 
           <div className="pt-4 space-y-3">

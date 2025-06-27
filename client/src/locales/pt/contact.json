@@ -17,6 +17,8 @@
     },
     "down_payment": "Entrada que você pode dar",
     "down_payment_placeholder": "Selecione a porcentagem",
+    "what_in_mind": "O que você tem em mente?",
+    "what_in_mind_placeholder": "Conte-nos suas ideias ou perguntas...",
     "down_payment_options": {
       "10_percent": "10%",
       "15_percent": "15%",

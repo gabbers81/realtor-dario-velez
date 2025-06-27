@@ -17,6 +17,8 @@
     },
     "down_payment": "Acompte que vous pouvez verser",
     "down_payment_placeholder": "Sélectionnez le pourcentage",
+    "what_in_mind": "Qu'avez-vous en tête?",
+    "what_in_mind_placeholder": "Parlez-nous de vos idées ou questions...",
     "down_payment_options": {
       "10_percent": "10%",
       "15_percent": "15%",
