@@ -112,6 +112,24 @@ export class SupabaseStorage implements IStorage {
           .single();
         
         if (restError) {
+          // Handle case where project_slug column doesn't exist yet
+          if (restError.code === '42703' && restError.message.includes('project_slug')) {
+            console.log('⚠️ project_slug column does not exist, creating contact without it...');
+            const contactWithoutSlug = { ...insertContact };
+            delete contactWithoutSlug.projectSlug;
+            
+            const { data: retryData, error: retryError } = await supabaseClient
+              .from('contacts')
+              .insert(contactWithoutSlug)
+              .select()
+              .single();
+            
+            if (retryError) {
+              throw new Error(`REST API retry error: ${retryError.message}`);
+            }
+            
+            return retryData;
+          }
           throw new Error(`REST API error: ${restError.message}`);
         }
         
