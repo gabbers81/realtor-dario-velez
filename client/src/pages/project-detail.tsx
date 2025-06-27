@@ -163,7 +163,7 @@ export default function ProjectDetailPage() {
           <div className="flex justify-between items-center py-4">
             {/* Logo and Navigation */}
             <div className="flex items-center space-x-8">
-              <div className="flex items-center space-x-3">
+              <a href="/" className="flex items-center space-x-3 hover:opacity-80 transition-opacity cursor-pointer">
                 <img 
                   src={DarioVelezLogo} 
                   alt="Dario Velez Realtor Logo" 
@@ -173,7 +173,7 @@ export default function ProjectDetailPage() {
                   <h1 className="font-bold text-xl text-gray-900">Dario Velez</h1>
                   <p className="text-sm text-gray-600">{t('common:tagline')}</p>
                 </div>
-              </div>
+              </a>
               
               {/* Navigation Links - Desktop */}
               <nav className="hidden lg:flex space-x-8">

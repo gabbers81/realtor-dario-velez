@@ -89,7 +89,7 @@ export default function HomePage() {
       <header className="bg-white shadow-sm sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
-            <div className="flex items-center space-x-3">
+            <button onClick={() => scrollToSection('inicio')} className="flex items-center space-x-3 hover:opacity-80 transition-opacity cursor-pointer">
               <div className="w-16 h-16 rounded-full overflow-hidden flex items-center justify-center">
                 <img 
                   src={DarioVelezLogo} 
@@ -101,7 +101,7 @@ export default function HomePage() {
                 <h1 className="font-semibold text-gray-900 text-lg">Dario Velez</h1>
                 <p className="text-sm text-gray-600">{t('tagline')}</p>
               </div>
-            </div>
+            </button>
             
             <nav className="hidden md:flex items-center space-x-8">
               <button 
