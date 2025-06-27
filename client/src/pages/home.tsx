@@ -51,9 +51,19 @@ export default function HomePage() {
 
   // Function to get translated project content
   const getTranslatedProject = (project: Project) => {
-    const translatedTitle = t(`projects:projects.${project.slug}.title`, { defaultValue: project.title });
-    const translatedDescription = t(`projects:projects.${project.slug}.description`, { defaultValue: project.description });
-    const translatedLocation = t(`projects:projects.${project.slug}.location`, { defaultValue: project.location });
+    // Convert slug to the format used in translation files (replace hyphens with underscores)
+    const translationKey = project.slug.replace(/-/g, '_');
+    
+    // Debug log to check translation keys
+    console.log('Translation key:', translationKey, 'for project:', project.slug);
+    console.log('Looking for:', `projects:properties.${translationKey}.title`);
+    
+    const translatedTitle = t(`projects:properties.${translationKey}.title`, { defaultValue: project.title });
+    const translatedDescription = t(`projects:properties.${translationKey}.description`, { defaultValue: project.description });
+    const translatedLocation = t(`projects:properties.${translationKey}.location`, { defaultValue: project.location });
+    
+    console.log('Translated title:', translatedTitle);
+    console.log('Translated description:', translatedDescription);
     
     return {
       ...project,
