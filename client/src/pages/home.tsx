@@ -86,25 +86,6 @@ export default function HomePage() {
         description={t('common:seo.description')}
       />
       
-      {/* Enhanced Location Schema for All Properties */}
-      {projects && Array.isArray(projects) && projects.length > 0 && (
-        <script 
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "ItemList",
-              "name": "Propiedades Premium en República Dominicana",
-              "description": "Exclusivas propiedades de turismo e inversión en las mejores ubicaciones de República Dominicana",
-              "itemListElement": (projects as Project[]).map((project: Project, index: number) => ({
-                "@type": "ListItem",
-                "position": index + 1,
-                "item": generatePropertySchema(project, i18n.language)
-              }))
-            })
-          }}
-        />
-      )}
       {/* Header */}
       <header className="bg-white shadow-sm sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
