@@ -603,7 +603,7 @@ export default function HomePage() {
         </div>
       </footer>
       {/* Floating WhatsApp Button */}
-      <div className="fixed bottom-6 right-4 z-50 sm:right-6">
+      <div className="fixed bottom-20 right-4 z-50 sm:bottom-6 sm:right-6">
         <a
           href="https://wa.me/18294444431?text=Hola%20Dario,%20estoy%20interesado%20en%20tus%20propiedades%20en%20República%20Dominicana"
           target="_blank"
@@ -630,14 +630,14 @@ export default function HomePage() {
             className="flex-1 bg-caribbean text-white hover:bg-caribbean/90 active:bg-caribbean/80 h-12 text-xs touch-manipulation min-w-0 px-3"
           >
             <Mail className="mr-1 flex-shrink-0" size={14} />
-            <span className="truncate text-[16px]">{t('common:buttons.contact_me')}</span>
+            <span className="truncate">{t('common:buttons.contact_me')}</span>
           </Button>
           <Button
             onClick={() => setIsCalendlyModalOpen(true)}
             className="flex-1 bg-turquoise text-white hover:bg-turquoise/90 active:bg-turquoise/80 h-12 text-xs touch-manipulation min-w-0 px-3"
           >
             <Calendar className="mr-1 flex-shrink-0" size={14} />
-            <span className="truncate text-[16px]">{t('common:buttons.schedule_appointment')}</span>
+            <span className="truncate">{t('common:buttons.schedule_appointment')}</span>
           </Button>
         </div>
       </div>
