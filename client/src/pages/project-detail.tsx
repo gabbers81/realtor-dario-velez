@@ -396,11 +396,55 @@ export default function ProjectDetailPage() {
         </div>
       </footer>
 
-      {/* Floating Contact Button */}
-      <div className="fixed bottom-6 right-6 z-50">
+      {/* Floating WhatsApp Button */}
+      <div className="fixed bottom-20 right-6 z-50 sm:bottom-6">
+        <a
+          href={`https://wa.me/18294444431?text=${encodeURIComponent(
+            `Hola Dario, estoy interesado en el proyecto ${translatedProject.title} en ${translatedProject.location}. ¿Podrías darme más información?`
+          )}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-green-500 hover:bg-green-600 active:bg-green-700 text-white rounded-full p-4 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 active:scale-95 touch-manipulation group block"
+          aria-label="Contactar por WhatsApp"
+        >
+          <FaWhatsapp size={24} className="group-hover:scale-110 transition-transform duration-200" />
+        </a>
+      </div>
+
+      {/* Mobile Quick Action Bar */}
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 z-40 sm:hidden">
+        <div className="flex space-x-3">
+          <Button
+            onClick={() => setIsContactModalOpen(true)}
+            className="flex-1 bg-caribbean text-white hover:bg-caribbean/90 active:bg-caribbean/80 h-12 text-base touch-manipulation"
+          >
+            <MessageCircle className="mr-2" size={18} />
+            {t('contact:form.title')}
+          </Button>
+          <Button
+            onClick={() => setIsCalendlyModalOpen(true)}
+            className="flex-1 bg-turquoise text-white hover:bg-turquoise/90 active:bg-turquoise/80 h-12 text-base touch-manipulation"
+          >
+            <Calendar className="mr-2" size={18} />
+            {t('contact:form.schedule_appointment')}
+          </Button>
+          {project.pdfUrl && (
+            <Button
+              onClick={downloadPDF}
+              variant="outline"
+              className="px-4 h-12 touch-manipulation border-caribbean text-caribbean hover:bg-caribbean hover:text-white"
+            >
+              <Download size={18} />
+            </Button>
+          )}
+        </div>
+      </div>
+
+      {/* Desktop CTA Button */}
+      <div className="hidden sm:block fixed bottom-6 right-6 z-50">
         <Button
           onClick={() => setIsContactModalOpen(true)}
-          className="bg-caribbean text-white hover:bg-caribbean/90 shadow-lg rounded-full p-4 h-auto"
+          className="bg-caribbean text-white hover:bg-caribbean/90 shadow-lg rounded-full p-4 h-auto touch-manipulation"
         >
           <MessageCircle className="mr-2" size={20} />
           {t('projects:detail.contact_project')}
