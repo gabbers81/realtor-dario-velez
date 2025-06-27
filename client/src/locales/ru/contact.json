@@ -17,6 +17,8 @@
     },
     "down_payment": "Первоначальный взнос",
     "down_payment_placeholder": "Выберите процент",
+    "what_in_mind": "Что у вас на уме?",
+    "what_in_mind_placeholder": "Расскажите нам о ваших идеях или вопросах...",
     "down_payment_options": {
       "10_percent": "10%",
       "15_percent": "15%",

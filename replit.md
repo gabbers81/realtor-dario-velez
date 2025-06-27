@@ -130,6 +130,7 @@ The application is configured for Replit deployment with:
 
 ## Recent Changes
 
+- June 27, 2025. **Contact Form Enhanced**: Added new "¿Qué tienes en mente?" text area field and updated down payment label to remove "(Opcional)" text - form now has 6 fields total with multilingual support
 - June 27, 2025. **Budget Field Made Optional**: Removed required validation from "Presupuesto a Invertir" field in contact form - users can now submit without specifying budget
 - June 27, 2025. **Calendly Integration Completed**: Successfully integrated https://calendly.com/gabriel-garrido18/30min with full multilingual support and responsive modal
 - June 27, 2025. **Added Agentic Innovations Credit**: Added subtle "Hecho por Agentic Innovations" attribution in footer corners with small font and transparency
@@ -184,12 +185,13 @@ The application is configured for Replit deployment with:
 
 ## Contact Form Structure
 
-The contact form now includes 5 questions as specified:
+The contact form now includes 6 questions as specified:
 1. Nombre completo (required)
 2. Correo electrónico (required) 
 3. Teléfono formato dominicano (required)
 4. Presupuesto a Invertir (optional): US$80k-120k, US$121k-200k, US$200k+
-5. Inicial que puede pagar (optional): 10%, 15%, 20%
+5. Inicial que podrías pagar (optional): 10%, 15%, 20%
+6. ¿Qué tienes en mente? (optional): Free text area for ideas/questions
 
 Additional feature: "¿Cuándo prefieres que te contactemos?" leads to Calendly integration for appointment scheduling.
 
