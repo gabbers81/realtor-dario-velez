@@ -401,36 +401,39 @@ export default function HomePage() {
 
           <div className="grid md:grid-cols-3 gap-8">
             {getTestimonials().map((testimonial: any, index: number) => (
-              <Card key={index} className="p-6 hover:shadow-lg transition-shadow bg-white border border-gray-100">
+              <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow bg-white border border-gray-100">
                 <CardContent className="p-0">
-                  {/* Quote Icon */}
-                  <div className="mb-4">
-                    <Quote className="text-turquoise opacity-20" size={32} />
-                  </div>
-                  
-                  {/* Rating Stars */}
-                  <div className="flex mb-4">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="text-yellow-400 fill-current" size={16} />
-                    ))}
-                  </div>
-                  
-                  {/* Testimonial Text */}
-                  <p className="text-gray-700 mb-6 italic leading-relaxed">
-                    "{testimonial.text}"
-                  </p>
-                  
-                  {/* Client Info */}
-                  <div className="flex items-center">
+                  {/* Client Transaction Image */}
+                  <div className="relative h-48 overflow-hidden">
                     <img 
                       src={testimonial.avatar} 
-                      alt={testimonial.name}
-                      className="w-12 h-12 rounded-full object-cover mr-4"
+                      alt={`${testimonial.name} - Client transaction`}
+                      className="w-full h-full object-cover"
                     />
-                    <div>
-                      <h4 className="font-semibold text-gray-900">{testimonial.name}</h4>
+                    {/* Quote overlay */}
+                    <div className="absolute top-4 left-4">
+                      <Quote className="text-white opacity-80 drop-shadow-md" size={28} />
+                    </div>
+                    {/* Rating overlay */}
+                    <div className="absolute bottom-4 left-4 flex space-x-1">
+                      {[...Array(testimonial.rating)].map((_, i) => (
+                        <Star key={i} className="text-yellow-400 fill-current drop-shadow-md" size={14} />
+                      ))}
+                    </div>
+                  </div>
+                  
+                  {/* Content Section */}
+                  <div className="p-6">
+                    {/* Testimonial Text */}
+                    <p className="text-gray-700 mb-4 italic leading-relaxed text-sm">
+                      "{testimonial.text}"
+                    </p>
+                    
+                    {/* Client Info */}
+                    <div className="border-t border-gray-100 pt-4">
+                      <h4 className="font-semibold text-gray-900 mb-1">{testimonial.name}</h4>
                       <p className="text-sm text-gray-600">{testimonial.location}</p>
-                      <p className="text-xs text-turquoise font-medium">{testimonial.property_type}</p>
+                      <p className="text-xs text-turquoise font-medium mt-1">{testimonial.property_type}</p>
                     </div>
                   </div>
                 </CardContent>
