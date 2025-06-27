@@ -143,5 +143,21 @@
     "completion": "Achèvement",
     "view_brochure": "Voir la brochure",
     "contact_for_info": "Contacter pour information"
+  },
+  "detail": {
+    "price": "Prix",
+    "location": "Emplacement",
+    "completion": "Achèvement",
+    "main_features": "Caractéristiques Principales",
+    "location_accessibility": "Emplacement et Accessibilité",
+    "airport": "Aéroport",
+    "beach": "Plage",
+    "nearby_amenities": "Commodités à Proximité",
+    "detailed_info": "Informations Détaillées du Projet",
+    "download_pdf": "Télécharger PDF",
+    "contact_project": "Contact pour ce Projet",
+    "view_brochure": "Voir la Brochure du Projet",
+    "mobile_pdf_message": "Pour une meilleure expérience mobile, téléchargez le PDF",
+    "open_in_new_tab": "Ouvrir dans un nouvel onglet"
   }
 }

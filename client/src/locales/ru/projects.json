@@ -143,5 +143,21 @@
     "completion": "Завершение",
     "view_brochure": "Посмотреть брошюру",
     "contact_for_info": "Связаться для информации"
+  },
+  "detail": {
+    "price": "Цена",
+    "location": "Местоположение",
+    "completion": "Завершение",
+    "main_features": "Основные Характеристики",
+    "location_accessibility": "Местоположение и Доступность",
+    "airport": "Аэропорт",
+    "beach": "Пляж",
+    "nearby_amenities": "Ближайшие Удобства",
+    "detailed_info": "Подробная Информация о Проекте",
+    "download_pdf": "Скачать PDF",
+    "contact_project": "Связаться по этому Проекту",
+    "view_brochure": "Посмотреть Брошюру Проекта",
+    "mobile_pdf_message": "Для лучшего опыта на мобильном, скачайте PDF",
+    "open_in_new_tab": "Открыть в новой вкладке"
   }
 }
