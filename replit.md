@@ -130,6 +130,7 @@ The application is configured for Replit deployment with:
 
 ## Recent Changes
 
+- June 27, 2025. **Production Domain Configuration**: Updated robots.txt and sitemap.xml to use custom domain https://dariovelez.com.do for production deployment
 - June 26, 2025. **Multilingual Project Translation Fixed**: Resolved language switching issue in "Proyectos Destacados" section - project cards now properly translate titles, descriptions, and price prefixes across all 6 languages
 - June 26, 2025. **Complete Translation System**: Fixed translation key mapping structure (properties vs projects) and added translatable price prefixes ("Desde"/"From"/"От"/"À partir de"/"Ab"/"A partir de")
 - June 26, 2025. **Production Security Hardening**: Implemented comprehensive security with CORS, helmet, rate limiting, input validation, and trust proxy configuration

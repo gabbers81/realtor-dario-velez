@@ -19,7 +19,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const projects = await storage.getProjects();
       const baseUrl = process.env.NODE_ENV === 'production' 
-        ? 'https://dominican-real-estate.replit.app' 
+        ? 'https://dariovelez.com.do' 
         : 'http://localhost:5000';
       
       const languages = ['es', 'en', 'ru', 'fr', 'de', 'pt'];
@@ -72,7 +72,7 @@ ${urls}
 Allow: /
 
 Sitemap: ${process.env.NODE_ENV === 'production' 
-  ? 'https://dominican-real-estate.replit.app' 
+  ? 'https://dariovelez.com.do' 
   : 'http://localhost:5000'}/sitemap.xml`;
 
     res.header('Content-Type', 'text/plain');
