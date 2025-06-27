@@ -424,25 +424,25 @@ export default function ProjectDetailPage() {
         <div className="flex space-x-2 max-w-screen-sm mx-auto">
           <Button
             onClick={() => setIsContactModalOpen(true)}
-            className="flex-1 bg-caribbean text-white hover:bg-caribbean/90 active:bg-caribbean/80 h-11 text-sm touch-manipulation min-w-0"
+            className="flex-1 bg-caribbean text-white hover:bg-caribbean/90 active:bg-caribbean/80 h-12 text-xs touch-manipulation min-w-0 px-3"
           >
-            <MessageCircle className="mr-1 flex-shrink-0" size={16} />
-            <span className="truncate">{t('contact:form.title')}</span>
+            <MessageCircle className="mr-1 flex-shrink-0" size={14} />
+            <span className="truncate">{t('common:buttons.contact_me')}</span>
           </Button>
           <Button
             onClick={() => setIsCalendlyModalOpen(true)}
-            className="flex-1 bg-turquoise text-white hover:bg-turquoise/90 active:bg-turquoise/80 h-11 text-sm touch-manipulation min-w-0"
+            className="flex-1 bg-turquoise text-white hover:bg-turquoise/90 active:bg-turquoise/80 h-12 text-xs touch-manipulation min-w-0 px-3"
           >
-            <Calendar className="mr-1 flex-shrink-0" size={16} />
-            <span className="truncate">{t('contact:form.schedule_appointment')}</span>
+            <Calendar className="mr-1 flex-shrink-0" size={14} />
+            <span className="truncate">{t('common:buttons.schedule_appointment')}</span>
           </Button>
           {project.pdfUrl && (
             <Button
               onClick={downloadPDF}
               variant="outline"
-              className="px-3 h-11 touch-manipulation border-caribbean text-caribbean hover:bg-caribbean hover:text-white flex-shrink-0"
+              className="px-3 h-12 touch-manipulation border-caribbean text-caribbean hover:bg-caribbean hover:text-white flex-shrink-0"
             >
-              <Download size={16} />
+              <Download size={14} />
             </Button>
           )}
         </div>
