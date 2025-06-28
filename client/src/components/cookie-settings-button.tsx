@@ -23,7 +23,7 @@ export function CookieSettingsButton() {
               onClick={() => setIsSettingsOpen(true)}
               size="sm"
               variant="outline"
-              className="fixed bottom-4 left-4 z-40 bg-white/90 backdrop-blur-sm border-gray-200 shadow-lg hover:shadow-xl transition-all duration-200 rounded-full p-3"
+              className="fixed top-20 left-4 z-40 bg-white/90 backdrop-blur-sm border-gray-200 shadow-lg hover:shadow-xl transition-all duration-200 rounded-full p-3"
             >
               <Cookie className="h-4 w-4 text-gray-600" />
               <span className="sr-only">{t('settings.title')}</span>
