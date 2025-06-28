@@ -64,6 +64,7 @@ const resources = {
     projects: projectsEs,
     legal: legalEs,
     testimonials: testimonialsEs,
+    cookies: cookiesEs,
   },
   en: {
     common: commonEn,
@@ -72,6 +73,7 @@ const resources = {
     projects: projectsEn,
     legal: legalEn,
     testimonials: testimonialsEn,
+    cookies: cookiesEn,
   },
   ru: {
     common: commonRu,
@@ -80,6 +82,7 @@ const resources = {
     projects: projectsRu,
     legal: legalRu,
     testimonials: testimonialsRu,
+    cookies: cookiesRu,
   },
   fr: {
     common: commonFr,
@@ -88,6 +91,7 @@ const resources = {
     projects: projectsFr,
     legal: legalFr,
     testimonials: testimonialsFr,
+    cookies: cookiesFr,
   },
   de: {
     common: commonDe,
@@ -96,6 +100,7 @@ const resources = {
     projects: projectsDe,
     legal: legalDe,
     testimonials: testimonialsDe,
+    cookies: cookiesDe,
   },
   pt: {
     common: commonPt,
@@ -104,6 +109,7 @@ const resources = {
     projects: projectsPt,
     legal: legalPt,
     testimonials: testimonialsPt,
+    cookies: cookiesPt,
   },
 };
 
