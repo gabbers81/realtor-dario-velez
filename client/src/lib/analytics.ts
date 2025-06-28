@@ -1,17 +1,31 @@
+import { isCookieCategoryAllowed } from './cookie-consent';
+
 // Define the gtag function globally
 declare global {
   interface Window {
     dataLayer: any[];
     gtag: (...args: any[]) => void;
+    gaInitialized?: boolean;
   }
 }
 
-// Initialize Google Analytics
+// Initialize Google Analytics only if analytics cookies are allowed
 export const initGA = () => {
   const measurementId = import.meta.env.VITE_GA_MEASUREMENT_ID;
 
   if (!measurementId) {
     console.warn('Missing required Google Analytics key: VITE_GA_MEASUREMENT_ID');
+    return;
+  }
+
+  // Check if analytics cookies are allowed
+  if (!isCookieCategoryAllowed('analytics')) {
+    console.info('Google Analytics blocked by cookie consent');
+    return;
+  }
+
+  // Prevent double initialization
+  if (window.gaInitialized) {
     return;
   }
 
@@ -30,11 +44,19 @@ export const initGA = () => {
     gtag('config', '${measurementId}');
   `;
   document.head.appendChild(script2);
+  
+  // Mark as initialized
+  window.gaInitialized = true;
 };
 
 // Track page views - useful for single-page applications
 export const trackPageView = (url: string) => {
   if (typeof window === 'undefined' || !window.gtag) return;
+  
+  // Check if analytics cookies are allowed
+  if (!isCookieCategoryAllowed('analytics')) {
+    return;
+  }
   
   const measurementId = import.meta.env.VITE_GA_MEASUREMENT_ID;
   if (!measurementId) return;
@@ -52,6 +74,11 @@ export const trackEvent = (
   value?: number
 ) => {
   if (typeof window === 'undefined' || !window.gtag) return;
+  
+  // Check if analytics cookies are allowed
+  if (!isCookieCategoryAllowed('analytics')) {
+    return;
+  }
   
   window.gtag('event', action, {
     event_category: category,

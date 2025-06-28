@@ -9,6 +9,7 @@ import contactEs from '../locales/es/contact.json';
 import projectsEs from '../locales/es/projects.json';
 import legalEs from '../locales/es/legal.json';
 import testimonialsEs from '../locales/es/testimonials.json';
+import cookiesEs from '../locales/es/cookies.json';
 
 // Import translation files - English
 import commonEn from '../locales/en/common.json';
@@ -17,6 +18,7 @@ import contactEn from '../locales/en/contact.json';
 import projectsEn from '../locales/en/projects.json';
 import legalEn from '../locales/en/legal.json';
 import testimonialsEn from '../locales/en/testimonials.json';
+import cookiesEn from '../locales/en/cookies.json';
 
 // Import translation files - Russian
 import commonRu from '../locales/ru/common.json';
@@ -25,6 +27,7 @@ import contactRu from '../locales/ru/contact.json';
 import projectsRu from '../locales/ru/projects.json';
 import legalRu from '../locales/ru/legal.json';
 import testimonialsRu from '../locales/ru/testimonials.json';
+import cookiesRu from '../locales/ru/cookies.json';
 
 // Import translation files - French
 import commonFr from '../locales/fr/common.json';
@@ -33,6 +36,7 @@ import contactFr from '../locales/fr/contact.json';
 import projectsFr from '../locales/fr/projects.json';
 import legalFr from '../locales/fr/legal.json';
 import testimonialsFr from '../locales/fr/testimonials.json';
+import cookiesFr from '../locales/fr/cookies.json';
 
 // Import translation files - German
 import commonDe from '../locales/de/common.json';
@@ -41,6 +45,7 @@ import contactDe from '../locales/de/contact.json';
 import projectsDe from '../locales/de/projects.json';
 import legalDe from '../locales/de/legal.json';
 import testimonialsDe from '../locales/de/testimonials.json';
+import cookiesDe from '../locales/de/cookies.json';
 
 // Import translation files - Portuguese
 import commonPt from '../locales/pt/common.json';
@@ -49,6 +54,7 @@ import contactPt from '../locales/pt/contact.json';
 import projectsPt from '../locales/pt/projects.json';
 import legalPt from '../locales/pt/legal.json';
 import testimonialsPt from '../locales/pt/testimonials.json';
+import cookiesPt from '../locales/pt/cookies.json';
 
 const resources = {
   es: {
