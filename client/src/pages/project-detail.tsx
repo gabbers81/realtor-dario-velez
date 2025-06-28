@@ -12,6 +12,7 @@ import { LanguageSwitcher } from "@/components/language-switcher";
 import { SEOHead } from "@/components/seo-head";
 import { generatePropertySchema, getLocationData } from "@/lib/property-schema";
 import { useSwipe } from "@/hooks/use-swipe";
+import { trackEvent } from "@/lib/analytics";
 import type { Project } from "@/lib/types";
 import DarioVelezLogo from "@assets/DarioRealtorLogo_cropped_1750974653123.png";
 
@@ -68,6 +69,9 @@ export default function ProjectDetailPage() {
 
   const downloadPDF = () => {
     if (project && project.pdfUrl) {
+      // Track PDF download
+      trackEvent('pdf_download', 'engagement', project.slug);
+      
       const link = document.createElement('a');
       link.href = project.pdfUrl;
       link.download = `${project.slug}.pdf`;
@@ -103,6 +107,13 @@ export default function ProjectDetailPage() {
   const translatedProject = getTranslatedProject(project);
   const projectImage = project.imageUrl || "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=630";
   const locationData = getLocationData(project.slug);
+
+  // Track project page view when project loads
+  useEffect(() => {
+    if (project) {
+      trackEvent('project_view', 'engagement', project.slug);
+    }
+  }, [project]);
 
   return (
     <div className="min-h-screen bg-white" {...swipeHandlers}>

@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
+import { trackEvent } from "@/lib/analytics";
 import { Send, Calendar } from "lucide-react";
 import type { ContactFormData } from "@/lib/types";
 
@@ -36,6 +37,9 @@ export function ContactModal({ isOpen, onClose, onOpenCalendly, projectSlug }: C
       return await apiRequest("POST", "/api/contacts", data);
     },
     onSuccess: () => {
+      // Track successful contact form submission
+      trackEvent('contact_form_submit', 'engagement', projectSlug ? `project_${projectSlug}` : 'general');
+      
       toast({
         title: t('contact:success.title'),
         description: t('contact:success.description'),
@@ -219,7 +223,10 @@ export function ContactModal({ isOpen, onClose, onOpenCalendly, projectSlug }: C
             
             <Button 
               type="button" 
-              onClick={onOpenCalendly}
+              onClick={() => {
+                trackEvent('calendly_open', 'engagement', projectSlug ? `project_${projectSlug}` : 'general');
+                onOpenCalendly();
+              }}
               className="w-full h-12 text-base bg-turquoise text-white hover:bg-turquoise/90 active:bg-turquoise/80 transition-colors duration-200"
             >
               <Calendar className="mr-2" size={18} />
