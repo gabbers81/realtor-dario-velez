@@ -47,6 +47,13 @@ export default function ProjectDetailPage() {
     enabled: !!slug && slug !== '',
   });
 
+  // Track project page view when project loads - must be before any conditional returns
+  useEffect(() => {
+    if (project) {
+      trackEvent('project_view', 'engagement', project.slug);
+    }
+  }, [project]);
+
   // Function to get translated project data
   const getTranslatedProject = (project: Project) => {
     const projectKey = slug?.replace(/-/g, '_'); // Convert slug to translation key format
@@ -107,13 +114,6 @@ export default function ProjectDetailPage() {
   const translatedProject = getTranslatedProject(project);
   const projectImage = project.imageUrl || "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&h=630";
   const locationData = getLocationData(project.slug);
-
-  // Track project page view when project loads
-  useEffect(() => {
-    if (project) {
-      trackEvent('project_view', 'engagement', project.slug);
-    }
-  }, [project]);
 
   return (
     <div className="min-h-screen bg-white" {...swipeHandlers}>
