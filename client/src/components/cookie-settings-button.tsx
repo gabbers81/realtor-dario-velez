@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Cookie } from "lucide-react";
-import { CookieSettingsModal } from "./cookie-settings-modal";
+import { CookieSettingsModal } from "@/components/cookie-settings-modal";
 import {
   Tooltip,
   TooltipContent,

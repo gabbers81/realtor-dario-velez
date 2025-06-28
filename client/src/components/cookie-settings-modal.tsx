@@ -175,7 +175,9 @@ export function CookieSettingsModal({ isOpen, onClose }: CookieSettingsModalProp
 
         <div className="text-center mt-4">
           <p className="text-xs text-gray-500">
-            {t('policy.linkText')} • {t('policy.lastUpdated')} {new Date().toLocaleDateString()}
+            <a href="/politica-cookies" className="text-blue-600 hover:text-blue-700 underline">
+              {t('policy.linkText')}
+            </a> • {t('policy.lastUpdated')} {new Date().toLocaleDateString()}
           </p>
         </div>
       </DialogContent>

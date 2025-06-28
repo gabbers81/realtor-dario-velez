@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Home from "@/pages/home";
 import ProjectDetail from "@/pages/project-detail";
+import CookiePolicy from "@/pages/cookie-policy";
 import NotFound from "@/pages/not-found";
 import Error404 from "@/pages/error-404";
 import { useEffect } from "react";
@@ -21,6 +22,7 @@ function Router() {
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/proyecto/:slug" component={ProjectDetail} />
+      <Route path="/politica-cookies" component={CookiePolicy} />
       <Route component={Error404} />
     </Switch>
   );

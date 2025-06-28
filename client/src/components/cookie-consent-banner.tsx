@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Cookie, Settings, X } from "lucide-react";
-import { CookieSettingsModal } from "./cookie-settings-modal";
+import { CookieSettingsModal } from "@/components/cookie-settings-modal";
 import { 
   shouldShowConsentBanner, 
   acceptAllCookies, 
