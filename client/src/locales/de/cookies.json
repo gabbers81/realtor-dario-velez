@@ -1,0 +1,46 @@
+{
+  "banner": {
+    "title": "Wir Respektieren Ihre Privatsphäre",
+    "description": "Wir verwenden Cookies, um Ihre Website-Erfahrung zu verbessern, den Traffic zu analysieren und Inhalte zu personalisieren. Durch Klicken auf \"Alle Akzeptieren\" stimmen Sie der Verwendung aller Cookies zu.",
+    "acceptAll": "Alle Akzeptieren",
+    "managePreferences": "Einstellungen Verwalten",
+    "essentialOnly": "Nur Notwendige"
+  },
+  "modal": {
+    "title": "Cookie-Einstellungen",
+    "description": "Verwalten Sie Ihre Cookie-Präferenzen. Sie können diese Einstellungen jederzeit ändern.",
+    "save": "Einstellungen Speichern",
+    "acceptAll": "Alle Akzeptieren",
+    "rejectAll": "Alle Ablehnen"
+  },
+  "categories": {
+    "essential": {
+      "title": "Notwendige Cookies",
+      "description": "Diese Cookies sind für die grundlegende Funktionalität der Website erforderlich und können nicht deaktiviert werden.",
+      "examples": "Sitzungsverwaltung, Sicherheit, Spracheinstellungen"
+    },
+    "analytics": {
+      "title": "Analyse-Cookies",
+      "description": "Helfen uns zu verstehen, wie Besucher unsere Website nutzen, um die Benutzererfahrung zu verbessern.",
+      "examples": "Google Analytics, Seitenaufrufe, Verhaltensanalyse"
+    },
+    "marketing": {
+      "title": "Marketing-Cookies",
+      "description": "Verfolgen Besucher über Websites hinweg, um relevante und personalisierte Werbung anzuzeigen.",
+      "examples": "Social Media Pixel, Werbeplattformen, Remarketing"
+    },
+    "preferences": {
+      "title": "Präferenz-Cookies",
+      "description": "Merken sich Ihre Entscheidungen und Einstellungen, um Ihre Erfahrung zu personalisieren.",
+      "examples": "Theme-Auswahl, Formular-Präferenzen, UI-Anpassungen"
+    }
+  },
+  "settings": {
+    "title": "Cookie-Einstellungen",
+    "tooltip": "Cookies verwalten"
+  },
+  "policy": {
+    "linkText": "Cookie-Richtlinie Anzeigen",
+    "lastUpdated": "Zuletzt aktualisiert:"
+  }
+}

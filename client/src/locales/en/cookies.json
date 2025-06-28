@@ -1,0 +1,46 @@
+{
+  "banner": {
+    "title": "We Respect Your Privacy",
+    "description": "We use cookies to enhance your website experience, analyze traffic, and personalize content. By clicking \"Accept All\", you consent to the use of all cookies.",
+    "acceptAll": "Accept All",
+    "managePreferences": "Manage Preferences",
+    "essentialOnly": "Essential Only"
+  },
+  "modal": {
+    "title": "Cookie Settings",
+    "description": "Manage your cookie preferences. You can change these settings at any time.",
+    "save": "Save Preferences",
+    "acceptAll": "Accept All",
+    "rejectAll": "Reject All"
+  },
+  "categories": {
+    "essential": {
+      "title": "Essential Cookies",
+      "description": "These cookies are necessary for basic website functionality and cannot be disabled.",
+      "examples": "Session management, security, language preferences"
+    },
+    "analytics": {
+      "title": "Analytics Cookies",
+      "description": "Help us understand how visitors use our website to improve user experience.",
+      "examples": "Google Analytics, page views, behavior tracking"
+    },
+    "marketing": {
+      "title": "Marketing Cookies",
+      "description": "Track visitors across websites to display relevant and personalized advertisements.",
+      "examples": "Social media pixels, advertising platforms, remarketing"
+    },
+    "preferences": {
+      "title": "Preference Cookies",
+      "description": "Remember your choices and settings to personalize your experience.",
+      "examples": "Theme selection, form preferences, UI customizations"
+    }
+  },
+  "settings": {
+    "title": "Cookie Settings",
+    "tooltip": "Manage cookies"
+  },
+  "policy": {
+    "linkText": "View Cookie Policy",
+    "lastUpdated": "Last updated:"
+  }
+}

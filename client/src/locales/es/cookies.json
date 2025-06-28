@@ -1,0 +1,46 @@
+{
+  "banner": {
+    "title": "Respetamos tu Privacidad",
+    "description": "Utilizamos cookies para mejorar tu experiencia en nuestro sitio web, analizar el tráfico y personalizar el contenido. Al hacer clic en \"Aceptar Todas\", consientes el uso de todas las cookies.",
+    "acceptAll": "Aceptar Todas",
+    "managePreferences": "Gestionar Preferencias",
+    "essentialOnly": "Solo Esenciales"
+  },
+  "modal": {
+    "title": "Configuración de Cookies",
+    "description": "Gestiona tus preferencias de cookies. Puedes cambiar estas configuraciones en cualquier momento.",
+    "save": "Guardar Preferencias",
+    "acceptAll": "Aceptar Todas",
+    "rejectAll": "Rechazar Todas"
+  },
+  "categories": {
+    "essential": {
+      "title": "Cookies Esenciales",
+      "description": "Estas cookies son necesarias para el funcionamiento básico del sitio web y no se pueden desactivar.",
+      "examples": "Gestión de sesión, seguridad, preferencias de idioma"
+    },
+    "analytics": {
+      "title": "Cookies de Análisis",
+      "description": "Nos ayudan a entender cómo los visitantes usan nuestro sitio web para mejorar la experiencia del usuario.",
+      "examples": "Google Analytics, vistas de página, seguimiento de comportamiento"
+    },
+    "marketing": {
+      "title": "Cookies de Marketing",
+      "description": "Rastrean a los visitantes en los sitios web para mostrar anuncios relevantes y personalizados.",
+      "examples": "Píxeles de redes sociales, plataformas publicitarias, remarketing"
+    },
+    "preferences": {
+      "title": "Cookies de Preferencias",
+      "description": "Recuerdan tus elecciones y configuraciones para personalizar tu experiencia.",
+      "examples": "Selección de tema, preferencias de formulario, personalizaciones de UI"
+    }
+  },
+  "settings": {
+    "title": "Configuración de Cookies",
+    "tooltip": "Gestionar cookies"
+  },
+  "policy": {
+    "linkText": "Ver Política de Cookies",
+    "lastUpdated": "Última actualización:"
+  }
+}

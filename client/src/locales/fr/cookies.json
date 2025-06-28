@@ -1,0 +1,46 @@
+{
+  "banner": {
+    "title": "Nous Respectons Votre Vie Privée",
+    "description": "Nous utilisons des cookies pour améliorer votre expérience sur notre site web, analyser le trafic et personnaliser le contenu. En cliquant sur \"Tout Accepter\", vous consentez à l'utilisation de tous les cookies.",
+    "acceptAll": "Tout Accepter",
+    "managePreferences": "Gérer les Préférences",
+    "essentialOnly": "Essentiels Seulement"
+  },
+  "modal": {
+    "title": "Paramètres des Cookies",
+    "description": "Gérez vos préférences de cookies. Vous pouvez modifier ces paramètres à tout moment.",
+    "save": "Enregistrer les Préférences",
+    "acceptAll": "Tout Accepter",
+    "rejectAll": "Tout Rejeter"
+  },
+  "categories": {
+    "essential": {
+      "title": "Cookies Essentiels",
+      "description": "Ces cookies sont nécessaires au fonctionnement de base du site web et ne peuvent pas être désactivés.",
+      "examples": "Gestion de session, sécurité, préférences linguistiques"
+    },
+    "analytics": {
+      "title": "Cookies d'Analyse",
+      "description": "Nous aident à comprendre comment les visiteurs utilisent notre site web pour améliorer l'expérience utilisateur.",
+      "examples": "Google Analytics, vues de pages, suivi comportemental"
+    },
+    "marketing": {
+      "title": "Cookies Marketing",
+      "description": "Suivent les visiteurs sur les sites web pour afficher des publicités pertinentes et personnalisées.",
+      "examples": "Pixels de réseaux sociaux, plateformes publicitaires, remarketing"
+    },
+    "preferences": {
+      "title": "Cookies de Préférences",
+      "description": "Mémorisent vos choix et paramètres pour personnaliser votre expérience.",
+      "examples": "Sélection de thème, préférences de formulaire, personnalisations UI"
+    }
+  },
+  "settings": {
+    "title": "Paramètres des Cookies",
+    "tooltip": "Gérer les cookies"
+  },
+  "policy": {
+    "linkText": "Voir la Politique des Cookies",
+    "lastUpdated": "Dernière mise à jour:"
+  }
+}
