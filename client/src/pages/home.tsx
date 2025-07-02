@@ -104,7 +104,7 @@ export default function HomePage() {
               </div>
             </button>
             
-            <nav className="hidden md:flex items-center space-x-8">
+            <nav className="hidden md:flex items-center space-x-6">
               <button 
                 onClick={() => scrollToSection('inicio')}
                 className="text-gray-700 hover:text-caribbean font-medium transition-colors"
@@ -197,7 +197,7 @@ export default function HomePage() {
                 {t('navigation.legal')}
               </div>
             </button>
-            <div className="py-2 px-3 flex items-center space-x-3">
+            <div className="py-2 px-3 flex items-center space-x-2">
               <LanguageSwitcher />
               <CookieSettingsButton variant="navigation" />
             </div>

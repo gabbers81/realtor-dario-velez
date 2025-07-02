@@ -206,7 +206,7 @@ export default function ProjectDetailPage() {
             </div>
 
             {/* Actions */}
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-3">
               <LanguageSwitcher />
               <CookieSettingsButton variant="navigation" />
               <Button 
