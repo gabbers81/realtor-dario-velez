@@ -33,14 +33,25 @@ interface CalendlyWebhookPayload {
 // Verify Calendly webhook signature
 function verifyWebhookSignature(payload: string, signature: string, secret: string): boolean {
   try {
+    // Calendly uses base64-encoded HMAC-SHA256 signatures
     const expectedSignature = crypto
       .createHmac('sha256', secret)
       .update(payload, 'utf8')
       .digest('base64');
     
+    // Handle both base64 and hex formats, and ensure equal length comparison
+    const normalizedSignature = signature.replace(/^sha256=/, '');
+    const normalizedExpected = expectedSignature;
+    
+    // Make sure both strings are the same length for timingSafeEqual
+    if (normalizedSignature.length !== normalizedExpected.length) {
+      console.log(`Signature length mismatch: received ${normalizedSignature.length}, expected ${normalizedExpected.length}`);
+      return false;
+    }
+    
     return crypto.timingSafeEqual(
-      Buffer.from(signature),
-      Buffer.from(expectedSignature)
+      Buffer.from(normalizedSignature, 'base64'),
+      Buffer.from(normalizedExpected, 'base64')
     );
   } catch (error) {
     console.error('Webhook signature verification error:', error);
