@@ -219,7 +219,8 @@ export class SupabaseStorage implements IStorage {
         return (data || []).map((project: any) => ({
           ...project,
           imageUrl: project.image_url,
-          pdfUrl: project.pdf_url
+          pdfUrl: project.pdf_url,
+          images: project.images || []
         }));
       }
       throw error;
@@ -250,7 +251,8 @@ export class SupabaseStorage implements IStorage {
         return {
           ...data,
           imageUrl: data.image_url,
-          pdfUrl: data.pdf_url
+          pdfUrl: data.pdf_url,
+          images: data.images || []
         };
       }
       throw error;
@@ -281,7 +283,8 @@ export class SupabaseStorage implements IStorage {
         return {
           ...data,
           imageUrl: data.image_url,
-          pdfUrl: data.pdf_url
+          pdfUrl: data.pdf_url,
+          images: data.images || []
         };
       }
       throw error;
