@@ -30,28 +30,35 @@ interface CalendlyWebhookPayload {
   };
 }
 
-// Verify Calendly webhook signature
-function verifyWebhookSignature(payload: string, signature: string, secret: string): boolean {
+// Verify Calendly v2 webhook signature
+function verifyWebhookSignature(payload: string, signature: string, signingKey: string): boolean {
   try {
-    // Calendly uses base64-encoded HMAC-SHA256 signatures
-    const expectedSignature = crypto
-      .createHmac('sha256', secret)
-      .update(payload, 'utf8')
-      .digest('base64');
-    
-    // Handle both base64 and hex formats, and ensure equal length comparison
-    const normalizedSignature = signature.replace(/^sha256=/, '');
-    const normalizedExpected = expectedSignature;
-    
-    // Make sure both strings are the same length for timingSafeEqual
-    if (normalizedSignature.length !== normalizedExpected.length) {
-      console.log(`Signature length mismatch: received ${normalizedSignature.length}, expected ${normalizedExpected.length}`);
+    // Calendly v2 format: "t=1720258074,s=6f7e9..."
+    const parts = signature.split(',');
+    if (parts.length !== 2) {
+      console.log('Invalid signature format, expected t=timestamp,s=signature');
       return false;
     }
     
+    const [timePart, sigPart] = parts;
+    const timestamp = timePart.split('=')[1];
+    const suppliedSignature = sigPart.split('=')[1];
+    
+    if (!timestamp || !suppliedSignature) {
+      console.log('Missing timestamp or signature in header');
+      return false;
+    }
+    
+    // Calendly v2 signs: "timestamp.JSON_PAYLOAD"
+    const baseString = `${timestamp}.${payload}`;
+    const expectedSignature = crypto
+      .createHmac('sha256', signingKey)
+      .update(baseString, 'utf8')
+      .digest('hex');
+    
     return crypto.timingSafeEqual(
-      Buffer.from(normalizedSignature, 'base64'),
-      Buffer.from(normalizedExpected, 'base64')
+      Buffer.from(expectedSignature),
+      Buffer.from(suppliedSignature)
     );
   } catch (error) {
     console.error('Webhook signature verification error:', error);
@@ -239,11 +246,11 @@ Sitemap: ${process.env.NODE_ENV === 'production'
   app.post("/api/webhooks/calendly", async (req, res) => {
     try {
       const signature = req.headers['calendly-webhook-signature'] as string;
-      const secret = process.env.CALENDLY_WEBHOOK_SECRET;
+      const signingKey = process.env.CALENDLY_SIGNING_KEY;
 
-      if (!secret) {
-        console.error('CALENDLY_WEBHOOK_SECRET environment variable not set');
-        res.status(500).json({ error: 'Webhook secret not configured' });
+      if (!signingKey) {
+        console.error('CALENDLY_SIGNING_KEY environment variable not set');
+        res.status(500).json({ error: 'Webhook signing key not configured' });
         return;
       }
 
@@ -256,7 +263,7 @@ Sitemap: ${process.env.NODE_ENV === 'production'
       const payload = JSON.stringify(req.body);
       
       // Verify webhook signature
-      if (!verifyWebhookSignature(payload, signature, secret)) {
+      if (!verifyWebhookSignature(payload, signature, signingKey)) {
         console.error('Invalid Calendly webhook signature');
         res.status(401).json({ error: 'Invalid signature' });
         return;
