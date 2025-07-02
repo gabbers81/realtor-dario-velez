@@ -130,6 +130,8 @@ The application is configured for Replit deployment with:
 
 ## Recent Changes
 
+- July 2, 2025. **Translation System Completion**: Fixed "Distancias Principales" hardcoded text in project detail pages - now properly translates across all 6 languages (Spanish/English/Russian/French/German/Portuguese)
+- July 2, 2025. **Navigation UX Improvements**: Moved cookie settings button to navigation bar next to language switcher, fixed button overlap issues by vertically stacking WhatsApp and contact buttons, removed redundant floating cookie button
 - July 2, 2025. **Mobile-First Typography Optimization**: Implemented responsive typography with mobile-first approach - 16px+ minimum font sizes on mobile devices, compact desktop sizing, and touch-friendly icons (20-24px) for improved accessibility and readability
 - July 2, 2025. **Project Detail Page Consistency**: Made all sections uniformly compact with consistent spacing, padding, and sizing throughout the project detail pages for better space utilization
 - July 2, 2025. **Alphabetical Project Sorting**: Homepage projects now display in alphabetical order (Amares, Aura Boulevard, Las Cayas, Palm Beach, Secret Garden, Solvamar, The Reef, Tropical Beach) for improved user experience
