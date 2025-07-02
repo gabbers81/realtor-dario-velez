@@ -10,6 +10,7 @@ import { ArrowLeft, Download, Calendar, MapPin, Clock, DollarSign, MessageCircle
 import { FaWhatsapp } from "react-icons/fa";
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from "@/components/language-switcher";
+import { CookieSettingsButton } from "@/components/cookie-settings-button";
 import { SEOHead } from "@/components/seo-head";
 import { generatePropertySchema, getLocationData } from "@/lib/property-schema";
 import { useSwipe } from "@/hooks/use-swipe";
@@ -207,6 +208,7 @@ export default function ProjectDetailPage() {
             {/* Actions */}
             <div className="flex items-center space-x-4">
               <LanguageSwitcher />
+              <CookieSettingsButton />
               <Button 
                 onClick={goBack}
                 variant="ghost"
@@ -449,7 +451,7 @@ export default function ProjectDetailPage() {
       </footer>
 
       {/* Floating WhatsApp Button */}
-      <div className="fixed bottom-20 right-4 z-50 sm:bottom-6 sm:right-6">
+      <div className="fixed bottom-20 right-4 z-50 sm:bottom-6 sm:right-24">
         <a
           href={`https://wa.me/18294444431?text=${encodeURIComponent(
             `Hola Dario, estoy interesado en el proyecto ${translatedProject.title} en ${translatedProject.location}. ¿Podrías darme más información?`

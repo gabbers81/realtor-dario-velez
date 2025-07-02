@@ -9,6 +9,7 @@ import { Home, Calendar, ArrowRight, Check, Shield, CheckCircle, Phone, Mail, Ma
 import { FaFacebook, FaInstagram, FaLinkedin, FaWhatsapp, FaBars, FaTimes } from "react-icons/fa";
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from "@/components/language-switcher";
+import { CookieSettingsButton } from "@/components/cookie-settings-button";
 import { SEOHead } from "@/components/seo-head";
 import { generatePropertySchema } from "@/lib/property-schema";
 import type { Project } from "@/lib/types";
@@ -129,6 +130,7 @@ export default function HomePage() {
                 {t('navigation.legal')}
               </button>
               <LanguageSwitcher />
+              <CookieSettingsButton />
               <Button 
                 onClick={() => setIsContactModalOpen(true)}
                 className="bg-caribbean text-white hover:bg-caribbean/90"
@@ -195,8 +197,9 @@ export default function HomePage() {
                 {t('navigation.legal')}
               </div>
             </button>
-            <div className="py-2 px-3">
+            <div className="py-2 px-3 flex items-center space-x-3">
               <LanguageSwitcher />
+              <CookieSettingsButton />
             </div>
             <div className="px-3 pt-2">
               <Button 
