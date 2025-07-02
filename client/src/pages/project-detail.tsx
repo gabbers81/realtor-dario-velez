@@ -221,16 +221,16 @@ export default function ProjectDetailPage() {
       </header>
 
       {/* Project Header */}
-      <section className="py-8 bg-gradient-to-br from-gray-50 to-white">
+      <section className="py-6 bg-gradient-to-br from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Title and Description */}
-          <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">{project.title}</h1>
-            <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">{getTranslatedProject(project).description}</p>
+          <div className="text-center mb-6">
+            <h1 className="text-3xl font-bold text-gray-900 mb-3">{project.title}</h1>
+            <p className="text-lg text-gray-600 max-w-4xl mx-auto leading-relaxed">{getTranslatedProject(project).description}</p>
           </div>
 
           {/* Full-Width Carousel */}
-          <div className="mb-8">
+          <div className="mb-6">
             <PhotoCarousel 
               images={project.images || [project.imageUrl]} 
               projectTitle={project.title}
@@ -239,33 +239,33 @@ export default function ProjectDetailPage() {
           </div>
 
           {/* Key Info Cards - Below Carousel */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
               <div className="flex items-center text-gray-700">
-                <DollarSign className="mr-4 text-caribbean" size={28} />
+                <DollarSign className="mr-3 text-caribbean" size={20} />
                 <div>
-                  <span className="block text-sm text-gray-500 font-medium">{t('projects:detail.price')}</span>
-                  <span className="font-bold text-xl text-gray-900">{getTranslatedProject(project).price}</span>
+                  <span className="block text-xs text-gray-500 font-medium">{t('projects:detail.price')}</span>
+                  <span className="font-bold text-lg text-gray-900">{getTranslatedProject(project).price}</span>
                 </div>
               </div>
             </div>
             
-            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+            <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
               <div className="flex items-center text-gray-700">
-                <MapPin className="mr-4 text-turquoise" size={28} />
+                <MapPin className="mr-3 text-turquoise" size={20} />
                 <div>
-                  <span className="block text-sm text-gray-500 font-medium">{t('projects:detail.location')}</span>
-                  <span className="font-semibold text-lg text-gray-900">{getTranslatedProject(project).location}</span>
+                  <span className="block text-xs text-gray-500 font-medium">{t('projects:detail.location')}</span>
+                  <span className="font-semibold text-base text-gray-900">{getTranslatedProject(project).location}</span>
                 </div>
               </div>
             </div>
             
-            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+            <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
               <div className="flex items-center text-gray-700">
-                <Clock className="mr-4 text-sage" size={28} />
+                <Clock className="mr-3 text-sage" size={20} />
                 <div>
-                  <span className="block text-sm text-gray-500 font-medium">{t('projects:detail.completion')}</span>
-                  <span className="font-semibold text-lg text-gray-900">{getTranslatedProject(project).completion}</span>
+                  <span className="block text-xs text-gray-500 font-medium">{t('projects:detail.completion')}</span>
+                  <span className="font-semibold text-base text-gray-900">{getTranslatedProject(project).completion}</span>
                 </div>
               </div>
             </div>
@@ -325,13 +325,13 @@ export default function ProjectDetailPage() {
           )}
 
           {/* Features Section - Full Width Below */}
-          <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100">
-            <h3 className="font-bold text-2xl mb-6 text-gray-900 text-center">{t('projects:detail.main_features')}</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+            <h3 className="font-bold text-lg mb-4 text-gray-900 text-center">{t('projects:detail.main_features')}</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
               {getTranslatedProject(project).features.map((feature, index) => (
-                <div key={index} className="flex items-center p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
-                  <Check className="mr-3 text-caribbean flex-shrink-0" size={20} />
-                  <span className="text-gray-700 font-medium">{feature}</span>
+                <div key={index} className="flex items-center p-2 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                  <Check className="mr-2 text-caribbean flex-shrink-0" size={16} />
+                  <span className="text-gray-700 font-medium text-sm">{feature}</span>
                 </div>
               ))}
             </div>
@@ -341,10 +341,10 @@ export default function ProjectDetailPage() {
 
       {/* PDF Viewer */}
       {project.pdfUrl && (
-        <section className="py-6">
+        <section className="py-4">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 gap-3">
-              <h2 className="text-2xl font-bold text-gray-900">{t('projects:detail.detailed_info')}</h2>
+            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-3 gap-2">
+              <h2 className="text-lg font-bold text-gray-900">{t('projects:detail.detailed_info')}</h2>
               <Button 
                 onClick={downloadPDF} 
                 variant="outline" 
