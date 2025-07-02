@@ -130,6 +130,8 @@ The application is configured for Replit deployment with:
 
 ## Recent Changes
 
+- July 2, 2025. **Mobile-First Typography Optimization**: Implemented responsive typography with mobile-first approach - 16px+ minimum font sizes on mobile devices, compact desktop sizing, and touch-friendly icons (20-24px) for improved accessibility and readability
+- July 2, 2025. **Project Detail Page Consistency**: Made all sections uniformly compact with consistent spacing, padding, and sizing throughout the project detail pages for better space utilization
 - July 2, 2025. **Alphabetical Project Sorting**: Homepage projects now display in alphabetical order (Amares, Aura Boulevard, Las Cayas, Palm Beach, Secret Garden, Solvamar, The Reef, Tropical Beach) for improved user experience
 - July 2, 2025. **Homepage Image Display Fixed**: Resolved caching issue causing old images to display - all project cards now show correct "Portada" cover images on the landing page
 - June 27, 2025. **Cookie Consent System Implemented**: Added comprehensive GDPR/LGPD compliant cookie consent with multilingual support (6 languages), granular controls for Essential/Analytics/Marketing/Preferences cookies, and integrated Google Analytics protection
