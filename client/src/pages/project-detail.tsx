@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { ContactModal } from "@/components/contact-modal";
 import { CalendlyModal } from "@/components/calendly-modal";
 import { PhotoCarousel } from "@/components/photo-carousel";
-import { ArrowLeft, Download, Calendar, MapPin, Clock, DollarSign, MessageCircle, Home, FileText, ExternalLink, Navigation, Phone } from "lucide-react";
+import { ArrowLeft, Download, Calendar, MapPin, Clock, DollarSign, MessageCircle, Home, FileText, ExternalLink, Navigation, Phone, Check } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from "@/components/language-switcher";
@@ -221,71 +221,66 @@ export default function ProjectDetailPage() {
       </header>
 
       {/* Project Header */}
-      <section className="py-6 bg-gray-50">
+      <section className="py-8 bg-gradient-to-br from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-5 gap-6 items-start">
-            <div className="md:col-span-2">
-              <h1 className="text-3xl font-bold text-gray-900 mb-3">{project.title}</h1>
-              <p className="text-lg text-gray-600 mb-4">{getTranslatedProject(project).description}</p>
-              
-              <div className="grid grid-cols-2 gap-3 mb-4">
-                <div className="flex items-center text-gray-700">
-                  <DollarSign className="mr-2 text-caribbean" size={20} />
-                  <div>
-                    <span className="block text-sm text-gray-500">{t('projects:detail.price')}</span>
-                    <span className="font-semibold text-lg">{getTranslatedProject(project).price}</span>
-                  </div>
-                </div>
-                <div className="flex items-center text-gray-700">
-                  <MapPin className="mr-2 text-turquoise" size={20} />
-                  <div>
-                    <span className="block text-sm text-gray-500">{t('projects:detail.location')}</span>
-                    <span className="font-semibold">{getTranslatedProject(project).location}</span>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="flex items-center text-gray-700 mb-4">
-                <Clock className="mr-2 text-sage" size={20} />
-                <div>
-                  <span className="block text-sm text-gray-500">{t('projects:detail.completion')}</span>
-                  <span className="font-semibold">{getTranslatedProject(project).completion}</span>
-                </div>
-              </div>
+          {/* Title and Description */}
+          <div className="text-center mb-8">
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">{project.title}</h1>
+            <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">{getTranslatedProject(project).description}</p>
+          </div>
 
-              <div className="mb-4">
-                <h3 className="font-semibold text-lg mb-2">{t('projects:detail.main_features')}</h3>
-                <div className="grid grid-cols-1 gap-1.5">
-                  {getTranslatedProject(project).features.map((feature, index) => (
-                    <Badge key={index} variant="outline" className="justify-start p-2">
-                      {feature}
-                    </Badge>
-                  ))}
+          {/* Main Content Layout */}
+          <div className="grid md:grid-cols-5 gap-8 items-start mb-8">
+            {/* Left Side - Key Info */}
+            <div className="md:col-span-2 space-y-6">
+              <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+                <div className="grid grid-cols-1 gap-4">
+                  <div className="flex items-center text-gray-700 p-3 bg-gray-50 rounded-lg">
+                    <DollarSign className="mr-3 text-caribbean" size={24} />
+                    <div>
+                      <span className="block text-sm text-gray-500 font-medium">{t('projects:detail.price')}</span>
+                      <span className="font-bold text-xl text-gray-900">{getTranslatedProject(project).price}</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center text-gray-700 p-3 bg-gray-50 rounded-lg">
+                    <MapPin className="mr-3 text-turquoise" size={24} />
+                    <div>
+                      <span className="block text-sm text-gray-500 font-medium">{t('projects:detail.location')}</span>
+                      <span className="font-semibold text-lg text-gray-900">{getTranslatedProject(project).location}</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center text-gray-700 p-3 bg-gray-50 rounded-lg">
+                    <Clock className="mr-3 text-sage" size={24} />
+                    <div>
+                      <span className="block text-sm text-gray-500 font-medium">{t('projects:detail.completion')}</span>
+                      <span className="font-semibold text-lg text-gray-900">{getTranslatedProject(project).completion}</span>
+                    </div>
+                  </div>
                 </div>
               </div>
 
               {/* Location Information */}
               {locationData && (
-                <div className="mb-4">
-                  <h3 className="font-semibold text-lg mb-2">{t('projects:detail.location_accessibility')}</h3>
-                  <div className="bg-gray-50 rounded-lg p-3 space-y-2">
+                <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+                  <h3 className="font-bold text-lg mb-4 text-gray-900">{t('projects:detail.location_accessibility')}</h3>
+                  <div className="space-y-3">
                     <div className="flex items-center text-gray-700">
-                      <MapPin className="mr-2 text-turquoise" size={16} />
+                      <MapPin className="mr-3 text-turquoise" size={18} />
                       <span className="text-sm">
                         <strong>{t('projects:detail.airport')}:</strong> {locationData.distanceToAirport}
                       </span>
                     </div>
                     <div className="flex items-center text-gray-700">
-                      <MapPin className="mr-2 text-caribbean" size={16} />
+                      <MapPin className="mr-3 text-caribbean" size={18} />
                       <span className="text-sm">
                         <strong>{t('projects:detail.beach')}:</strong> {locationData.distanceToBeach}
                       </span>
                     </div>
-                    <div className="mt-3">
-                      <h4 className="text-sm font-medium text-gray-800 mb-2">{t('projects:detail.nearby_amenities')}:</h4>
-                      <div className="flex flex-wrap gap-1">
+                    <div className="mt-4">
+                      <h4 className="text-sm font-semibold text-gray-800 mb-3">{t('projects:detail.nearby_amenities')}:</h4>
+                      <div className="flex flex-wrap gap-2">
                         {locationData.nearbyAmenities.slice(0, 4).map((amenity, index) => (
-                          <Badge key={index} variant="secondary" className="text-xs">
+                          <Badge key={index} variant="secondary" className="text-xs px-2 py-1">
                             {amenity}
                           </Badge>
                         ))}
@@ -296,12 +291,28 @@ export default function ProjectDetailPage() {
               )}
             </div>
             
+            {/* Right Side - Carousel */}
             <div className="md:col-span-3">
-              <PhotoCarousel 
-                images={project.images || [project.imageUrl]} 
-                projectTitle={project.title}
-                className="shadow-lg"
-              />
+              <div className="bg-white rounded-xl p-2 shadow-sm border border-gray-100">
+                <PhotoCarousel 
+                  images={project.images || [project.imageUrl]} 
+                  projectTitle={project.title}
+                  className="rounded-lg overflow-hidden"
+                />
+              </div>
+            </div>
+          </div>
+
+          {/* Features Section - Full Width Below */}
+          <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100">
+            <h3 className="font-bold text-2xl mb-6 text-gray-900 text-center">{t('projects:detail.main_features')}</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {getTranslatedProject(project).features.map((feature, index) => (
+                <div key={index} className="flex items-center p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                  <Check className="mr-3 text-caribbean flex-shrink-0" size={20} />
+                  <span className="text-gray-700 font-medium">{feature}</span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
