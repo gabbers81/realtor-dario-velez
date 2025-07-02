@@ -1,4 +1,4 @@
-import { pgTable, text, serial, integer, boolean, timestamp, decimal } from "drizzle-orm/pg-core";
+import { pgTable, text, serial, integer, boolean, timestamp, decimal, jsonb } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -12,6 +12,11 @@ export const contacts = pgTable("contacts", {
   whatInMind: text("what_in_mind"),
   projectSlug: text("project_slug"),
   createdAt: timestamp("created_at").defaultNow(),
+  appointmentDate: timestamp("appointment_date"),
+  calendlyEventId: text("calendly_event_id").unique(),
+  calendlyStatus: text("calendly_status").default("pending"),
+  calendlyInviteeName: text("calendly_invitee_name"),
+  calendlyRawPayload: jsonb("calendly_raw_payload"),
 });
 
 export const projects = pgTable("projects", {

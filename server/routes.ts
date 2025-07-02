@@ -3,6 +3,50 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertContactSchema } from "@shared/schema";
 import { z } from "zod";
+import crypto from "crypto";
+
+// Calendly webhook data types
+interface CalendlyWebhookPayload {
+  created_at: string;
+  created_by: string;
+  event: string;
+  payload: {
+    event_type: {
+      uuid: string;
+      name: string;
+    };
+    event: {
+      uuid: string;
+      start_time: string;
+      end_time: string;
+    };
+    invitee: {
+      uuid: string;
+      email: string;
+      name: string;
+      first_name: string;
+      last_name: string;
+    };
+  };
+}
+
+// Verify Calendly webhook signature
+function verifyWebhookSignature(payload: string, signature: string, secret: string): boolean {
+  try {
+    const expectedSignature = crypto
+      .createHmac('sha256', secret)
+      .update(payload, 'utf8')
+      .digest('base64');
+    
+    return crypto.timingSafeEqual(
+      Buffer.from(signature),
+      Buffer.from(expectedSignature)
+    );
+  } catch (error) {
+    console.error('Webhook signature verification error:', error);
+    return false;
+  }
+}
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // Health check endpoint
@@ -177,6 +221,91 @@ Sitemap: ${process.env.NODE_ENV === 'production'
       res.json(contacts);
     } catch (error) {
       res.status(500).json({ message: "Error fetching contacts" });
+    }
+  });
+
+  // Calendly webhook endpoint
+  app.post("/api/webhooks/calendly", async (req, res) => {
+    try {
+      const signature = req.headers['calendly-webhook-signature'] as string;
+      const secret = process.env.CALENDLY_WEBHOOK_SECRET;
+
+      if (!secret) {
+        console.error('CALENDLY_WEBHOOK_SECRET environment variable not set');
+        res.status(500).json({ error: 'Webhook secret not configured' });
+        return;
+      }
+
+      if (!signature) {
+        console.error('Missing Calendly webhook signature');
+        res.status(401).json({ error: 'Missing signature' });
+        return;
+      }
+
+      const payload = JSON.stringify(req.body);
+      
+      // Verify webhook signature
+      if (!verifyWebhookSignature(payload, signature, secret)) {
+        console.error('Invalid Calendly webhook signature');
+        res.status(401).json({ error: 'Invalid signature' });
+        return;
+      }
+
+      const webhookData = req.body as CalendlyWebhookPayload;
+      
+      // Log webhook receipt
+      console.log(`Calendly webhook received: ${webhookData.event} for ${webhookData.payload.invitee.email}`);
+
+      // Extract relevant data
+      const inviteeEmail = webhookData.payload.invitee.email.toLowerCase();
+      const calendlyEventId = webhookData.payload.event.uuid;
+      const appointmentDate = new Date(webhookData.payload.event.start_time);
+      const inviteeName = webhookData.payload.invitee.name;
+      
+      // Determine status based on event type
+      let calendlyStatus = 'pending';
+      switch (webhookData.event) {
+        case 'invitee.created':
+          calendlyStatus = 'scheduled';
+          break;
+        case 'invitee.canceled':
+          calendlyStatus = 'cancelled';
+          break;
+        case 'invitee_event_updated':
+          calendlyStatus = 'rescheduled';
+          break;
+      }
+
+      // Update contact record
+      const updatedContact = await storage.updateContactCalendlyInfo(inviteeEmail, {
+        calendlyEventId,
+        appointmentDate,
+        calendlyStatus,
+        calendlyInviteeName: inviteeName,
+        calendlyRawPayload: webhookData
+      });
+
+      if (updatedContact) {
+        console.log(`Contact updated for ${inviteeEmail}: appointment ${calendlyStatus} for ${appointmentDate}`);
+      } else {
+        console.log(`No contact found for email ${inviteeEmail}, logging webhook data`);
+        // Note: We still return 200 to prevent Calendly retries
+      }
+
+      // Always return 200 OK to prevent retries
+      res.status(200).json({ 
+        message: 'Webhook processed successfully',
+        contact_updated: !!updatedContact 
+      });
+
+    } catch (error) {
+      console.error('Calendly webhook processing error:', error);
+      
+      // Return 200 even on error to prevent retries for this webhook
+      res.status(200).json({ 
+        message: 'Webhook acknowledged, but processing failed',
+        error: error instanceof Error ? error.message : 'Unknown error'
+      });
     }
   });
 

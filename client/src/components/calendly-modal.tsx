@@ -20,7 +20,7 @@ export function CalendlyModal({ isOpen, onClose }: CalendlyModalProps) {
         <div className="min-h-[600px] w-full">
           {/* Calendly embed iframe */}
           <iframe 
-            src="https://calendly.com/gabriel-garrido18/30min"
+            src="https://calendly.com/velezsoriano87/30min"
             width="100%" 
             height="600" 
             frameBorder="0"

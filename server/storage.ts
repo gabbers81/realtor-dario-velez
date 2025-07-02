@@ -4,10 +4,21 @@ import { eq } from 'drizzle-orm';
 import { createClient } from '@supabase/supabase-js';
 import { contacts, projects, type Contact, type InsertContact, type Project, type InsertProject } from "@shared/schema";
 
+// Calendly webhook data interface
+export interface CalendlyWebhookData {
+  calendlyEventId: string;
+  appointmentDate: Date;
+  calendlyStatus: string;
+  calendlyInviteeName: string;
+  calendlyRawPayload: any;
+}
+
 export interface IStorage {
   // Contacts
   createContact(contact: InsertContact): Promise<Contact>;
   getContacts(): Promise<Contact[]>;
+  updateContactCalendlyInfo(email: string, calendlyData: CalendlyWebhookData): Promise<Contact | null>;
+  getContactByEmail(email: string): Promise<Contact | null>;
   
   // Projects
   getProjects(): Promise<Project[]>;
@@ -305,6 +316,91 @@ export class SupabaseStorage implements IStorage {
           .single();
         
         if (restError) {
+          throw new Error(`REST API error: ${restError.message}`);
+        }
+        
+        return data;
+      }
+      throw error;
+    }
+  }
+
+  async getContactByEmail(email: string): Promise<Contact | null> {
+    try {
+      const [contact] = await db.select().from(contacts).where(eq(contacts.email, email.toLowerCase()));
+      return contact || null;
+    } catch (error: any) {
+      if ((error?.code === 'ENOTFOUND' || error?.errno === -3007) && supabaseClient) {
+        console.log('🔄 Direct connection failed, using REST API fallback for contact lookup by email...');
+        const { data, error: restError } = await supabaseClient
+          .from('contacts')
+          .select('*')
+          .eq('email', email.toLowerCase())
+          .maybeSingle();
+        
+        if (restError) {
+          throw new Error(`REST API error: ${restError.message}`);
+        }
+        
+        return data || null;
+      }
+      throw error;
+    }
+  }
+
+  async updateContactCalendlyInfo(email: string, calendlyData: CalendlyWebhookData): Promise<Contact | null> {
+    try {
+      // First, get the contact by email
+      const existingContact = await this.getContactByEmail(email);
+      if (!existingContact) {
+        console.log(`No contact found for email: ${email}`);
+        return null;
+      }
+
+      // Update using direct DB connection
+      const [updatedContact] = await db
+        .update(contacts)
+        .set({
+          appointmentDate: calendlyData.appointmentDate,
+          calendlyEventId: calendlyData.calendlyEventId,
+          calendlyStatus: calendlyData.calendlyStatus,
+          calendlyInviteeName: calendlyData.calendlyInviteeName,
+          calendlyRawPayload: calendlyData.calendlyRawPayload,
+        })
+        .where(eq(contacts.email, email.toLowerCase()))
+        .returning();
+
+      return updatedContact;
+    } catch (error: any) {
+      if ((error?.code === 'ENOTFOUND' || error?.errno === -3007) && supabaseClient) {
+        console.log('🔄 Direct connection failed, using REST API fallback for contact update...');
+        
+        // Transform camelCase to snake_case for REST API
+        const restApiData = {
+          appointment_date: calendlyData.appointmentDate.toISOString(),
+          calendly_event_id: calendlyData.calendlyEventId,
+          calendly_status: calendlyData.calendlyStatus,
+          calendly_invitee_name: calendlyData.calendlyInviteeName,
+          calendly_raw_payload: calendlyData.calendlyRawPayload,
+        };
+        
+        const { data, error: restError } = await supabaseClient
+          .from('contacts')
+          .update(restApiData)
+          .eq('email', email.toLowerCase())
+          .select()
+          .single();
+        
+        if (restError) {
+          if (restError.code === 'PGRST116') {
+            console.log(`No contact found for email: ${email}`);
+            return null;
+          }
+          // If columns don't exist yet, log and return null without error
+          if (restError.code === '42703' || restError.message.includes('column')) {
+            console.log('⚠️ Calendly columns do not exist yet in database, skipping update...');
+            return null;
+          }
           throw new Error(`REST API error: ${restError.message}`);
         }
         
