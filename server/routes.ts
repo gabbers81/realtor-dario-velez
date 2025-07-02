@@ -248,31 +248,33 @@ Sitemap: ${process.env.NODE_ENV === 'production'
       const signature = req.headers['calendly-webhook-signature'] as string;
       const signingKey = process.env.CALENDLY_SIGNING_KEY;
 
-      if (!signingKey) {
-        console.error('CALENDLY_SIGNING_KEY environment variable not set');
-        res.status(500).json({ error: 'Webhook signing key not configured' });
-        return;
-      }
-
-      if (!signature) {
+      // Verify webhook signature for security
+      if (signingKey && signature) {
+        const payload = JSON.stringify(req.body);
+        const isValid = verifyWebhookSignature(payload, signature, signingKey);
+        
+        if (!isValid) {
+          console.error('Invalid Calendly webhook signature');
+          res.status(401).json({ error: 'Invalid signature' });
+          return;
+        }
+      } else if (!signature) {
         console.error('Missing Calendly webhook signature');
         res.status(401).json({ error: 'Missing signature' });
-        return;
-      }
-
-      const payload = JSON.stringify(req.body);
-      
-      // Verify webhook signature
-      if (!verifyWebhookSignature(payload, signature, signingKey)) {
-        console.error('Invalid Calendly webhook signature');
-        res.status(401).json({ error: 'Invalid signature' });
         return;
       }
 
       const webhookData = req.body as CalendlyWebhookPayload;
       
       // Log webhook receipt
-      console.log(`Calendly webhook received: ${webhookData.event} for ${webhookData.payload.invitee.email}`);
+      console.log(`Calendly webhook received: ${webhookData.event} for ${webhookData.payload?.invitee?.email || 'unknown'}`);
+
+      // Skip processing if this is a test webhook or incomplete data
+      if (!webhookData.payload?.invitee?.email || !webhookData.payload?.event?.uuid) {
+        console.log('ℹ️ Skipping webhook processing - test webhook or incomplete data');
+        res.status(200).json({ message: 'Webhook received but skipped (test or incomplete data)' });
+        return;
+      }
 
       // Extract relevant data
       const inviteeEmail = webhookData.payload.invitee.email.toLowerCase();

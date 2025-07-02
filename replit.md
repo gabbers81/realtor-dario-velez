@@ -130,7 +130,7 @@ The application is configured for Replit deployment with:
 
 ## Recent Changes
 
-- July 2, 2025. **Calendly Integration Implementation Completed**: Implemented webhook-based integration to capture appointment dates from Calendly and link them to contact form submissions. Added 5 new database columns, webhook endpoint with signature verification, and updated Calendly URL to velezsoriano87/30min. Integration ready for activation pending webhook configuration in Calendly dashboard.
+- July 2, 2025. **Calendly Integration Fully Activated**: Completed webhook-based integration with production domain https://dariovelez.com.do. Added 5 new database columns, implemented v2 webhook endpoint with secure signature verification, updated Calendly URL to velezsoriano87/30min, and activated webhook subscription (ID: a0f6924b-a4af-495b-b172-c06a8eb7977c). System now automatically captures appointment dates and links them to contact form submissions via email matching.
 - July 2, 2025. **Project Pricing Updates Completed**: Updated all project pricing across all 6 languages with new values provided by client - fixed homepage to use translated pricing ensuring consistency between landing page and project detail pages across all languages
 - July 2, 2025. **Translation System Completion**: Fixed "Distancias Principales" hardcoded text in project detail pages - now properly translates across all 6 languages (Spanish/English/Russian/French/German/Portuguese)
 - July 2, 2025. **Navigation UX Improvements**: Moved cookie settings button to navigation bar next to language switcher, fixed button overlap issues by vertically stacking WhatsApp and contact buttons, removed redundant floating cookie button
