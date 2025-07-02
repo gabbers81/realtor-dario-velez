@@ -271,119 +271,54 @@ export default function ProjectDetailPage() {
             </div>
           </div>
 
-          {/* Location Information - Option 1: Single Column with Icons */}
+          {/* Location Information */}
           {locationData && (
-            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 mb-8">
-              <h3 className="font-bold text-xl mb-6 text-gray-900 text-center">{t('projects:detail.location_accessibility')} - Option 1</h3>
+            <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100 mb-6">
+              <h3 className="font-bold text-lg mb-4 text-gray-900 text-center">{t('projects:detail.location_accessibility')}</h3>
               
               {/* Distance Section */}
-              <div className="mb-6">
-                <h4 className="font-semibold text-lg text-gray-800 mb-4 flex items-center">
-                  <Navigation className="mr-2 text-caribbean" size={20} />
+              <div className="mb-4">
+                <h4 className="font-semibold text-base text-gray-800 mb-3 flex items-center">
+                  <Navigation className="mr-2 text-caribbean" size={18} />
                   Distancias Principales
                 </h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="flex items-center p-4 bg-gradient-to-r from-turquoise/10 to-turquoise/5 rounded-lg">
-                    <div className="w-12 h-12 bg-turquoise/20 rounded-full flex items-center justify-center mr-4">
-                      <MapPin className="text-turquoise" size={24} />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <div className="flex items-center p-3 bg-gradient-to-r from-turquoise/10 to-turquoise/5 rounded-lg">
+                    <div className="w-9 h-9 bg-turquoise/20 rounded-full flex items-center justify-center mr-3">
+                      <MapPin className="text-turquoise" size={18} />
                     </div>
                     <div>
-                      <span className="font-semibold text-gray-900">{t('projects:detail.airport')}</span>
-                      <p className="text-sm text-gray-600">{locationData.distanceToAirport}</p>
+                      <span className="font-semibold text-gray-900 text-sm">{t('projects:detail.airport')}</span>
+                      <p className="text-xs text-gray-600">{locationData.distanceToAirport}</p>
                     </div>
                   </div>
-                  <div className="flex items-center p-4 bg-gradient-to-r from-caribbean/10 to-caribbean/5 rounded-lg">
-                    <div className="w-12 h-12 bg-caribbean/20 rounded-full flex items-center justify-center mr-4">
-                      <MapPin className="text-caribbean" size={24} />
+                  <div className="flex items-center p-3 bg-gradient-to-r from-caribbean/10 to-caribbean/5 rounded-lg">
+                    <div className="w-9 h-9 bg-caribbean/20 rounded-full flex items-center justify-center mr-3">
+                      <MapPin className="text-caribbean" size={18} />
                     </div>
                     <div>
-                      <span className="font-semibold text-gray-900">{t('projects:detail.beach')}</span>
-                      <p className="text-sm text-gray-600">{locationData.distanceToBeach}</p>
+                      <span className="font-semibold text-gray-900 text-sm">{t('projects:detail.beach')}</span>
+                      <p className="text-xs text-gray-600">{locationData.distanceToBeach}</p>
                     </div>
                   </div>
                 </div>
               </div>
 
               {/* Amenities by Category */}
-              <div className="space-y-4">
-                <h4 className="font-semibold text-lg text-gray-800 flex items-center">
-                  <Home className="mr-2 text-sage" size={20} />
+              <div className="space-y-3">
+                <h4 className="font-semibold text-base text-gray-800 flex items-center">
+                  <Home className="mr-2 text-sage" size={18} />
                   {t('projects:detail.nearby_amenities')}
                 </h4>
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
                   {locationData.nearbyAmenities.map((amenity, index) => (
-                    <div key={index} className="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
-                      <div className="w-8 h-8 bg-sage/20 rounded-full flex items-center justify-center mr-3">
-                        <MapPin className="text-sage" size={14} />
+                    <div key={index} className="flex items-center p-2 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                      <div className="w-6 h-6 bg-sage/20 rounded-full flex items-center justify-center mr-2">
+                        <MapPin className="text-sage" size={12} />
                       </div>
-                      <span className="text-sm text-gray-700 font-medium">{amenity}</span>
+                      <span className="text-xs text-gray-700 font-medium">{amenity}</span>
                     </div>
                   ))}
-                </div>
-              </div>
-            </div>
-          )}
-
-          {/* Location Information - Option 2: Card-based Approach */}
-          {locationData && (
-            <div className="mb-8">
-              <h3 className="font-bold text-xl mb-6 text-gray-900 text-center">{t('projects:detail.location_accessibility')} - Option 2</h3>
-              
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {/* Distances Card */}
-                <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-                  <div className="flex items-center mb-4">
-                    <div className="w-10 h-10 bg-turquoise/20 rounded-full flex items-center justify-center mr-3">
-                      <Navigation className="text-turquoise" size={20} />
-                    </div>
-                    <h4 className="font-bold text-gray-900">Distancias</h4>
-                  </div>
-                  <div className="space-y-3">
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-gray-600">Aeropuerto</span>
-                      <span className="font-semibold text-turquoise">{locationData.distanceToAirport}</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm text-gray-600">Playa</span>
-                      <span className="font-semibold text-caribbean">{locationData.distanceToBeach}</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Recreation Card */}
-                <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-                  <div className="flex items-center mb-4">
-                    <div className="w-10 h-10 bg-caribbean/20 rounded-full flex items-center justify-center mr-3">
-                      <Home className="text-caribbean" size={20} />
-                    </div>
-                    <h4 className="font-bold text-gray-900">Recreación</h4>
-                  </div>
-                  <div className="space-y-2">
-                    {locationData.nearbyAmenities.slice(0, 3).map((amenity, index) => (
-                      <div key={index} className="text-sm text-gray-600 flex items-center">
-                        <div className="w-2 h-2 bg-caribbean rounded-full mr-2"></div>
-                        {amenity}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Additional Amenities Card */}
-                <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-                  <div className="flex items-center mb-4">
-                    <div className="w-10 h-10 bg-sage/20 rounded-full flex items-center justify-center mr-3">
-                      <MapPin className="text-sage" size={20} />
-                    </div>
-                    <h4 className="font-bold text-gray-900">Servicios</h4>
-                  </div>
-                  <div className="space-y-2">
-                    {locationData.nearbyAmenities.slice(3, 6).map((amenity, index) => (
-                      <div key={index} className="text-sm text-gray-600 flex items-center">
-                        <div className="w-2 h-2 bg-sage rounded-full mr-2"></div>
-                        {amenity}
-                      </div>
-                    ))}
-                  </div>
                 </div>
               </div>
             </div>
