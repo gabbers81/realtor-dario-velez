@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, X, ZoomIn } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { OptimizedImage } from '@/components/optimized-image';
 import { useSwipe } from '@/hooks/use-swipe';
 
 interface PhotoCarouselProps {
@@ -84,12 +83,15 @@ export function PhotoCarousel({ images, projectTitle, className }: PhotoCarousel
       <div className={cn("relative bg-gray-100 rounded-lg overflow-hidden group", className)} {...swipeHandlers}>
         {/* Main Image */}
         <div className="relative aspect-[16/10] sm:aspect-[16/9] lg:aspect-[16/8]">
-          <OptimizedImage
+          <img
             src={images[currentIndex]}
             alt={`${projectTitle} - Imagen ${currentIndex + 1}`}
             className="w-full h-full object-cover"
-            priority={currentIndex === 0}
             onLoad={() => setIsLoading(false)}
+            onError={(e) => {
+              console.error('Error loading image:', images[currentIndex]);
+              setIsLoading(false);
+            }}
           />
           
           {/* Loading overlay */}
@@ -200,10 +202,13 @@ export function PhotoCarousel({ images, projectTitle, className }: PhotoCarousel
 
           {/* Fullscreen image */}
           <div className="max-w-7xl max-h-full flex items-center justify-center">
-            <OptimizedImage
+            <img
               src={images[currentIndex]}
               alt={`${projectTitle} - Imagen ${currentIndex + 1}`}
               className="max-w-full max-h-full object-contain"
+              onError={(e) => {
+                console.error('Error loading fullscreen image:', images[currentIndex]);
+              }}
             />
           </div>
 
