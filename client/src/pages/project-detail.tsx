@@ -221,14 +221,14 @@ export default function ProjectDetailPage() {
       </header>
 
       {/* Project Header */}
-      <section className="py-8 bg-gray-50">
+      <section className="py-6 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div>
-              <h1 className="text-4xl font-bold text-gray-900 mb-4">{project.title}</h1>
-              <p className="text-xl text-gray-600 mb-6">{getTranslatedProject(project).description}</p>
+          <div className="grid md:grid-cols-5 gap-6 items-start">
+            <div className="md:col-span-2">
+              <h1 className="text-3xl font-bold text-gray-900 mb-3">{project.title}</h1>
+              <p className="text-lg text-gray-600 mb-4">{getTranslatedProject(project).description}</p>
               
-              <div className="grid grid-cols-2 gap-4 mb-6">
+              <div className="grid grid-cols-2 gap-3 mb-4">
                 <div className="flex items-center text-gray-700">
                   <DollarSign className="mr-2 text-caribbean" size={20} />
                   <div>
@@ -245,7 +245,7 @@ export default function ProjectDetailPage() {
                 </div>
               </div>
               
-              <div className="flex items-center text-gray-700 mb-6">
+              <div className="flex items-center text-gray-700 mb-4">
                 <Clock className="mr-2 text-sage" size={20} />
                 <div>
                   <span className="block text-sm text-gray-500">{t('projects:detail.completion')}</span>
@@ -253,9 +253,9 @@ export default function ProjectDetailPage() {
                 </div>
               </div>
 
-              <div className="mb-6">
-                <h3 className="font-semibold text-lg mb-3">{t('projects:detail.main_features')}</h3>
-                <div className="grid grid-cols-1 gap-2">
+              <div className="mb-4">
+                <h3 className="font-semibold text-lg mb-2">{t('projects:detail.main_features')}</h3>
+                <div className="grid grid-cols-1 gap-1.5">
                   {getTranslatedProject(project).features.map((feature, index) => (
                     <Badge key={index} variant="outline" className="justify-start p-2">
                       {feature}
@@ -266,9 +266,9 @@ export default function ProjectDetailPage() {
 
               {/* Location Information */}
               {locationData && (
-                <div className="mb-6">
-                  <h3 className="font-semibold text-lg mb-3">{t('projects:detail.location_accessibility')}</h3>
-                  <div className="bg-gray-50 rounded-lg p-4 space-y-3">
+                <div className="mb-4">
+                  <h3 className="font-semibold text-lg mb-2">{t('projects:detail.location_accessibility')}</h3>
+                  <div className="bg-gray-50 rounded-lg p-3 space-y-2">
                     <div className="flex items-center text-gray-700">
                       <MapPin className="mr-2 text-turquoise" size={16} />
                       <span className="text-sm">
@@ -296,7 +296,7 @@ export default function ProjectDetailPage() {
               )}
             </div>
             
-            <div>
+            <div className="md:col-span-3">
               <PhotoCarousel 
                 images={project.images || [project.imageUrl]} 
                 projectTitle={project.title}
@@ -309,9 +309,9 @@ export default function ProjectDetailPage() {
 
       {/* PDF Viewer */}
       {project.pdfUrl && (
-        <section className="py-8">
+        <section className="py-6">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 gap-4">
+            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-4 gap-3">
               <h2 className="text-2xl font-bold text-gray-900">{t('projects:detail.detailed_info')}</h2>
               <Button 
                 onClick={downloadPDF} 
