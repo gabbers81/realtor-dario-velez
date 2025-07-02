@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ContactModal } from "@/components/contact-modal";
 import { CalendlyModal } from "@/components/calendly-modal";
+import { PhotoCarousel } from "@/components/photo-carousel";
 import { ArrowLeft, Download, Calendar, MapPin, Clock, DollarSign, MessageCircle, Home, FileText, ExternalLink, Navigation, Phone } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import { useTranslation } from 'react-i18next';
@@ -296,10 +297,10 @@ export default function ProjectDetailPage() {
             </div>
             
             <div>
-              <img 
-                src={project.imageUrl} 
-                alt={project.title}
-                className="w-full h-96 object-cover rounded-lg shadow-lg"
+              <PhotoCarousel 
+                images={project.images || [project.imageUrl]} 
+                projectTitle={project.title}
+                className="shadow-lg"
               />
             </div>
           </div>
