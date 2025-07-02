@@ -208,7 +208,7 @@ export default function ProjectDetailPage() {
             {/* Actions */}
             <div className="flex items-center space-x-4">
               <LanguageSwitcher />
-              <CookieSettingsButton />
+              <CookieSettingsButton variant="navigation" />
               <Button 
                 onClick={goBack}
                 variant="ghost"
@@ -451,7 +451,7 @@ export default function ProjectDetailPage() {
       </footer>
 
       {/* Floating WhatsApp Button */}
-      <div className="fixed bottom-20 right-4 z-50 sm:bottom-6 sm:right-24">
+      <div className="fixed bottom-20 right-4 z-50 sm:bottom-24 sm:right-6">
         <a
           href={`https://wa.me/18294444431?text=${encodeURIComponent(
             `Hola Dario, estoy interesado en el proyecto ${translatedProject.title} en ${translatedProject.location}. ¿Podrías darme más información?`

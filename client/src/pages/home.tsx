@@ -130,7 +130,7 @@ export default function HomePage() {
                 {t('navigation.legal')}
               </button>
               <LanguageSwitcher />
-              <CookieSettingsButton />
+              <CookieSettingsButton variant="navigation" />
               <Button 
                 onClick={() => setIsContactModalOpen(true)}
                 className="bg-caribbean text-white hover:bg-caribbean/90"
@@ -199,7 +199,7 @@ export default function HomePage() {
             </button>
             <div className="py-2 px-3 flex items-center space-x-3">
               <LanguageSwitcher />
-              <CookieSettingsButton />
+              <CookieSettingsButton variant="navigation" />
             </div>
             <div className="px-3 pt-2">
               <Button 
