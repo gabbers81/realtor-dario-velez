@@ -282,7 +282,7 @@ export default function ProjectDetailPage() {
               <div className="mb-4">
                 <h4 className="font-semibold text-lg sm:text-base text-gray-800 mb-3 flex items-center">
                   <Navigation className="mr-2 text-caribbean" size={20} />
-                  Distancias Principales
+                  {t('projects:detail.main_distances')}
                 </h4>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   <div className="flex items-center p-3 bg-gradient-to-r from-turquoise/10 to-turquoise/5 rounded-lg">
