@@ -59,12 +59,14 @@ export default function HomePage() {
     const translatedTitle = t(`projects:properties.${translationKey}.title`, { defaultValue: project.title });
     const translatedDescription = t(`projects:properties.${translationKey}.description`, { defaultValue: project.description });
     const translatedLocation = t(`projects:properties.${translationKey}.location`, { defaultValue: project.location });
+    const translatedPrice = t(`projects:properties.${translationKey}.price`, { defaultValue: project.price });
     
     return {
       ...project,
       title: translatedTitle,
       description: translatedDescription,
-      location: translatedLocation
+      location: translatedLocation,
+      price: translatedPrice
     };
   };
 
@@ -378,7 +380,7 @@ export default function HomePage() {
                       <p className="text-gray-600 mb-4 text-sm sm:text-base leading-relaxed">{translatedProject.description}</p>
                       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-0">
                         <span className="text-caribbean font-bold text-lg sm:text-xl">
-                          {t('common:general.from')} {project.price.replace(/^(Desde|From)\s*/i, '')}
+                          {translatedProject.price}
                         </span>
                         <button className="text-turquoise hover:text-caribbean active:text-caribbean/80 font-medium flex items-center justify-center sm:justify-start h-10 sm:h-auto transition-colors duration-200">
                           {t('actions.view_details')} <ArrowRight className="ml-1" size={16} />
