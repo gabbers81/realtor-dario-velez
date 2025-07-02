@@ -249,18 +249,24 @@ Sitemap: ${process.env.NODE_ENV === 'production'
       const signingKey = process.env.CALENDLY_SIGNING_KEY;
 
       // Verify webhook signature for security
-      if (signingKey && signature) {
-        const payload = JSON.stringify(req.body);
-        const isValid = verifyWebhookSignature(payload, signature, signingKey);
-        
-        if (!isValid) {
-          console.error('Invalid Calendly webhook signature');
-          res.status(401).json({ error: 'Invalid signature' });
-          return;
-        }
-      } else if (!signature) {
+      if (!signingKey) {
+        console.error('CALENDLY_SIGNING_KEY environment variable not set');
+        res.status(500).json({ error: 'Webhook signing key not configured' });
+        return;
+      }
+
+      if (!signature) {
         console.error('Missing Calendly webhook signature');
         res.status(401).json({ error: 'Missing signature' });
+        return;
+      }
+
+      const payload = JSON.stringify(req.body);
+      const isValid = verifyWebhookSignature(payload, signature, signingKey);
+      
+      if (!isValid) {
+        console.error('Invalid Calendly webhook signature');
+        res.status(401).json({ error: 'Invalid signature' });
         return;
       }
 
