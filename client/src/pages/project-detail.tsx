@@ -229,79 +229,80 @@ export default function ProjectDetailPage() {
             <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">{getTranslatedProject(project).description}</p>
           </div>
 
-          {/* Main Content Layout */}
-          <div className="grid md:grid-cols-5 gap-8 items-start mb-8">
-            {/* Left Side - Key Info */}
-            <div className="md:col-span-2 space-y-6">
-              <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-                <div className="grid grid-cols-1 gap-4">
-                  <div className="flex items-center text-gray-700 p-3 bg-gray-50 rounded-lg">
-                    <DollarSign className="mr-3 text-caribbean" size={24} />
-                    <div>
-                      <span className="block text-sm text-gray-500 font-medium">{t('projects:detail.price')}</span>
-                      <span className="font-bold text-xl text-gray-900">{getTranslatedProject(project).price}</span>
-                    </div>
-                  </div>
-                  <div className="flex items-center text-gray-700 p-3 bg-gray-50 rounded-lg">
-                    <MapPin className="mr-3 text-turquoise" size={24} />
-                    <div>
-                      <span className="block text-sm text-gray-500 font-medium">{t('projects:detail.location')}</span>
-                      <span className="font-semibold text-lg text-gray-900">{getTranslatedProject(project).location}</span>
-                    </div>
-                  </div>
-                  <div className="flex items-center text-gray-700 p-3 bg-gray-50 rounded-lg">
-                    <Clock className="mr-3 text-sage" size={24} />
-                    <div>
-                      <span className="block text-sm text-gray-500 font-medium">{t('projects:detail.completion')}</span>
-                      <span className="font-semibold text-lg text-gray-900">{getTranslatedProject(project).completion}</span>
-                    </div>
-                  </div>
+          {/* Full-Width Carousel */}
+          <div className="mb-8">
+            <PhotoCarousel 
+              images={project.images || [project.imageUrl]} 
+              projectTitle={project.title}
+              className="rounded-xl overflow-hidden shadow-lg"
+            />
+          </div>
+
+          {/* Key Info Cards - Below Carousel */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+              <div className="flex items-center text-gray-700">
+                <DollarSign className="mr-4 text-caribbean" size={28} />
+                <div>
+                  <span className="block text-sm text-gray-500 font-medium">{t('projects:detail.price')}</span>
+                  <span className="font-bold text-xl text-gray-900">{getTranslatedProject(project).price}</span>
                 </div>
               </div>
-
-              {/* Location Information */}
-              {locationData && (
-                <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-                  <h3 className="font-bold text-lg mb-4 text-gray-900">{t('projects:detail.location_accessibility')}</h3>
-                  <div className="space-y-3">
-                    <div className="flex items-center text-gray-700">
-                      <MapPin className="mr-3 text-turquoise" size={18} />
-                      <span className="text-sm">
-                        <strong>{t('projects:detail.airport')}:</strong> {locationData.distanceToAirport}
-                      </span>
-                    </div>
-                    <div className="flex items-center text-gray-700">
-                      <MapPin className="mr-3 text-caribbean" size={18} />
-                      <span className="text-sm">
-                        <strong>{t('projects:detail.beach')}:</strong> {locationData.distanceToBeach}
-                      </span>
-                    </div>
-                    <div className="mt-4">
-                      <h4 className="text-sm font-semibold text-gray-800 mb-3">{t('projects:detail.nearby_amenities')}:</h4>
-                      <div className="flex flex-wrap gap-2">
-                        {locationData.nearbyAmenities.slice(0, 4).map((amenity, index) => (
-                          <Badge key={index} variant="secondary" className="text-xs px-2 py-1">
-                            {amenity}
-                          </Badge>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
             </div>
             
-            {/* Right Side - Carousel */}
-            <div className="md:col-span-3">
-              <div className="bg-white rounded-xl p-2 shadow-sm border border-gray-100">
-                <PhotoCarousel 
-                  images={project.images || [project.imageUrl]} 
-                  projectTitle={project.title}
-                  className="rounded-lg overflow-hidden"
-                />
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+              <div className="flex items-center text-gray-700">
+                <MapPin className="mr-4 text-turquoise" size={28} />
+                <div>
+                  <span className="block text-sm text-gray-500 font-medium">{t('projects:detail.location')}</span>
+                  <span className="font-semibold text-lg text-gray-900">{getTranslatedProject(project).location}</span>
+                </div>
+              </div>
+            </div>
+            
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+              <div className="flex items-center text-gray-700">
+                <Clock className="mr-4 text-sage" size={28} />
+                <div>
+                  <span className="block text-sm text-gray-500 font-medium">{t('projects:detail.completion')}</span>
+                  <span className="font-semibold text-lg text-gray-900">{getTranslatedProject(project).completion}</span>
+                </div>
               </div>
             </div>
           </div>
+
+          {/* Location Information */}
+          {locationData && (
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 mb-8">
+              <h3 className="font-bold text-xl mb-6 text-gray-900 text-center">{t('projects:detail.location_accessibility')}</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-4">
+                  <div className="flex items-center text-gray-700 p-3 bg-gray-50 rounded-lg">
+                    <MapPin className="mr-3 text-turquoise" size={20} />
+                    <span className="text-sm">
+                      <strong>{t('projects:detail.airport')}:</strong> {locationData.distanceToAirport}
+                    </span>
+                  </div>
+                  <div className="flex items-center text-gray-700 p-3 bg-gray-50 rounded-lg">
+                    <MapPin className="mr-3 text-caribbean" size={20} />
+                    <span className="text-sm">
+                      <strong>{t('projects:detail.beach')}:</strong> {locationData.distanceToBeach}
+                    </span>
+                  </div>
+                </div>
+                <div>
+                  <h4 className="text-sm font-semibold text-gray-800 mb-3">{t('projects:detail.nearby_amenities')}:</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {locationData.nearbyAmenities.slice(0, 6).map((amenity, index) => (
+                      <Badge key={index} variant="secondary" className="text-xs px-3 py-1">
+                        {amenity}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Features Section - Full Width Below */}
           <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100">

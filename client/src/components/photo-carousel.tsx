@@ -82,7 +82,7 @@ export function PhotoCarousel({ images, projectTitle, className }: PhotoCarousel
       {/* Main Carousel */}
       <div className={cn("relative bg-gray-100 rounded-lg overflow-hidden group", className)} {...swipeHandlers}>
         {/* Main Image */}
-        <div className="relative aspect-[16/10] sm:aspect-[16/9] lg:aspect-[16/8]">
+        <div className="relative aspect-[16/12] sm:aspect-[16/10] lg:aspect-[16/9]">
           <img
             src={images[currentIndex]}
             alt={`${projectTitle} - Imagen ${currentIndex + 1}`}
