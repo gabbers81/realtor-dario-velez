@@ -206,23 +206,43 @@ Sitemap: ${process.env.NODE_ENV === 'production'
   // Create contact
   app.post("/api/contacts", async (req, res) => {
     try {
+      console.log('Received contact form data:', req.body);
+      
+      // Transform and validate required fields
+      if (!req.body.fullName || !req.body.email || !req.body.phone) {
+        return res.status(400).json({ 
+          message: "Missing required fields", 
+          errors: [{
+            path: [],
+            message: "fullName, email, and phone are required"
+          }]
+        });
+      }
+
       // Keep camelCase for schema validation (Drizzle will handle the database mapping)
       const transformedData = {
-        fullName: req.body.fullName,
-        email: req.body.email,
-        phone: req.body.phone,
-        budget: req.body.budget || 'No especificado', // Default value since DB has NOT NULL constraint
-        downPayment: req.body.downPayment || null,
-        whatInMind: req.body.whatInMind || null,
-        projectSlug: req.body.projectSlug || null,
+        fullName: req.body.fullName?.trim(),
+        email: req.body.email?.trim(),
+        phone: req.body.phone?.trim(),
+        budget: req.body.budget && req.body.budget.trim() !== '' ? req.body.budget.trim() : null,
+        downPayment: req.body.downPayment && req.body.downPayment.trim() !== '' ? req.body.downPayment.trim() : null,
+        whatInMind: req.body.whatInMind && req.body.whatInMind.trim() !== '' ? req.body.whatInMind.trim() : null,
+        projectSlug: req.body.projectSlug && req.body.projectSlug.trim() !== '' ? req.body.projectSlug.trim() : null,
       };
 
+      console.log('Transformed data for validation:', transformedData);
+
       const validatedData = insertContactSchema.parse(transformedData);
+      console.log('Validation successful, creating contact...');
+      
       const contact = await storage.createContact(validatedData);
+      console.log('Contact created successfully:', contact.id);
+      
       res.status(201).json(contact);
     } catch (error) {
       console.error('Contact creation error:', error);
       if (error instanceof z.ZodError) {
+        console.log('Validation errors:', error.errors);
         return res.status(400).json({ 
           message: "Validation error", 
           errors: error.errors 
