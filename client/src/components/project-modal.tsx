@@ -1,7 +1,7 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Download, Calendar, Check, Eye, ExternalLink } from "lucide-react";
+import { Download, Calendar, Check, FileText, Eye } from "lucide-react";
 import type { Project } from "@/lib/types";
 import { useState } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -17,67 +17,33 @@ export function ProjectModal({ isOpen, onClose, project, onOpenContact }: Projec
   if (!project) return null;
 
   const [showPDF, setShowPDF] = useState(false);
-  const [pdfLoading, setPdfLoading] = useState(false);
-  const [pdfError, setPdfError] = useState(false);
   const isMobile = useIsMobile();
 
-  // Convert project slug to PDF filename
-  const getPDFFilename = (slug: string) => {
-    const pdfMap: Record<string, string> = {
-      'secret-garden': 'secret-garden.pdf',
-      'the-reef': 'the-reef.pdf',
-      'palm-beach-residences': 'palm-beach-residences.pdf',
-      'solvamar-macao': 'solvamar-macao.pdf',
-      'amares-unique-homes': 'amares-unique-homes.pdf',
-      'tropical-beach-3-0': 'tropical-beach-3-0.pdf',
-      'las-cayas-residences': 'las-cayas-residences.pdf',
-      'aura-boulevard': 'aura-boulevard.pdf'
-    };
-    return pdfMap[slug] || null;
-  };
-
-  const pdfFilename = getPDFFilename(project.slug);
-  const pdfUrl = pdfFilename ? `/pdfs/${pdfFilename}` : null;
+  // Use the existing pdfUrl from project data (matches project-detail.tsx pattern)
+  const pdfUrl = project.pdfUrl;
 
   const handleViewPDF = () => {
-    if (!pdfUrl) {
-      setPdfError(true);
-      return;
-    }
+    if (!pdfUrl) return;
 
     if (isMobile) {
-      // On mobile, directly open PDF in new window
+      // Mobile: Direct download (matches project-detail.tsx pattern)
       window.open(pdfUrl, '_blank');
     } else {
-      // On desktop, show PDF in modal
+      // Desktop: Show PDF in modal
       setShowPDF(true);
-      setPdfLoading(true);
-      setPdfError(false);
     }
   };
 
-  const handleDownloadPDF = () => {
-    if (!pdfUrl) {
-      setPdfError(true);
-      return;
-    }
-
-    // Create download link
+  const downloadPDF = () => {
+    if (!pdfUrl) return;
+    
+    // Direct download (matches project-detail.tsx pattern)
     const link = document.createElement('a');
     link.href = pdfUrl;
-    link.download = pdfFilename || 'brochure.pdf';
+    link.download = '';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-  };
-
-  const handlePDFLoad = () => {
-    setPdfLoading(false);
-  };
-
-  const handlePDFError = () => {
-    setPdfLoading(false);
-    setPdfError(true);
   };
 
   return (
@@ -124,14 +90,26 @@ export function ProjectModal({ isOpen, onClose, project, onOpenContact }: Projec
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4">
-            <Button 
-              onClick={downloadPDF}
-              variant="outline"
-              className="flex-1"
-            >
-              <Download className="mr-2" size={16} />
-              Descargar PDF
-            </Button>
+            {/* PDF Button - Mobile: Download, Desktop: View */}
+            {pdfUrl && (
+              <Button 
+                onClick={isMobile ? downloadPDF : handleViewPDF}
+                variant="outline"
+                className="flex-1"
+              >
+                {isMobile ? (
+                  <>
+                    <Download className="mr-2" size={16} />
+                    Descargar PDF
+                  </>
+                ) : (
+                  <>
+                    <Eye className="mr-2" size={16} />
+                    Ver PDF
+                  </>
+                )}
+              </Button>
+            )}
             <Button 
               onClick={onOpenContact}
               className="flex-1 bg-caribbean text-white hover:bg-caribbean/90"
@@ -142,6 +120,50 @@ export function ProjectModal({ isOpen, onClose, project, onOpenContact }: Projec
           </div>
         </div>
       </DialogContent>
+      
+      {/* PDF Modal for Desktop */}
+      {showPDF && pdfUrl && (
+        <Dialog open={showPDF} onOpenChange={setShowPDF}>
+          <DialogContent className="max-w-4xl max-h-[90vh] p-6">
+            <DialogHeader>
+              <DialogTitle className="text-xl font-bold">
+                {project.title} - Información Detallada
+              </DialogTitle>
+              <Button
+                onClick={() => setShowPDF(false)}
+                variant="ghost"
+                className="absolute right-4 top-4 h-6 w-6 p-0"
+              >
+                ×
+              </Button>
+            </DialogHeader>
+            
+            <div className="relative bg-gray-100 rounded-lg overflow-hidden">
+              <iframe
+                src={pdfUrl}
+                className="w-full h-[70vh] border-0"
+                title={`${project.title} - Información detallada`}
+                allow="fullscreen"
+              />
+              
+              {/* Fallback download button */}
+              <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-lg p-2 shadow-lg">
+                <Button
+                  asChild
+                  variant="outline"
+                  size="sm"
+                  className="text-sm"
+                >
+                  <a href={pdfUrl} target="_blank" rel="noopener noreferrer">
+                    <FileText className="mr-2" size={16} />
+                    Abrir en nueva pestaña
+                  </a>
+                </Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
     </Dialog>
   );
 }
