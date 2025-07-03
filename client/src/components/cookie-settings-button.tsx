@@ -10,43 +10,9 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-interface CookieSettingsButtonProps {
-  variant?: 'floating' | 'navigation';
-}
-
-export function CookieSettingsButton({ variant = 'floating' }: CookieSettingsButtonProps) {
+export function CookieSettingsButton() {
   const { t } = useTranslation('cookies');
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-
-  if (variant === 'navigation') {
-    return (
-      <>
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                onClick={() => setIsSettingsOpen(true)}
-                variant="ghost"
-                size="sm"
-                className="h-8 w-8 p-0"
-              >
-                <Cookie className="h-4 w-4" />
-                <span className="sr-only">{t('settings.title')}</span>
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>{t('settings.tooltip')}</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-
-        <CookieSettingsModal
-          isOpen={isSettingsOpen}
-          onClose={() => setIsSettingsOpen(false)}
-        />
-      </>
-    );
-  }
 
   return (
     <>

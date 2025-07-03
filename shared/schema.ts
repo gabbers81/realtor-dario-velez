@@ -23,8 +23,7 @@ export const projects = pgTable("projects", {
   location: text("location").notNull(),
   completion: text("completion").notNull(),
   features: text("features").array().notNull(),
-  imageUrl: text("image_url").notNull(), // Main image for homepage
-  images: text("images").array().notNull().default(['[]']), // Array of all project images for carousel
+  imageUrl: text("image_url").notNull(),
   pdfUrl: text("pdf_url"),
 });
 

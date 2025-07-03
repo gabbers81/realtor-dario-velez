@@ -130,13 +130,6 @@ The application is configured for Replit deployment with:
 
 ## Recent Changes
 
-- July 2, 2025. **Project Pricing Updates Completed**: Updated all project pricing across all 6 languages with new values provided by client - fixed homepage to use translated pricing ensuring consistency between landing page and project detail pages across all languages
-- July 2, 2025. **Translation System Completion**: Fixed "Distancias Principales" hardcoded text in project detail pages - now properly translates across all 6 languages (Spanish/English/Russian/French/German/Portuguese)
-- July 2, 2025. **Navigation UX Improvements**: Moved cookie settings button to navigation bar next to language switcher, fixed button overlap issues by vertically stacking WhatsApp and contact buttons, removed redundant floating cookie button
-- July 2, 2025. **Mobile-First Typography Optimization**: Implemented responsive typography with mobile-first approach - 16px+ minimum font sizes on mobile devices, compact desktop sizing, and touch-friendly icons (20-24px) for improved accessibility and readability
-- July 2, 2025. **Project Detail Page Consistency**: Made all sections uniformly compact with consistent spacing, padding, and sizing throughout the project detail pages for better space utilization
-- July 2, 2025. **Alphabetical Project Sorting**: Homepage projects now display in alphabetical order (Amares, Aura Boulevard, Las Cayas, Palm Beach, Secret Garden, Solvamar, The Reef, Tropical Beach) for improved user experience
-- July 2, 2025. **Homepage Image Display Fixed**: Resolved caching issue causing old images to display - all project cards now show correct "Portada" cover images on the landing page
 - June 27, 2025. **Cookie Consent System Implemented**: Added comprehensive GDPR/LGPD compliant cookie consent with multilingual support (6 languages), granular controls for Essential/Analytics/Marketing/Preferences cookies, and integrated Google Analytics protection
 - June 27, 2025. **Google Analytics Integration Completed**: Implemented comprehensive tracking with measurement ID G-P09HNDKW35 including page views, contact form submissions, Calendly interactions, project views, and PDF downloads
 - June 27, 2025. **PDF Corruption Issue Resolved**: Fixed corrupted PDF files for AURA Boulevard (replaced 0-byte file with 15MB backup) and Solvamar Macao (corrected file permissions from 600 to 644) - both PDFs now download properly

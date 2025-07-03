@@ -4,7 +4,7 @@
       "title": "Aura Boulevard",
       "description": "Complexe résidentiel moderne stratégiquement situé dans le Punta Cana Design District avec une plaza commerciale exclusive.",
       "location": "Punta Cana Design District",
-      "price": "À partir de US$118,000",
+      "price": "À partir de US$89,000",
       "completion": "Décembre 2025",
       "features": [
         "Suites d'hôtel et appartements 1-2 chambres",
@@ -19,7 +19,7 @@
       "title": "Secret Garden",
       "description": "Développement résidentiel boutique exclusif avec jardins tropicaux et équipements premium.",
       "location": "Cap Cana",
-      "price": "À partir de US$183,000",
+      "price": "À partir de US$195,000",
       "completion": "Août 2026",
       "features": [
         "Appartements de 1, 2 et 3 chambres",
@@ -36,7 +36,7 @@
       "title": "The Reef",
       "description": "Complexe de luxe en bord de mer avec hôtel, résidences et piscines naturelles à Las Terrenas.",
       "location": "Las Terrenas, Samaná",
-      "price": "À partir de US$310,000",
+      "price": "À partir de US$165,000",
       "completion": "Mars 2026",
       "features": [
         "435 appartements de 2 et 3 chambres",
@@ -53,7 +53,7 @@
       "title": "Palm Beach Residences",
       "description": "Tour résidentielle de luxe avec équipements de resort dans le prestigieux Cap Cana.",
       "location": "Cap Cana",
-      "price": "À partir de US$410,000",
+      "price": "À partir de US$225,000",
       "completion": "Novembre 2025",
       "features": [
         "Appartements de 1 et 2 chambres",
@@ -70,7 +70,7 @@
       "title": "Solvamar Macao",
       "description": "Maisons de ville et villas familiales près de la célèbre plage Macao avec équipements complets.",
       "location": "Macao, Punta Cana",
-      "price": "À partir de US$99,000",
+      "price": "À partir de US$145,000",
       "completion": "Juillet 2026",
       "features": [
         "Maisons de ville 60m² et villas jusqu'à 120m²",
@@ -87,7 +87,7 @@
       "title": "Amares Unique Homes",
       "description": "Villas exclusives au design curviligne face à la mer dans la péninsule de Samaná.",
       "location": "Las Terrenas, Samaná",
-      "price": "À partir de US$349,800",
+      "price": "À partir de US$285,000",
       "completion": "Octobre 2026",
       "features": [
         "36 villas uniques de 1 et 2 chambres",
@@ -104,7 +104,7 @@
       "title": "Tropical Beach 3.0",
       "description": "Projet résidentiel familial au design moderne à 4 minutes du centre de Bavaro.",
       "location": "Bavaro",
-      "price": "À partir de US$185,000",
+      "price": "À partir de US$125,000",
       "completion": "Septembre 2025",
       "features": [
         "Maisons familiales de 2 et 3 chambres",
@@ -121,7 +121,7 @@
       "title": "Las Cayas Residences",
       "description": "Communauté fermée de luxe avec villas de 1 et 2 niveaux, clubhouse et équipements premium.",
       "location": "Punta Cana",
-      "price": "À partir de USD165,000",
+      "price": "À partir de US$255,200",
       "completion": "Décembre 2025",
       "features": [
         "Villas de 3 chambres sur 2 niveaux",
@@ -150,7 +150,6 @@
     "completion": "Achèvement",
     "main_features": "Caractéristiques Principales",
     "location_accessibility": "Emplacement et Accessibilité",
-    "main_distances": "Distances Principales",
     "airport": "Aéroport",
     "beach": "Plage",
     "nearby_amenities": "Commodités à Proximité",
