@@ -89,11 +89,13 @@ export class SupabaseStorage implements IStorage {
       // Test projects table accessibility
       console.log('Testing projects table accessibility...');
       try {
-        const existingProjects = await db.select().from(projects).limit(1);
+        const existingProjects = await db.select().from(projects);
         console.log(`✅ Projects table accessible, found ${existingProjects.length} projects`);
-        if (existingProjects.length > 0) {
-          console.log('✅ Projects already exist in Supabase');
+        if (existingProjects.length >= 8) {
+          console.log('✅ All 8 projects already exist in Supabase');
           return; // Projects already initialized
+        } else if (existingProjects.length > 0) {
+          console.log(`⚠️ Only ${existingProjects.length} projects found, expected 8. Re-seeding...`);
         }
       } catch (error: any) {
         console.error('❌ Storage: Projects table access failed during initialization:', {
