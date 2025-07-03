@@ -35,7 +35,6 @@ export function ContactModal({ isOpen, onClose, onOpenCalendly, projectSlug }: C
 
   const createContactMutation = useMutation({
     mutationFn: async (data: ContactFormData) => {
-      console.log('Submitting contact form data:', data);
       return await apiRequest("POST", "/api/contacts", data);
     },
     onSuccess: () => {
@@ -98,8 +97,6 @@ export function ContactModal({ isOpen, onClose, onOpenCalendly, projectSlug }: C
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    console.log('Form submission attempt with data:', formData);
-    
     // Trim all string fields
     const trimmedData = {
       ...formData,
@@ -154,7 +151,6 @@ export function ContactModal({ isOpen, onClose, onOpenCalendly, projectSlug }: C
       submissionData.projectSlug = projectSlug;
     }
 
-    console.log('Submitting validated data:', submissionData);
     createContactMutation.mutate(submissionData);
   };
 

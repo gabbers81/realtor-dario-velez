@@ -206,8 +206,6 @@ Sitemap: ${process.env.NODE_ENV === 'production'
   // Create contact
   app.post("/api/contacts", async (req, res) => {
     try {
-      console.log('Received contact form data:', req.body);
-      
       // Transform and validate required fields
       if (!req.body.fullName || !req.body.email || !req.body.phone) {
         return res.status(400).json({ 
@@ -230,13 +228,8 @@ Sitemap: ${process.env.NODE_ENV === 'production'
         projectSlug: req.body.projectSlug && req.body.projectSlug.trim() !== '' ? req.body.projectSlug.trim() : null,
       };
 
-      console.log('Transformed data for validation:', transformedData);
-
       const validatedData = insertContactSchema.parse(transformedData);
-      console.log('Validation successful, creating contact...');
-      
       const contact = await storage.createContact(validatedData);
-      console.log('Contact created successfully:', contact.id);
       
       res.status(201).json(contact);
     } catch (error) {

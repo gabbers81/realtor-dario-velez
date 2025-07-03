@@ -130,6 +130,7 @@ The application is configured for Replit deployment with:
 
 ## Recent Changes
 
+- July 3, 2025. **Contact Form Validation System Fixed**: Resolved critical validation issues where required fields were showing errors despite having values. Fixed frontend state initialization (missing whatInMind field), enhanced backend validation with proper null handling for optional fields, improved error messaging, and updated phone validation for Dominican Republic format. Contact form now works reliably end-to-end with comprehensive multilingual error handling.
 - July 2, 2025. **Calendly Integration Fully Activated**: Completed webhook-based integration with production domain https://dariovelez.com.do. Added 5 new database columns, implemented v2 webhook endpoint with secure signature verification, updated Calendly URL to velezsoriano87/30min, and activated webhook subscription (ID: a0f6924b-a4af-495b-b172-c06a8eb7977c). System now automatically captures appointment dates and links them to contact form submissions via email matching.
 - July 2, 2025. **Project Pricing Updates Completed**: Updated all project pricing across all 6 languages with new values provided by client - fixed homepage to use translated pricing ensuring consistency between landing page and project detail pages across all languages
 - July 2, 2025. **Translation System Completion**: Fixed "Distancias Principales" hardcoded text in project detail pages - now properly translates across all 6 languages (Spanish/English/Russian/French/German/Portuguese)
