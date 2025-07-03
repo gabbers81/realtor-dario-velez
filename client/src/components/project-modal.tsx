@@ -1,8 +1,10 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Download, Calendar, Check } from "lucide-react";
+import { Download, Calendar, Check, Eye, ExternalLink } from "lucide-react";
 import type { Project } from "@/lib/types";
+import { useState } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface ProjectModalProps {
   isOpen: boolean;
@@ -14,9 +16,68 @@ interface ProjectModalProps {
 export function ProjectModal({ isOpen, onClose, project, onOpenContact }: ProjectModalProps) {
   if (!project) return null;
 
-  const downloadPDF = () => {
-    // TODO: Implement actual PDF download
-    alert('Funcionalidad de descarga de PDF será implementada con los PDFs reales de cada proyecto.');
+  const [showPDF, setShowPDF] = useState(false);
+  const [pdfLoading, setPdfLoading] = useState(false);
+  const [pdfError, setPdfError] = useState(false);
+  const isMobile = useIsMobile();
+
+  // Convert project slug to PDF filename
+  const getPDFFilename = (slug: string) => {
+    const pdfMap: Record<string, string> = {
+      'secret-garden': 'secret-garden.pdf',
+      'the-reef': 'the-reef.pdf',
+      'palm-beach-residences': 'palm-beach-residences.pdf',
+      'solvamar-macao': 'solvamar-macao.pdf',
+      'amares-unique-homes': 'amares-unique-homes.pdf',
+      'tropical-beach-3-0': 'tropical-beach-3-0.pdf',
+      'las-cayas-residences': 'las-cayas-residences.pdf',
+      'aura-boulevard': 'aura-boulevard.pdf'
+    };
+    return pdfMap[slug] || null;
+  };
+
+  const pdfFilename = getPDFFilename(project.slug);
+  const pdfUrl = pdfFilename ? `/pdfs/${pdfFilename}` : null;
+
+  const handleViewPDF = () => {
+    if (!pdfUrl) {
+      setPdfError(true);
+      return;
+    }
+
+    if (isMobile) {
+      // On mobile, directly open PDF in new window
+      window.open(pdfUrl, '_blank');
+    } else {
+      // On desktop, show PDF in modal
+      setShowPDF(true);
+      setPdfLoading(true);
+      setPdfError(false);
+    }
+  };
+
+  const handleDownloadPDF = () => {
+    if (!pdfUrl) {
+      setPdfError(true);
+      return;
+    }
+
+    // Create download link
+    const link = document.createElement('a');
+    link.href = pdfUrl;
+    link.download = pdfFilename || 'brochure.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const handlePDFLoad = () => {
+    setPdfLoading(false);
+  };
+
+  const handlePDFError = () => {
+    setPdfLoading(false);
+    setPdfError(true);
   };
 
   return (
