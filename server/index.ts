@@ -12,6 +12,20 @@ const app = express();
 // Trust proxy for rate limiting in production environments
 app.set('trust proxy', 1);
 
+// Force HTTP/1.1 for large file compatibility in production
+if (process.env.NODE_ENV === 'production') {
+  app.use((req, res, next) => {
+    // Disable HTTP/2 server push and force HTTP/1.1 behavior
+    res.set({
+      'Connection': 'keep-alive',
+      'HTTP2-Settings': undefined, // Remove HTTP/2 settings
+      'Upgrade': undefined, // Prevent protocol upgrades
+    });
+    next();
+  });
+  log('🔧 Configured server for HTTP/1.1 compatibility in production');
+}
+
 // Security middleware - more permissive in development
 app.use(helmet({
   contentSecurityPolicy: process.env.NODE_ENV === 'production' ? {
@@ -133,16 +147,28 @@ app.get('/pdfs/:filename', async (req, res) => {
       log(`Serving PDF: ${filename} (${fileSizeMB}MB)`);
     }
     
-    // Set headers for PDF serving
+    // Set headers for PDF serving with CDN optimization overrides
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader('Content-Length', fileSize);
     res.setHeader('Content-Disposition', 'inline');
-    res.setHeader('Cache-Control', 'public, max-age=604800, immutable'); // 7 days
     res.setHeader('Accept-Ranges', 'bytes');
     res.setHeader('X-Frame-Options', 'SAMEORIGIN');
     res.setHeader('X-Content-Type-Options', 'nosniff');
     res.setHeader('Last-Modified', stats.mtime.toUTCString());
     res.setHeader('ETag', `"${stats.size}-${stats.mtime.getTime()}"`);
+    
+    // For large files in production, use different caching and connection strategies
+    if (fileSizeMB > 30 && process.env.NODE_ENV === 'production') {
+      // Disable CDN optimizations that cause issues with large files
+      res.setHeader('Cache-Control', 'no-transform, max-age=3600'); // Shorter cache, no transform
+      res.setHeader('Connection', 'keep-alive'); // Force persistent connection
+      res.setHeader('Transfer-Encoding', 'chunked'); // Force chunked encoding
+      res.setHeader('X-Accel-Buffering', 'no'); // Disable proxy buffering
+      res.setHeader('X-Sendfile-Type', 'X-Accel-Redirect'); // Bypass proxy for large files
+      log(`Large PDF optimization headers set for ${filename} (${fileSizeMB}MB)`);
+    } else {
+      res.setHeader('Cache-Control', 'public, max-age=604800, immutable'); // 7 days for smaller files
+    }
     
     // Handle range requests for large files
     const range = req.headers.range;
