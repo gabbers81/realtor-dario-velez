@@ -152,7 +152,7 @@ export function PhotoCarousel({ images, projectTitle, className }: PhotoCarousel
                 key={index}
                 onClick={() => goToImage(index)}
                 className={cn(
-                  "w-0.5 h-0.5 rounded-full transition-all duration-200",
+                  "w-px h-px rounded-full transition-all duration-200",
                   currentIndex === index
                     ? "bg-white scale-125"
                     : "bg-white/50 hover:bg-white/75"
@@ -227,7 +227,7 @@ export function PhotoCarousel({ images, projectTitle, className }: PhotoCarousel
                   key={index}
                   onClick={() => goToImage(index)}
                   className={cn(
-                    "w-1 h-1 rounded-full transition-all duration-200",
+                    "w-px h-px rounded-full transition-all duration-200",
                     currentIndex === index
                       ? "bg-white scale-125"
                       : "bg-white/50 hover:bg-white/75"
