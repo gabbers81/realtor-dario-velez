@@ -159,6 +159,8 @@
     "contact_project": "Contactar sobre este Proyecto",
     "view_brochure": "Ver Brochure del Proyecto",
     "mobile_pdf_message": "Para mejor experiencia en móvil, descarga el PDF",
-    "open_in_new_tab": "Abrir en nueva pestaña"
+    "open_in_new_tab": "Abrir en nueva pestaña",
+    "large_pdf_title": "Documento PDF Grande",
+    "large_pdf_message": "Este documento es muy grande para visualizar directamente. Por favor, ábralo en una nueva pestaña para mejor experiencia."
   }
 }

@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { ContactModal } from "@/components/contact-modal";
 import { CalendlyModal } from "@/components/calendly-modal";
 import { PhotoCarousel } from "@/components/photo-carousel";
-import { ArrowLeft, Download, Calendar, MapPin, Clock, DollarSign, MessageCircle, Home, FileText, ExternalLink, Navigation, Phone, Check } from "lucide-react";
+import { ArrowLeft, Download, Calendar, MapPin, Clock, DollarSign, MessageCircle, Home, FileText, ExternalLink, Navigation, Phone, Check, Eye } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from "@/components/language-switcher";
@@ -380,30 +380,63 @@ export default function ProjectDetailPage() {
               
               {/* Desktop: Enhanced PDF viewer with fallback */}
               <div className="hidden md:block relative">
-                <iframe
-                  src={project.pdfUrl}
-                  className="w-full h-[600px] lg:h-[800px] border-0"
-                  title={`${project.title} - Información detallada`}
-                  allow="fullscreen"
-                  onError={() => {
-                    console.log('PDF iframe failed to load, showing fallback');
-                  }}
-                />
-                
-                {/* Fallback option for when iframe doesn't work */}
-                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-lg p-3 shadow-lg">
-                  <Button
-                    asChild
-                    variant="outline"
-                    size="sm"
-                    className="text-sm"
-                  >
-                    <a href={project.pdfUrl} target="_blank" rel="noopener noreferrer">
-                      <FileText className="mr-2" size={16} />
-                      {t('projects:detail.open_in_new_tab', 'Abrir en nueva pestaña')}
-                    </a>
-                  </Button>
-                </div>
+                {/* Check if this is a large PDF that might fail in production */}
+                {project.slug === 'secret-garden' || project.slug === 'solvamar-macao' ? (
+                  <div className="bg-gray-100 rounded-lg p-8 text-center">
+                    <FileText className="mx-auto mb-4 text-caribbean" size={64} />
+                    <h3 className="text-xl font-bold text-gray-900 mb-2">
+                      {t('projects:detail.large_pdf_title', 'Documento PDF Grande')}
+                    </h3>
+                    <p className="text-gray-600 mb-6 max-w-md mx-auto">
+                      {t('projects:detail.large_pdf_message', 'Este documento es muy grande para visualizar directamente. Por favor, ábralo en una nueva pestaña para mejor experiencia.')}
+                    </p>
+                    <div className="flex gap-4 justify-center">
+                      <Button
+                        asChild
+                        className="bg-caribbean text-white hover:bg-caribbean/90"
+                      >
+                        <a href={project.pdfUrl} target="_blank" rel="noopener noreferrer">
+                          <Eye className="mr-2" size={20} />
+                          {t('projects:detail.open_in_new_tab', 'Abrir en nueva pestaña')}
+                        </a>
+                      </Button>
+                      <Button
+                        onClick={downloadPDF}
+                        variant="outline"
+                      >
+                        <Download className="mr-2" size={20} />
+                        {t('projects:detail.download_pdf')}
+                      </Button>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <iframe
+                      src={project.pdfUrl}
+                      className="w-full h-[600px] lg:h-[800px] border-0"
+                      title={`${project.title} - Información detallada`}
+                      allow="fullscreen"
+                      onError={() => {
+                        console.log('PDF iframe failed to load, showing fallback');
+                      }}
+                    />
+                    
+                    {/* Fallback option for when iframe doesn't work */}
+                    <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-lg p-3 shadow-lg">
+                      <Button
+                        asChild
+                        variant="outline"
+                        size="sm"
+                        className="text-sm"
+                      >
+                        <a href={project.pdfUrl} target="_blank" rel="noopener noreferrer">
+                          <FileText className="mr-2" size={16} />
+                          {t('projects:detail.open_in_new_tab', 'Abrir en nueva pestaña')}
+                        </a>
+                      </Button>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
           </div>

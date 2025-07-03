@@ -159,27 +159,59 @@ app.get('/pdfs/:filename', async (req, res) => {
       const stream = fs.createReadStream(filePath, { start, end });
       stream.pipe(res);
     } else {
-      // Production-safe PDF serving with proper error handling
+      // Production-safe PDF serving with streaming for large files
       if (process.env.NODE_ENV === 'production') {
         log(`Production PDF request: ${filename} (${fileSizeMB}MB)`);
       }
       
-      // Use sendFile for better production compatibility
-      res.sendFile(path.resolve(filePath), (sendError) => {
-        if (sendError) {
-          console.error(`Error sending PDF ${filename}:`, sendError.message);
+      // For large files (>30MB), always use streaming to avoid memory issues
+      if (fileSizeMB > 30) {
+        if (process.env.NODE_ENV === 'production') {
+          log(`Large PDF detected (${fileSizeMB}MB), using streaming approach`);
+        }
+        
+        // Create read stream with smaller chunk size for better HTTP/2 compatibility
+        const stream = fs.createReadStream(filePath, {
+          highWaterMark: 64 * 1024 // 64KB chunks for HTTP/2 compatibility
+        });
+        
+        // Handle stream errors
+        stream.on('error', (streamError: any) => {
+          console.error(`Stream error for PDF ${filename}:`, streamError.message);
           if (!res.headersSent) {
             res.status(500).json({ 
-              error: 'PDF serving failed',
-              details: process.env.NODE_ENV === 'development' ? sendError.message : 'Internal server error'
+              error: 'PDF streaming failed',
+              details: process.env.NODE_ENV === 'development' ? streamError.message : 'Internal server error'
             });
           }
-        } else {
+        });
+        
+        // Pipe the stream to response
+        stream.pipe(res);
+        
+        stream.on('end', () => {
           if (process.env.NODE_ENV === 'production') {
-            log(`Successfully served PDF: ${filename}`);
+            log(`Successfully streamed large PDF: ${filename}`);
           }
-        }
-      });
+        });
+      } else {
+        // For smaller files, use sendFile for simplicity
+        res.sendFile(path.resolve(filePath), (sendError) => {
+          if (sendError) {
+            console.error(`Error sending PDF ${filename}:`, sendError.message);
+            if (!res.headersSent) {
+              res.status(500).json({ 
+                error: 'PDF serving failed',
+                details: process.env.NODE_ENV === 'development' ? sendError.message : 'Internal server error'
+              });
+            }
+          } else {
+            if (process.env.NODE_ENV === 'production') {
+              log(`Successfully served PDF: ${filename}`);
+            }
+          }
+        });
+      }
     }
     
   } catch (error: any) {
