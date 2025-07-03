@@ -115,13 +115,33 @@ The application is now production-ready with comprehensive security, SEO, and pe
 
 ## Deployment Strategy
 
-The application is configured for Replit deployment with:
+The application is configured for Replit deployment with comprehensive production database support:
 
+### Build Configuration
 - **Build Process**: Vite builds frontend to `dist/public`, esbuild bundles server to `dist/index.js`
 - **Environment**: Node.js 20 with PostgreSQL 16 module
 - **Port Configuration**: Server runs on port 5000, exposed on port 80
-- **Database**: Requires `DATABASE_URL` environment variable for PostgreSQL connection
 - **Static Assets**: Frontend assets served from `dist/public` directory
+
+### Database Configuration
+- **Database**: Requires `DATABASE_URL` environment variable for PostgreSQL connection
+- **RLS Compatibility**: Automatically detects transaction pooler usage (port 5432) for RLS compatibility
+- **Production Readiness**: Built-in production readiness assessment with connection validation
+- **Error Handling**: Comprehensive RLS-aware error handling for all database operations
+- **Connection Format**: Recommended format for production: `postgresql://postgres.xxx:[PASSWORD]@db.xxx.supabase.co:5432/postgres`
+
+### Production Deployment Checklist
+1. **Database Connection**: Ensure DATABASE_URL uses transaction pooler (port 5432) for RLS compatibility
+2. **RLS Policies**: Verify Supabase RLS policies allow appropriate access for your application role
+3. **CORS Configuration**: Production domain `https://dariovelez.com.do` configured in CORS origins
+4. **Environment Variables**: All required environment variables set in production
+5. **Monitoring**: Use `/api/production-readiness` endpoint to assess deployment readiness
+6. **Testing**: Test all API endpoints (`/api/projects`, `/api/contacts`) in production environment
+
+### Production Monitoring
+- **Health Check**: `/api/diagnostics` endpoint provides comprehensive database status
+- **Readiness Assessment**: `/api/production-readiness` endpoint validates production configuration
+- **Error Tracking**: Production-specific logging for database connectivity and RLS policy issues
 
 ### Production Commands
 - `npm run build`: Builds both frontend and backend for production
@@ -130,6 +150,13 @@ The application is configured for Replit deployment with:
 
 ## Recent Changes
 
+- July 3, 2025. **Comprehensive Production Database Solution Implemented**: Created enterprise-grade production database architecture with RLS (Row Level Security) compatibility and comprehensive error handling. Key improvements:
+  - **RLS-Aware Connection Management**: Automatic detection of transaction pooler usage (port 5432) required for RLS compatibility
+  - **Production-Specific Error Handling**: All 7 storage methods now have comprehensive error handling for RLS policy violations and connection failures  
+  - **Enhanced Diagnostics**: Added production readiness assessment with connection type validation and deployment recommendations
+  - **Intelligent Logging**: Production-specific logging for database connectivity and RLS policy issues
+  - **Comprehensive Monitoring**: New `/api/production-readiness` endpoint provides detailed production environment assessment
+  - **Database Architecture**: Addresses root cause of production-only API failures with proper RLS-compatible connection handling
 - July 3, 2025. **Production API Issue Fixed**: Resolved critical production-only API failures (503 errors) by fixing CORS configuration. The issue was that the production domain `https://dariovelez.com.do` was not in the allowed origins list, causing all API requests to be blocked by CORS policy. Added production domain to CORS origins alongside existing Replit domains. This explains why development worked (different CORS origins for localhost) while production failed. Issue was domain-specific as suspected by client.
 - July 3, 2025. **RLS-Compliant Architecture Implemented**: Converted from bypass approach to proper RLS-compliant database access. After user created appropriate RLS policies on Supabase tables, simplified all storage methods to use direct database queries only. Removed REST API fallback system and Supabase client dependencies. All 7 storage methods (getProjects, createContact, getContacts, getProject, getProjectBySlug, getContactByEmail, updateContactCalendlyInfo) now work cleanly with RLS policies. Simplified diagnostic endpoint confirms healthy database connection with 8 projects accessible. System respects security boundaries while maintaining full functionality.
 - July 3, 2025. **Contact Form Validation System Fixed**: Resolved critical validation issues where required fields were showing errors despite having values. Fixed frontend state initialization (missing whatInMind field), enhanced backend validation with proper null handling for optional fields, improved error messaging, and updated phone validation for Dominican Republic format. Contact form now works reliably end-to-end with comprehensive multilingual error handling.

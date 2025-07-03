@@ -152,27 +152,182 @@ Sitemap: ${process.env.NODE_ENV === 'production'
     });
   });
 
-  // Simple diagnostic endpoint
+  // Comprehensive production diagnostics endpoint
   app.get("/api/diagnostics", async (_req, res) => {
+    const diagnostics = {
+      timestamp: new Date().toISOString(),
+      environment: process.env.NODE_ENV,
+      status: "unknown" as string,
+      database: {
+        connection: "unknown" as string,
+        url_present: !!process.env.DATABASE_URL,
+        url_format: process.env.DATABASE_URL ? "valid" : "missing" as string,
+        host: process.env.DATABASE_URL?.match(/@([^:]+)/)?.[1] || "unknown",
+        ssl_config: process.env.NODE_ENV === 'production' ? "require" : "prefer",
+        projects_test: null as any,
+        contacts_test: null as any,
+        rls_info: null as any
+      },
+      errors: [] as any[]
+    };
+
+    // Test database URL format
+    if (process.env.DATABASE_URL) {
+      const urlMatch = process.env.DATABASE_URL.match(/^postgresql:\/\/([^:]+):([^@]+)@(.+)$/);
+      diagnostics.database.url_format = urlMatch ? "valid_postgresql" : "invalid_format";
+      
+      // Check if using transaction pooler (recommended for production)
+      const isTransactionPooler = process.env.DATABASE_URL.includes(':5432');
+      diagnostics.database.rls_info = {
+        using_transaction_pooler: isTransactionPooler,
+        recommended: isTransactionPooler ? "✅" : "⚠️ Consider using transaction pooler for RLS compatibility"
+      };
+    }
+
+    // Test projects API
     try {
-      const projectCount = await storage.getProjects();
-      res.json({
-        status: "healthy",
-        timestamp: new Date().toISOString(),
-        database: {
-          connection: "successful",
-          projects_count: projectCount.length,
-          sample_project: projectCount[0]?.title || "none"
-        }
+      console.log('🔍 Testing projects API...');
+      const projects = await storage.getProjects();
+      diagnostics.database.projects_test = {
+        status: "success",
+        count: projects.length,
+        sample: projects[0]?.title || "no_projects",
+        has_data: projects.length > 0
+      };
+      console.log(`✅ Projects test: ${projects.length} projects found`);
+    } catch (error: any) {
+      console.error('❌ Projects API failed:', error);
+      diagnostics.database.projects_test = {
+        status: "failed",
+        error: error.message,
+        code: error.code,
+        errno: error.errno,
+        name: error.name,
+        is_rls_error: error.message?.includes('policy') || error.message?.includes('permission'),
+        is_connection_error: error.code === 'ENOTFOUND' || error.code === 'ECONNREFUSED'
+      };
+      diagnostics.errors.push({
+        type: "projects_api",
+        message: error.message,
+        code: error.code,
+        errno: error.errno,
+        potential_cause: error.message?.includes('policy') ? "RLS_POLICY" : 
+                        error.code === 'ENOTFOUND' ? "DNS_RESOLUTION" :
+                        error.code === 'ECONNREFUSED' ? "CONNECTION_REFUSED" : "UNKNOWN"
       });
+    }
+
+    // Test contacts API
+    try {
+      console.log('🔍 Testing contacts API...');
+      const contacts = await storage.getContacts();
+      diagnostics.database.contacts_test = {
+        status: "success",
+        count: contacts.length,
+        has_data: contacts.length > 0
+      };
+      console.log(`✅ Contacts test: ${contacts.length} contacts found`);
+    } catch (error: any) {
+      console.error('❌ Contacts API failed:', error);
+      diagnostics.database.contacts_test = {
+        status: "failed",
+        error: error.message,
+        code: error.code,
+        is_rls_error: error.message?.includes('policy') || error.message?.includes('permission'),
+        is_connection_error: error.code === 'ENOTFOUND' || error.code === 'ECONNREFUSED'
+      };
+      diagnostics.errors.push({
+        type: "contacts_api",
+        message: error.message,
+        code: error.code,
+        potential_cause: error.message?.includes('policy') ? "RLS_POLICY" : 
+                        error.code === 'ENOTFOUND' ? "DNS_RESOLUTION" :
+                        error.code === 'ECONNREFUSED' ? "CONNECTION_REFUSED" : "UNKNOWN"
+      });
+    }
+
+    // Determine overall status
+    diagnostics.status = diagnostics.errors.length === 0 ? "healthy" : "unhealthy";
+    diagnostics.database.connection = diagnostics.errors.length === 0 ? "success" : "failed";
+
+    // Add production-specific recommendations
+    if (process.env.NODE_ENV === 'production' && diagnostics.errors.length > 0) {
+      const rlsErrors = diagnostics.errors.filter(e => e.potential_cause === "RLS_POLICY");
+      const connectionErrors = diagnostics.errors.filter(e => e.potential_cause === "DNS_RESOLUTION" || e.potential_cause === "CONNECTION_REFUSED");
+      
+      if (rlsErrors.length > 0) {
+        diagnostics.database.rls_info.issue = "RLS policies may be blocking access. Check Supabase RLS settings.";
+      }
+      if (connectionErrors.length > 0) {
+        diagnostics.database.rls_info.issue = "Network connectivity issues. Check database URL and SSL configuration.";
+      }
+    }
+
+    if (diagnostics.status === "healthy") {
+      res.json(diagnostics);
+    } else {
+      res.status(503).json(diagnostics);
+    }
+  });
+
+  // Production readiness endpoint
+  app.get("/api/production-readiness", async (_req, res) => {
+    try {
+      const readiness = storage.getProductionReadiness();
+      const environment = {
+        NODE_ENV: process.env.NODE_ENV,
+        DATABASE_URL_present: !!process.env.DATABASE_URL,
+        CORS_domains: process.env.NODE_ENV === 'production' 
+          ? ['https://dariovelez.com.do', 'https://*.replit.app', 'https://*.repl.co']
+          : ['http://localhost:5000', 'http://127.0.0.1:5000']
+      };
+
+      const productionIssues = [];
+      
+      // Check for production-specific issues
+      if (process.env.NODE_ENV === 'production') {
+        if (!readiness.rls_compatible) {
+          productionIssues.push({
+            type: 'RLS_COMPATIBILITY',
+            severity: 'HIGH',
+            issue: 'Database connection may not support RLS policies properly',
+            solution: 'Switch to transaction pooler connection string (port 5432)'
+          });
+        }
+        
+        if (!environment.DATABASE_URL_present) {
+          productionIssues.push({
+            type: 'MISSING_DATABASE_URL',
+            severity: 'CRITICAL',
+            issue: 'DATABASE_URL environment variable not set',
+            solution: 'Configure DATABASE_URL in production environment'
+          });
+        }
+      }
+
+      const response = {
+        timestamp: new Date().toISOString(),
+        environment: environment.NODE_ENV,
+        readiness: readiness,
+        production_issues: productionIssues,
+        deployment_recommendations: [
+          'Ensure DATABASE_URL uses transaction pooler (port 5432) for RLS compatibility',
+          'Verify RLS policies allow appropriate access for your application role',
+          'Test all API endpoints in production environment before going live',
+          'Monitor database connection logs for RLS policy errors',
+          'Use https://dariovelez.com.do domain for CORS origin in production'
+        ]
+      };
+
+      if (productionIssues.length > 0) {
+        res.status(422).json(response);
+      } else {
+        res.json(response);
+      }
     } catch (error: any) {
       res.status(500).json({
-        status: "error",
-        timestamp: new Date().toISOString(),
-        error: {
-          message: error.message,
-          type: error.constructor.name
-        }
+        error: 'Failed to assess production readiness',
+        message: error.message
       });
     }
   });
@@ -202,39 +357,90 @@ Sitemap: ${process.env.NODE_ENV === 'production'
         }
       });
       
-      // Check for specific error types and provide detailed responses
-      if (error?.code === 'ENOTFOUND' || error?.errno === -3007) {
-        console.error('🔌 Database connection failed - network issue');
-        res.status(503).json({ 
-          message: "Database connection failed", 
-          details: "Unable to connect to database server. Network or DNS issue.",
-          error_code: error.code,
-          error_type: "NETWORK_ERROR",
-          suggestion: "Check if Supabase credentials are configured correctly in production."
-        });
-      } else if (error?.message?.includes('REST API error')) {
-        console.error('🚫 REST API fallback failed');
-        res.status(503).json({ 
-          message: "Database API error", 
-          details: error.message,
-          error_type: "REST_API_ERROR",
-          suggestion: "Check Supabase REST API credentials and table existence."
-        });
-      } else if (error?.message?.includes('relation') && error?.message?.includes('does not exist')) {
-        console.error('📋 Database table missing');
-        res.status(503).json({ 
-          message: "Database table not found", 
-          details: "Projects table may not exist in production database.",
-          error_type: "TABLE_MISSING",
-          suggestion: "Run table creation script in Supabase dashboard."
-        });
+      // Production-specific error handling with RLS awareness
+      if (process.env.NODE_ENV === 'production') {
+        // RLS Policy Errors
+        if (error?.message?.includes('policy') || error?.message?.includes('permission') || 
+            error?.message?.includes('access') || error?.message?.includes('denied')) {
+          console.error('🔒 RLS Policy blocking access');
+          res.status(503).json({ 
+            message: "Access denied by security policy", 
+            details: "Row Level Security (RLS) policies may be blocking data access.",
+            error_code: "RLS_POLICY_ERROR",
+            suggestion: "Check Supabase RLS policies for projects table or use transaction pooler connection string."
+          });
+        }
+        // Network/Connection Errors
+        else if (error?.code === 'ENOTFOUND' || error?.errno === -3007) {
+          console.error('🔌 Production DNS/Network issue');
+          res.status(503).json({ 
+            message: "Service temporarily unavailable", 
+            details: "Database connection failed - DNS or network issue.",
+            error_code: "NETWORK_ERROR",
+            suggestion: "Verify Supabase database URL and network connectivity."
+          });
+        }
+        // Connection Refused
+        else if (error?.code === 'ECONNREFUSED' || error?.errno === -3008) {
+          console.error('🔌 Production connection refused');
+          res.status(503).json({ 
+            message: "Service temporarily unavailable", 
+            details: "Database server refused connection.",
+            error_code: "CONNECTION_REFUSED",
+            suggestion: "Check Supabase database status and credentials."
+          });
+        }
+        // SSL/TLS Errors
+        else if (error?.message?.includes('SSL') || error?.message?.includes('ssl') || 
+                 error?.message?.includes('TLS') || error?.message?.includes('certificate')) {
+          console.error('🔒 Production SSL issue');
+          res.status(503).json({ 
+            message: "Service temporarily unavailable", 
+            details: "SSL/TLS connection issue with database.",
+            error_code: "SSL_ERROR",
+            suggestion: "Verify SSL configuration and certificate validity."
+          });
+        }
+        // Table/Schema Errors
+        else if (error?.message?.includes('relation') || error?.message?.includes('table') || 
+                 error?.message?.includes('does not exist')) {
+          console.error('📋 Production schema issue');
+          res.status(503).json({ 
+            message: "Service temporarily unavailable", 
+            details: "Database schema or table access issue.",
+            error_code: "SCHEMA_ERROR",
+            suggestion: "Verify projects table exists and is accessible in production database."
+          });
+        }
+        // Authentication/Authorization Errors
+        else if (error?.message?.includes('authentication') || error?.message?.includes('password') || 
+                 error?.message?.includes('credentials')) {
+          console.error('🔐 Production authentication issue');
+          res.status(503).json({ 
+            message: "Service temporarily unavailable", 
+            details: "Database authentication failed.",
+            error_code: "AUTH_ERROR",
+            suggestion: "Verify DATABASE_URL credentials in production environment."
+          });
+        }
+        // Generic Production Error
+        else {
+          console.error('❓ Production unknown database error');
+          res.status(503).json({ 
+            message: "Service temporarily unavailable", 
+            details: "An unexpected database error occurred.",
+            error_code: "DATABASE_ERROR",
+            suggestion: "Check production database configuration and connectivity."
+          });
+        }
       } else {
-        console.error('⚠️ Unknown error type:', error);
+        // Development detailed error response
         res.status(500).json({ 
           message: "Error fetching projects", 
-          details: error.message,
-          error_type: "UNKNOWN_ERROR",
-          suggestion: "Check server logs for more details."
+          error: error.message,
+          code: error.code,
+          errno: error.errno,
+          stack: error.stack?.split('\n').slice(0, 5)
         });
       }
     }
