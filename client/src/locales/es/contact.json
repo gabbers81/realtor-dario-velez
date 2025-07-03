@@ -37,7 +37,12 @@
     "invalid_phone": "Formato de teléfono inválido",
     "required_fields": "Campos requeridos",
     "complete_required": "Por favor completa todos los campos marcados con *",
-    "phone_format": "Usa formato dominicano: +1 (829) 123-4567"
+    "phone_format": "Usa formato dominicano: +1 (829) 123-4567",
+    "validation_error": "Error de Validación",
+    "generic_error": "Ha ocurrido un error. Por favor intenta nuevamente.",
+    "missing_fields": "Campos faltantes",
+    "email_format": "Por favor ingresa un correo electrónico válido",
+    "phone_format_dr": "Formato requerido: +1 (829) 123-4567 o 829-123-4567"
   },
   "success": {
     "title": "¡Mensaje Enviado!",

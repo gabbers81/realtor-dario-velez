@@ -12,7 +12,6 @@ import { useEffect } from "react";
 import { initGA } from "./lib/analytics";
 import { useAnalytics } from "./hooks/use-analytics";
 import { CookieConsentBanner } from "@/components/cookie-consent-banner";
-import { CookieSettingsButton } from "@/components/cookie-settings-button";
 
 function Router() {
   // Track page views when routes change
@@ -55,7 +54,6 @@ function App() {
         <Toaster />
         <Router />
         <CookieConsentBanner />
-        <CookieSettingsButton />
       </TooltipProvider>
     </QueryClientProvider>
   );

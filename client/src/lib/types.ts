@@ -18,5 +18,6 @@ export interface Project {
   completion: string;
   features: string[];
   imageUrl: string;
+  images: string[];
   pdfUrl?: string;
 }

@@ -115,13 +115,69 @@ The application is now production-ready with comprehensive security, SEO, and pe
 
 ## Deployment Strategy
 
-The application is configured for Replit deployment with:
+The application is configured for Replit deployment with comprehensive production database support:
 
+### Build Configuration
 - **Build Process**: Vite builds frontend to `dist/public`, esbuild bundles server to `dist/index.js`
-- **Environment**: Node.js 20 with PostgreSQL 16 module
+- **Environment**: Node.js 20 (NO PostgreSQL module - uses external Supabase)
 - **Port Configuration**: Server runs on port 5000, exposed on port 80
-- **Database**: Requires `DATABASE_URL` environment variable for PostgreSQL connection
 - **Static Assets**: Frontend assets served from `dist/public` directory
+
+### Database Configuration
+- **Database**: Requires `DATABASE_URL` environment variable for PostgreSQL connection
+- **RLS Compatibility**: Automatically detects transaction pooler usage (port 5432) for RLS compatibility
+- **Production Readiness**: Built-in production readiness assessment with connection validation
+- **Error Handling**: Comprehensive RLS-aware error handling for all database operations
+- **Connection Format**: Recommended format for production: `postgresql://postgres.xxx:[PASSWORD]@db.xxx.supabase.co:5432/postgres`
+
+### ⚠️ CRITICAL: Database Module Conflict Prevention
+**DO NOT install postgresql-16 module in Replit environments!**
+
+- **Issue**: Replit's `postgresql-16` module automatically provisions a Neon database that conflicts with Supabase
+- **Symptoms**: Production shows "relation does not exist" errors despite working in development
+- **Environment Pollution**: Creates conflicting `PGDATABASE`, `PGHOST`, `PGUSER` environment variables
+- **Resolution**: Use `packager_tool` to uninstall postgresql-16 module if accidentally installed
+- **Prevention**: This project uses external Supabase database via `DATABASE_URL` only
+- **Verification**: Check `/api/diagnostics` to ensure host shows "supabase.com" not "neon.tech"
+
+### Production Deployment Checklist
+1. **Database Connection**: Ensure DATABASE_URL uses transaction pooler (port 5432) for RLS compatibility
+2. **RLS Policies**: Verify Supabase RLS policies allow appropriate access for your application role
+3. **CORS Configuration**: Production domain `https://dariovelez.com.do` configured in CORS origins
+4. **Environment Variables**: All required environment variables set in production
+5. **Monitoring**: Use `/api/production-readiness` endpoint to assess deployment readiness
+6. **Testing**: Test all API endpoints (`/api/projects`, `/api/contacts`) in production environment
+
+### Production Monitoring
+- **Health Check**: `/api/diagnostics` endpoint provides comprehensive database status
+- **Readiness Assessment**: `/api/production-readiness` endpoint validates production configuration
+- **Error Tracking**: Production-specific logging for database connectivity and RLS policy issues
+
+### Troubleshooting Database Issues
+
+**If you see "relation does not exist" errors in production:**
+
+1. **Check Database Host**: Use `/api/diagnostics` endpoint
+   ```bash
+   curl https://yourdomain.com/api/diagnostics
+   ```
+   - ✅ Should show: `"host": "aws-0-us-east-2.pooler.supabase.com"`
+   - ❌ Problem if shows: `"host": "neon.tech"` or similar
+
+2. **Verify Environment Variables**:
+   ```bash
+   env | grep -i pg
+   ```
+   - Look for conflicting `PGDATABASE`, `PGHOST`, `PGUSER` variables
+   - These should NOT point to Neon if using Supabase
+
+3. **Check Installed Modules**:
+   - Ensure `postgresql-16` module is NOT installed
+   - If installed, remove with: `packager_tool.uninstall(["postgresql-16"])`
+
+4. **Restart After Changes**:
+   - Always restart the workflow after removing conflicting modules
+   - Verify with diagnostics endpoint that correct database is being used
 
 ### Production Commands
 - `npm run build`: Builds both frontend and backend for production
@@ -130,6 +186,25 @@ The application is configured for Replit deployment with:
 
 ## Recent Changes
 
+- July 3, 2025. **CRITICAL Database Module Conflict Resolution**: Identified and resolved major production issue caused by Replit's postgresql-16 module automatically provisioning conflicting Neon database. Issue manifested as "relation does not exist" errors in production while development worked fine. Root cause was postgresql-16 module creating conflicting environment variables (PGDATABASE=neondb, PGHOST=neon.tech) that overrode Supabase connection. Resolution: Removed postgresql-16 module via packager_tool, added comprehensive documentation to prevent future occurrences. Updated deployment strategy to explicitly warn against PostgreSQL module installation when using external Supabase database.
+- July 3, 2025. **Comprehensive Production Database Solution Implemented**: Created enterprise-grade production database architecture with RLS (Row Level Security) compatibility and comprehensive error handling. Key improvements:
+  - **RLS-Aware Connection Management**: Automatic detection of transaction pooler usage (port 5432) required for RLS compatibility
+  - **Production-Specific Error Handling**: All 7 storage methods now have comprehensive error handling for RLS policy violations and connection failures  
+  - **Enhanced Diagnostics**: Added production readiness assessment with connection type validation and deployment recommendations
+  - **Intelligent Logging**: Production-specific logging for database connectivity and RLS policy issues
+  - **Comprehensive Monitoring**: New `/api/production-readiness` endpoint provides detailed production environment assessment
+  - **Database Architecture**: Addresses root cause of production-only API failures with proper RLS-compatible connection handling
+- July 3, 2025. **Production API Issue Fixed**: Resolved critical production-only API failures (503 errors) by fixing CORS configuration. The issue was that the production domain `https://dariovelez.com.do` was not in the allowed origins list, causing all API requests to be blocked by CORS policy. Added production domain to CORS origins alongside existing Replit domains. This explains why development worked (different CORS origins for localhost) while production failed. Issue was domain-specific as suspected by client.
+- July 3, 2025. **RLS-Compliant Architecture Implemented**: Converted from bypass approach to proper RLS-compliant database access. After user created appropriate RLS policies on Supabase tables, simplified all storage methods to use direct database queries only. Removed REST API fallback system and Supabase client dependencies. All 7 storage methods (getProjects, createContact, getContacts, getProject, getProjectBySlug, getContactByEmail, updateContactCalendlyInfo) now work cleanly with RLS policies. Simplified diagnostic endpoint confirms healthy database connection with 8 projects accessible. System respects security boundaries while maintaining full functionality.
+- July 3, 2025. **Contact Form Validation System Fixed**: Resolved critical validation issues where required fields were showing errors despite having values. Fixed frontend state initialization (missing whatInMind field), enhanced backend validation with proper null handling for optional fields, improved error messaging, and updated phone validation for Dominican Republic format. Contact form now works reliably end-to-end with comprehensive multilingual error handling.
+- July 2, 2025. **Calendly Integration Fully Activated**: Completed webhook-based integration with production domain https://dariovelez.com.do. Added 5 new database columns, implemented v2 webhook endpoint with secure signature verification, updated Calendly URL to velezsoriano87/30min, and activated webhook subscription (ID: a0f6924b-a4af-495b-b172-c06a8eb7977c). System now automatically captures appointment dates and links them to contact form submissions via email matching.
+- July 2, 2025. **Project Pricing Updates Completed**: Updated all project pricing across all 6 languages with new values provided by client - fixed homepage to use translated pricing ensuring consistency between landing page and project detail pages across all languages
+- July 2, 2025. **Translation System Completion**: Fixed "Distancias Principales" hardcoded text in project detail pages - now properly translates across all 6 languages (Spanish/English/Russian/French/German/Portuguese)
+- July 2, 2025. **Navigation UX Improvements**: Moved cookie settings button to navigation bar next to language switcher, fixed button overlap issues by vertically stacking WhatsApp and contact buttons, removed redundant floating cookie button
+- July 2, 2025. **Mobile-First Typography Optimization**: Implemented responsive typography with mobile-first approach - 16px+ minimum font sizes on mobile devices, compact desktop sizing, and touch-friendly icons (20-24px) for improved accessibility and readability
+- July 2, 2025. **Project Detail Page Consistency**: Made all sections uniformly compact with consistent spacing, padding, and sizing throughout the project detail pages for better space utilization
+- July 2, 2025. **Alphabetical Project Sorting**: Homepage projects now display in alphabetical order (Amares, Aura Boulevard, Las Cayas, Palm Beach, Secret Garden, Solvamar, The Reef, Tropical Beach) for improved user experience
+- July 2, 2025. **Homepage Image Display Fixed**: Resolved caching issue causing old images to display - all project cards now show correct "Portada" cover images on the landing page
 - June 27, 2025. **Cookie Consent System Implemented**: Added comprehensive GDPR/LGPD compliant cookie consent with multilingual support (6 languages), granular controls for Essential/Analytics/Marketing/Preferences cookies, and integrated Google Analytics protection
 - June 27, 2025. **Google Analytics Integration Completed**: Implemented comprehensive tracking with measurement ID G-P09HNDKW35 including page views, contact form submissions, Calendly interactions, project views, and PDF downloads
 - June 27, 2025. **PDF Corruption Issue Resolved**: Fixed corrupted PDF files for AURA Boulevard (replaced 0-byte file with 15MB backup) and Solvamar Macao (corrected file permissions from 600 to 644) - both PDFs now download properly

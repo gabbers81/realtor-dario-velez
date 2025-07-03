@@ -1,0 +1,129 @@
+Here’s the new-school, v2-only way to point Calendly at your webhook endpoint:
+
+TL;DR – Generate a personal-access token, then POST https://api.calendly.com/webhook_subscriptions with your callback URL, the events you want (invitee.created, invitee.canceled, etc.), and the owner URI (user or organization). Calendly instantly returns a subscription object that contains the signing-key you’ll use to verify every callback. Delete or list the subscription later with the same endpoint.
+developer.calendly.com
+zeeg.me
+
+1 Prerequisites
+What you need	Why
+HTTPS endpoint that returns 2xx within 5 s	Calendly retries up to 12 times if you time out or 4 ×
+Personal-access token (PAT) or OAuth access token	PAT is fastest: Settings → Integrations & Apps → API & Webhooks → Generate Token.
+Owner URI	https://api.calendly.com/organizations/<uuid> for org-level events or https://api.calendly.com/users/<uuid> for one host only.
+rollout.com
+
+2 Create the subscription
+bash
+Copy
+Edit
+curl -X POST https://api.calendly.com/webhook_subscriptions \
+  -H "Authorization: Bearer $PAT" \
+  -H "Content-Type: application/json" \
+  -d '{
+        "url": "https://example.com/hooks/calendly",
+        "events": ["invitee.created", "invitee.canceled"],
+        "scope": "organization",
+        "organization": "https://api.calendly.com/organizations/ORG_UUID"
+      }'
+Successful response (201) comes back with:
+
+jsonc
+Copy
+Edit
+{
+  "resource": {
+    "uri": ".../webhook_subscriptions/WS_123",
+    "signing_key": "b64447c1...",  // copy & keep secret
+    "events": [...],
+    "url": "https://example.com/hooks/calendly",
+    "state": "active",
+    "created_at": "2025-07-02T22:48:11Z"
+  }
+}
+Sign-up instantly starts streaming events.
+developer.calendly.com
+zeeg.me
+rollout.com
+
+3 Verify each callback
+Calendly adds a Calendly-Webhook-Signature header:
+
+ini
+Copy
+Edit
+t=1720258074,s=6f7e9…   # UNIX time + HMAC-SHA256 hash
+js
+Copy
+Edit
+import crypto from "crypto";
+
+function isValid(reqBody, header, signingKey) {
+  const [timePart, sigPart] = header.split(',');
+  const supplied = sigPart.split('=')[1];
+  const base   = `${timePart.split('=')[1]}.${JSON.stringify(reqBody)}`;
+  const digest = crypto
+      .createHmac('sha256', signingKey)
+      .update(base)
+      .digest('hex');
+  return crypto.timingSafeEqual(Buffer.from(digest), Buffer.from(supplied));
+}
+Reject anything that fails; Calendly will retry with the same payload.
+developer.calendly.com
+stackoverflow.com
+
+4 Handle & enrich the payload
+invitee.created delivers start/end in ISO-8601 UTC, the booking URI, and the partial invitee record.
+developer.calendly.com
+
+If you need extra fields (phone number, answers to custom questions), follow payload.invitee.uri with a GET call to /event_invitees/{uuid}.
+developer.calendly.com
+
+5 Manage subscriptions
+Action	Endpoint	Notes
+List	GET /webhook_subscriptions	Filter by state active or disabled.
+developer.calendly.com
+Disable / Enable	PATCH /webhook_subscriptions/{uuid}	Toggle state.
+Delete	DELETE /webhook_subscriptions/{uuid}	Instantly stops callbacks.
+help.calendly.com
+
+6 Local testing tips
+Spin up the endpoint on localhost:3000, tunnel it with ngrok, then register the tunnel URL as the callback and replay requests from ngrok’s inspector.
+ngrok.com
+
+Common pitfalls & fixes
+Symptom	Cause	Fix
+401 Unauthorized on creation	Missing Authorization: Bearer …	Use your PAT or OAuth token.
+developer.calendly.com
+Signature never matches	Hash built over prettified JSON	Use the raw string you read from the socket before parsing.
+community.calendly.com
+Duplicate events	User rescheduled	Track payload.event.uuid; ignore repeats.
+developer.calendly.com
+
+7 Full Express / TypeScript sketch
+ts
+Copy
+Edit
+app.post("/hooks/calendly", express.json(), (req, res) => {
+  if (!isValid(req.body, req.headers["calendly-webhook-signature"], process.env.CALENDLY_KEY)) {
+    return res.status(401).end();
+  }
+  switch (req.body.event) {
+    case "invitee.created":
+      saveBooking(req.body.payload); break;
+    case "invitee.canceled":
+      markCanceled(req.body.payload); break;
+  }
+  res.sendStatus(204); // keeps Calendly happy
+});
+Store the start_time, end_time, and event_uri in your DB and you’re done.
+
+Key takeaways
+v1 webhooks vanish in August 27 2025—build on v2 now.
+developer.calendly.com
+
+Registration happens entirely via the API; no dashboard toggle required.
+
+Always verify the Calendly-Webhook-Signature using the signing_key you got back at creation time.
+
+Keep your endpoint fast (< 5 s) and idempotent; Calendly retries aggressively.
+
+Follow that recipe and your site will get real-time meeting data the moment anyone books, reschedules or cancels through Calendly.

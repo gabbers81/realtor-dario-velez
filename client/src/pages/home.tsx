@@ -9,6 +9,7 @@ import { Home, Calendar, ArrowRight, Check, Shield, CheckCircle, Phone, Mail, Ma
 import { FaFacebook, FaInstagram, FaLinkedin, FaWhatsapp, FaBars, FaTimes } from "react-icons/fa";
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from "@/components/language-switcher";
+import { CookieSettingsButton } from "@/components/cookie-settings-button";
 import { SEOHead } from "@/components/seo-head";
 import { generatePropertySchema } from "@/lib/property-schema";
 import type { Project } from "@/lib/types";
@@ -58,12 +59,14 @@ export default function HomePage() {
     const translatedTitle = t(`projects:properties.${translationKey}.title`, { defaultValue: project.title });
     const translatedDescription = t(`projects:properties.${translationKey}.description`, { defaultValue: project.description });
     const translatedLocation = t(`projects:properties.${translationKey}.location`, { defaultValue: project.location });
+    const translatedPrice = t(`projects:properties.${translationKey}.price`, { defaultValue: project.price });
     
     return {
       ...project,
       title: translatedTitle,
       description: translatedDescription,
-      location: translatedLocation
+      location: translatedLocation,
+      price: translatedPrice
     };
   };
 
@@ -103,7 +106,7 @@ export default function HomePage() {
               </div>
             </button>
             
-            <nav className="hidden md:flex items-center space-x-8">
+            <nav className="hidden md:flex items-center space-x-6">
               <button 
                 onClick={() => scrollToSection('inicio')}
                 className="text-gray-700 hover:text-caribbean font-medium transition-colors"
@@ -129,6 +132,7 @@ export default function HomePage() {
                 {t('navigation.legal')}
               </button>
               <LanguageSwitcher />
+              <CookieSettingsButton variant="navigation" />
               <Button 
                 onClick={() => setIsContactModalOpen(true)}
                 className="bg-caribbean text-white hover:bg-caribbean/90"
@@ -195,8 +199,9 @@ export default function HomePage() {
                 {t('navigation.legal')}
               </div>
             </button>
-            <div className="py-2 px-3">
+            <div className="py-2 px-3 flex items-center space-x-2">
               <LanguageSwitcher />
+              <CookieSettingsButton variant="navigation" />
             </div>
             <div className="px-3 pt-2">
               <Button 
@@ -352,7 +357,7 @@ export default function HomePage() {
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-              {(projects as Project[])?.map((project: Project) => {
+              {(projects as Project[])?.sort((a, b) => a.title.localeCompare(b.title)).map((project: Project) => {
                 const translatedProject = getTranslatedProject(project);
                 return (
                   <Card 
@@ -375,7 +380,7 @@ export default function HomePage() {
                       <p className="text-gray-600 mb-4 text-sm sm:text-base leading-relaxed">{translatedProject.description}</p>
                       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-0">
                         <span className="text-caribbean font-bold text-lg sm:text-xl">
-                          {t('common:general.from')} {project.price.replace(/^(Desde|From)\s*/i, '')}
+                          {translatedProject.price}
                         </span>
                         <button className="text-turquoise hover:text-caribbean active:text-caribbean/80 font-medium flex items-center justify-center sm:justify-start h-10 sm:h-auto transition-colors duration-200">
                           {t('actions.view_details')} <ArrowRight className="ml-1" size={16} />

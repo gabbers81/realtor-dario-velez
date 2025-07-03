@@ -5,10 +5,12 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ContactModal } from "@/components/contact-modal";
 import { CalendlyModal } from "@/components/calendly-modal";
-import { ArrowLeft, Download, Calendar, MapPin, Clock, DollarSign, MessageCircle, Home, FileText, ExternalLink, Navigation, Phone } from "lucide-react";
+import { PhotoCarousel } from "@/components/photo-carousel";
+import { ArrowLeft, Download, Calendar, MapPin, Clock, DollarSign, MessageCircle, Home, FileText, ExternalLink, Navigation, Phone, Check } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import { useTranslation } from 'react-i18next';
 import { LanguageSwitcher } from "@/components/language-switcher";
+import { CookieSettingsButton } from "@/components/cookie-settings-button";
 import { SEOHead } from "@/components/seo-head";
 import { generatePropertySchema, getLocationData } from "@/lib/property-schema";
 import { useSwipe } from "@/hooks/use-swipe";
@@ -204,8 +206,9 @@ export default function ProjectDetailPage() {
             </div>
 
             {/* Actions */}
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-3">
               <LanguageSwitcher />
+              <CookieSettingsButton variant="navigation" />
               <Button 
                 onClick={goBack}
                 variant="ghost"
@@ -220,87 +223,119 @@ export default function ProjectDetailPage() {
       </header>
 
       {/* Project Header */}
-      <section className="py-8 bg-gray-50">
+      <section className="py-6 bg-gradient-to-br from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div>
-              <h1 className="text-4xl font-bold text-gray-900 mb-4">{project.title}</h1>
-              <p className="text-xl text-gray-600 mb-6">{getTranslatedProject(project).description}</p>
-              
-              <div className="grid grid-cols-2 gap-4 mb-6">
-                <div className="flex items-center text-gray-700">
-                  <DollarSign className="mr-2 text-caribbean" size={20} />
-                  <div>
-                    <span className="block text-sm text-gray-500">{t('projects:detail.price')}</span>
-                    <span className="font-semibold text-lg">{getTranslatedProject(project).price}</span>
-                  </div>
-                </div>
-                <div className="flex items-center text-gray-700">
-                  <MapPin className="mr-2 text-turquoise" size={20} />
-                  <div>
-                    <span className="block text-sm text-gray-500">{t('projects:detail.location')}</span>
-                    <span className="font-semibold">{getTranslatedProject(project).location}</span>
-                  </div>
+          {/* Title and Description */}
+          <div className="text-center mb-6">
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-3">{project.title}</h1>
+            <p className="text-base sm:text-lg text-gray-600 max-w-4xl mx-auto leading-relaxed">{getTranslatedProject(project).description}</p>
+          </div>
+
+          {/* Full-Width Carousel */}
+          <div className="mb-6">
+            <PhotoCarousel 
+              images={project.images || [project.imageUrl]} 
+              projectTitle={project.title}
+              className="rounded-xl overflow-hidden shadow-lg"
+            />
+          </div>
+
+          {/* Key Info Cards - Below Carousel */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+              <div className="flex items-center text-gray-700">
+                <DollarSign className="mr-3 text-caribbean" size={24} />
+                <div>
+                  <span className="block text-sm sm:text-xs text-gray-500 font-medium">{t('projects:detail.price')}</span>
+                  <span className="font-bold text-xl sm:text-lg text-gray-900">{getTranslatedProject(project).price}</span>
                 </div>
               </div>
-              
-              <div className="flex items-center text-gray-700 mb-6">
-                <Clock className="mr-2 text-sage" size={20} />
+            </div>
+            
+            <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+              <div className="flex items-center text-gray-700">
+                <MapPin className="mr-3 text-turquoise" size={24} />
                 <div>
-                  <span className="block text-sm text-gray-500">{t('projects:detail.completion')}</span>
-                  <span className="font-semibold">{getTranslatedProject(project).completion}</span>
+                  <span className="block text-sm sm:text-xs text-gray-500 font-medium">{t('projects:detail.location')}</span>
+                  <span className="font-semibold text-lg sm:text-base text-gray-900">{getTranslatedProject(project).location}</span>
+                </div>
+              </div>
+            </div>
+            
+            <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+              <div className="flex items-center text-gray-700">
+                <Clock className="mr-3 text-sage" size={24} />
+                <div>
+                  <span className="block text-sm sm:text-xs text-gray-500 font-medium">{t('projects:detail.completion')}</span>
+                  <span className="font-semibold text-lg sm:text-base text-gray-900">{getTranslatedProject(project).completion}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Location Information */}
+          {locationData && (
+            <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100 mb-6">
+              <h3 className="font-bold text-xl sm:text-lg mb-4 text-gray-900 text-center">{t('projects:detail.location_accessibility')}</h3>
+              
+              {/* Distance Section */}
+              <div className="mb-4">
+                <h4 className="font-semibold text-lg sm:text-base text-gray-800 mb-3 flex items-center">
+                  <Navigation className="mr-2 text-caribbean" size={20} />
+                  {t('projects:detail.main_distances')}
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <div className="flex items-center p-3 bg-gradient-to-r from-turquoise/10 to-turquoise/5 rounded-lg">
+                    <div className="w-10 h-10 sm:w-9 sm:h-9 bg-turquoise/20 rounded-full flex items-center justify-center mr-3">
+                      <MapPin className="text-turquoise" size={20} />
+                    </div>
+                    <div>
+                      <span className="font-semibold text-gray-900 text-base sm:text-sm">{t('projects:detail.airport')}</span>
+                      <p className="text-sm sm:text-xs text-gray-600">{locationData.distanceToAirport}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center p-3 bg-gradient-to-r from-caribbean/10 to-caribbean/5 rounded-lg">
+                    <div className="w-10 h-10 sm:w-9 sm:h-9 bg-caribbean/20 rounded-full flex items-center justify-center mr-3">
+                      <MapPin className="text-caribbean" size={20} />
+                    </div>
+                    <div>
+                      <span className="font-semibold text-gray-900 text-base sm:text-sm">{t('projects:detail.beach')}</span>
+                      <p className="text-sm sm:text-xs text-gray-600">{locationData.distanceToBeach}</p>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              <div className="mb-6">
-                <h3 className="font-semibold text-lg mb-3">{t('projects:detail.main_features')}</h3>
-                <div className="grid grid-cols-1 gap-2">
-                  {getTranslatedProject(project).features.map((feature, index) => (
-                    <Badge key={index} variant="outline" className="justify-start p-2">
-                      {feature}
-                    </Badge>
+              {/* Amenities by Category */}
+              <div className="space-y-3">
+                <h4 className="font-semibold text-lg sm:text-base text-gray-800 flex items-center">
+                  <Home className="mr-2 text-sage" size={20} />
+                  {t('projects:detail.nearby_amenities')}
+                </h4>
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-2">
+                  {locationData.nearbyAmenities.map((amenity, index) => (
+                    <div key={index} className="flex items-center p-3 sm:p-2 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                      <div className="w-7 h-7 sm:w-6 sm:h-6 bg-sage/20 rounded-full flex items-center justify-center mr-2">
+                        <MapPin className="text-sage" size={16} />
+                      </div>
+                      <span className="text-sm sm:text-xs text-gray-700 font-medium">{amenity}</span>
+                    </div>
                   ))}
                 </div>
               </div>
-
-              {/* Location Information */}
-              {locationData && (
-                <div className="mb-6">
-                  <h3 className="font-semibold text-lg mb-3">{t('projects:detail.location_accessibility')}</h3>
-                  <div className="bg-gray-50 rounded-lg p-4 space-y-3">
-                    <div className="flex items-center text-gray-700">
-                      <MapPin className="mr-2 text-turquoise" size={16} />
-                      <span className="text-sm">
-                        <strong>{t('projects:detail.airport')}:</strong> {locationData.distanceToAirport}
-                      </span>
-                    </div>
-                    <div className="flex items-center text-gray-700">
-                      <MapPin className="mr-2 text-caribbean" size={16} />
-                      <span className="text-sm">
-                        <strong>{t('projects:detail.beach')}:</strong> {locationData.distanceToBeach}
-                      </span>
-                    </div>
-                    <div className="mt-3">
-                      <h4 className="text-sm font-medium text-gray-800 mb-2">{t('projects:detail.nearby_amenities')}:</h4>
-                      <div className="flex flex-wrap gap-1">
-                        {locationData.nearbyAmenities.slice(0, 4).map((amenity, index) => (
-                          <Badge key={index} variant="secondary" className="text-xs">
-                            {amenity}
-                          </Badge>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
             </div>
-            
-            <div>
-              <img 
-                src={project.imageUrl} 
-                alt={project.title}
-                className="w-full h-96 object-cover rounded-lg shadow-lg"
-              />
+          )}
+
+          {/* Features Section - Full Width Below */}
+          <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+            <h3 className="font-bold text-xl sm:text-lg mb-4 text-gray-900 text-center">{t('projects:detail.main_features')}</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-2">
+              {getTranslatedProject(project).features.map((feature, index) => (
+                <div key={index} className="flex items-center p-3 sm:p-2 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                  <Check className="mr-3 sm:mr-2 text-caribbean flex-shrink-0" size={20} />
+                  <span className="text-gray-700 font-medium text-base sm:text-sm">{feature}</span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -308,10 +343,10 @@ export default function ProjectDetailPage() {
 
       {/* PDF Viewer */}
       {project.pdfUrl && (
-        <section className="py-8">
+        <section className="py-4">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 gap-4">
-              <h2 className="text-2xl font-bold text-gray-900">{t('projects:detail.detailed_info')}</h2>
+            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-3 gap-2">
+              <h2 className="text-xl sm:text-lg font-bold text-gray-900">{t('projects:detail.detailed_info')}</h2>
               <Button 
                 onClick={downloadPDF} 
                 variant="outline" 
@@ -416,7 +451,7 @@ export default function ProjectDetailPage() {
       </footer>
 
       {/* Floating WhatsApp Button */}
-      <div className="fixed bottom-20 right-4 z-50 sm:bottom-6 sm:right-6">
+      <div className="fixed bottom-20 right-4 z-50 sm:bottom-24 sm:right-6">
         <a
           href={`https://wa.me/18294444431?text=${encodeURIComponent(
             `Hola Dario, estoy interesado en el proyecto ${translatedProject.title} en ${translatedProject.location}. ¿Podrías darme más información?`
