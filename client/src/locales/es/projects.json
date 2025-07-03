@@ -161,6 +161,11 @@
     "mobile_pdf_message": "Para mejor experiencia en móvil, descarga el PDF",
     "open_in_new_tab": "Abrir en nueva pestaña",
     "large_pdf_title": "Documento PDF Grande",
-    "large_pdf_message": "Este documento es muy grande para visualizar directamente. Por favor, ábralo en una nueva pestaña para mejor experiencia."
+    "large_pdf_message": "Este documento es muy grande para visualizar directamente. Por favor, ábralo en una nueva pestaña para mejor experiencia.",
+    "production_pdf_title": "Documento disponible por descarga directa",
+    "production_pdf_message": "Este documento de 40MB+ requiere descarga directa debido a limitaciones del CDN en producción. Haga clic en el botón para descargar o solicite información personalizada.",
+    "download_direct": "Descargar Documento",
+    "request_info": "Solicitar Información",
+    "alternative_note": "También puede contactarnos para recibir el documento por email"
   }
 }

@@ -161,6 +161,11 @@
     "mobile_pdf_message": "For better mobile experience, download the PDF",
     "open_in_new_tab": "Open in new tab",
     "large_pdf_title": "Large PDF Document",
-    "large_pdf_message": "This document is too large to display directly. Please open it in a new tab for the best experience."
+    "large_pdf_message": "This document is too large to display directly. Please open it in a new tab for the best experience.",
+    "production_pdf_title": "Document available for direct download",
+    "production_pdf_message": "This 40MB+ document requires direct download due to CDN limitations in production. Click the button to download or request personalized information.",
+    "download_direct": "Download Document",
+    "request_info": "Request Information",
+    "alternative_note": "You can also contact us to receive the document by email"
   }
 }
