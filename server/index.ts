@@ -21,8 +21,10 @@ app.use(helmet({
       fontSrc: ["'self'", "https://fonts.gstatic.com"],
       imgSrc: ["'self'", "data:", "https://images.unsplash.com"],
       scriptSrc: ["'self'", "'unsafe-inline'"],
-      objectSrc: ["'none'"],
+      objectSrc: ["'self'"], // Allow PDF objects
       frameSrc: ["'self'", "https://calendly.com"],
+      childSrc: ["'self'"], // Allow PDF embedding in iframes
+      mediaSrc: ["'self'"], // Allow PDF media content
     }
   } : false, // Disable CSP in development for Vite
   hsts: process.env.NODE_ENV === 'production' ? {
@@ -87,7 +89,17 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: false, limit: '10mb' }));
 
 // Serve PDFs with proper headers for iframe embedding and caching
-app.use('/pdfs', express.static('client/public/pdfs', {
+// Use correct path based on environment
+const pdfPath = process.env.NODE_ENV === 'production' 
+  ? 'dist/public/pdfs'  // Production: serve from build directory
+  : 'client/public/pdfs';  // Development: serve from source directory
+
+// Production logging for PDF path verification
+if (process.env.NODE_ENV === 'production') {
+  log(`PDF serving configured from: ${pdfPath}`);
+}
+
+app.use('/pdfs', express.static(pdfPath, {
   maxAge: '7d', // 7 days cache
   etag: true,
   lastModified: true,
@@ -98,6 +110,13 @@ app.use('/pdfs', express.static('client/public/pdfs', {
       res.setHeader('Content-Disposition', 'inline');
       res.setHeader('Cache-Control', 'public, max-age=604800, immutable'); // 7 days
       res.setHeader('Accept-Ranges', 'bytes');
+      // Allow PDF embedding in iframes
+      res.setHeader('X-Content-Type-Options', 'nosniff');
+      
+      // Production debugging
+      if (process.env.NODE_ENV === 'production') {
+        log(`Serving PDF: ${path}`);
+      }
     }
   }
 }));

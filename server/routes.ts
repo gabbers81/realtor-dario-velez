@@ -626,6 +626,67 @@ Sitemap: ${process.env.NODE_ENV === 'production'
     }
   });
 
+  // PDF availability diagnostic endpoint
+  app.get("/api/pdf-diagnostics", async (_req, res) => {
+    try {
+      const pdfPath = process.env.NODE_ENV === 'production' 
+        ? 'dist/public/pdfs'
+        : 'client/public/pdfs';
+      
+      const fs = await import('fs');
+      const path = await import('path');
+      
+      const pdfDiagnostics = {
+        timestamp: new Date().toISOString(),
+        environment: process.env.NODE_ENV,
+        pdf_path: pdfPath,
+        pdf_directory_exists: false,
+        available_pdfs: [] as string[],
+        missing_pdfs: [] as string[],
+        expected_pdfs: [
+          'secret-garden.pdf',
+          'the-reef.pdf', 
+          'palm-beach-residences.pdf',
+          'solvamar-macao.pdf',
+          'amares-unique-homes.pdf',
+          'tropical-beach-3-0.pdf',
+          'las-cayas-residences.pdf',
+          'aura-boulevard.pdf'
+        ]
+      };
+
+      // Check if PDF directory exists
+      if (fs.existsSync(pdfPath)) {
+        pdfDiagnostics.pdf_directory_exists = true;
+        
+        // List all PDF files in directory
+        const files = fs.readdirSync(pdfPath);
+        pdfDiagnostics.available_pdfs = files.filter(f => f.endsWith('.pdf'));
+        
+        // Check for missing expected PDFs
+        pdfDiagnostics.missing_pdfs = pdfDiagnostics.expected_pdfs.filter(
+          expectedPdf => !pdfDiagnostics.available_pdfs.includes(expectedPdf)
+        );
+      }
+
+      const status = pdfDiagnostics.pdf_directory_exists && pdfDiagnostics.missing_pdfs.length === 0 
+        ? 'healthy' 
+        : 'unhealthy';
+
+      if (status === 'healthy') {
+        res.json({ status, ...pdfDiagnostics });
+      } else {
+        res.status(503).json({ status, ...pdfDiagnostics });
+      }
+    } catch (error: any) {
+      res.status(500).json({
+        status: 'error',
+        error: 'Failed to check PDF availability',
+        message: error.message
+      });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }

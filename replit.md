@@ -179,6 +179,31 @@ The application is configured for Replit deployment with comprehensive productio
    - Always restart the workflow after removing conflicting modules
    - Verify with diagnostics endpoint that correct database is being used
 
+### Troubleshooting PDF Issues
+
+**If PDFs fail to load in production (500 Internal Server Error):**
+
+1. **Check PDF Availability**: Use the diagnostic endpoint
+   ```bash
+   curl https://yourdomain.com/api/pdf-diagnostics
+   ```
+   - ✅ Should show: `"status": "healthy"` with all 8 PDFs available
+   - ❌ Problem if shows: `"pdf_directory_exists": false` or missing PDFs
+
+2. **Verify Build Process**:
+   - Ensure `npm run build` copies PDFs from `client/public/pdfs` to `dist/public/pdfs`
+   - Check production logs for: `PDF serving configured from: dist/public/pdfs`
+
+3. **Common Production Issues**:
+   - **Path Mismatch**: Production serves from `dist/public/pdfs`, development from `client/public/pdfs`
+   - **CSP Blocking**: Content Security Policy must allow `objectSrc: ["'self'"]` for PDF embedding
+   - **Missing Files**: Build process didn't copy PDF files to production directory
+
+4. **Resolution Steps**:
+   - Deploy latest code with environment-aware PDF path configuration
+   - Test individual PDF access: `curl -I https://yourdomain.com/pdfs/secret-garden.pdf`
+   - Verify all endpoints return 200 OK with `Content-Type: application/pdf`
+
 ### Production Commands
 - `npm run build`: Builds both frontend and backend for production
 - `npm run start`: Runs the production server
@@ -186,6 +211,7 @@ The application is configured for Replit deployment with comprehensive productio
 
 ## Recent Changes
 
+- July 3, 2025. **CRITICAL PDF Serving Production Fix**: Resolved production PDF serving failures (500 Internal Server Error) caused by environment-specific path mismatch. Root cause: PDF middleware served from `client/public/pdfs` in both development and production, but production build copies files to `dist/public/pdfs`. Solution: Environment-aware PDF path configuration, updated CSP to allow PDF embedding, added comprehensive PDF diagnostic endpoint (`/api/pdf-diagnostics`), and enhanced production logging. All 8 project PDFs now serve correctly in both environments with proper caching headers and iframe embedding support.
 - July 3, 2025. **CRITICAL Database Module Conflict Resolution**: Identified and resolved major production issue caused by Replit's postgresql-16 module automatically provisioning conflicting Neon database. Issue manifested as "relation does not exist" errors in production while development worked fine. Root cause was postgresql-16 module creating conflicting environment variables (PGDATABASE=neondb, PGHOST=neon.tech) that overrode Supabase connection. Resolution: Removed postgresql-16 module via packager_tool, added comprehensive documentation to prevent future occurrences. Updated deployment strategy to explicitly warn against PostgreSQL module installation when using external Supabase database.
 - July 3, 2025. **Comprehensive Production Database Solution Implemented**: Created enterprise-grade production database architecture with RLS (Row Level Security) compatibility and comprehensive error handling. Key improvements:
   - **RLS-Aware Connection Management**: Automatic detection of transaction pooler usage (port 5432) required for RLS compatibility
