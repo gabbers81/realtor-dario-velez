@@ -34,7 +34,7 @@ app.use(helmet({
 
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
-    ? ['https://dariovelez.com.do', 'https://*.replit.app', 'https://*.repl.co'] 
+    ? ['https://*.replit.app', 'https://*.repl.co'] 
     : ['http://localhost:5000', 'http://127.0.0.1:5000'],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],

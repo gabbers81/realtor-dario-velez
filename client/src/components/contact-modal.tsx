@@ -27,7 +27,6 @@ export function ContactModal({ isOpen, onClose, onOpenCalendly, projectSlug }: C
     phone: "",
     budget: "",
     downPayment: "",
-    whatInMind: "",
   });
 
   const { toast } = useToast();
@@ -49,37 +48,13 @@ export function ContactModal({ isOpen, onClose, onOpenCalendly, projectSlug }: C
       resetForm();
       onClose();
     },
-    onError: (error: any) => {
+    onError: (error) => {
+      toast({
+        title: t('general.error'),
+        description: t('contact:validation.required'),
+        variant: "destructive",
+      });
       console.error("Error creating contact:", error);
-      
-      // Handle validation errors from backend
-      if (error?.response?.data?.errors) {
-        const validationErrors = error.response.data.errors;
-        const errorMessages = validationErrors.map((err: any) => {
-          if (err.path && err.path.length > 0) {
-            return `${err.path.join('.')}: ${err.message}`;
-          }
-          return err.message;
-        }).join(', ');
-        
-        toast({
-          title: t('contact:validation.validation_error'),
-          description: errorMessages,
-          variant: "destructive",
-        });
-      } else if (error?.response?.data?.message) {
-        toast({
-          title: t('general.error'),
-          description: error.response.data.message,
-          variant: "destructive",
-        });
-      } else {
-        toast({
-          title: t('general.error'),
-          description: t('contact:validation.generic_error'),
-          variant: "destructive",
-        });
-      }
     },
   });
 
@@ -97,60 +72,31 @@ export function ContactModal({ isOpen, onClose, onOpenCalendly, projectSlug }: C
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Trim all string fields
-    const trimmedData = {
-      ...formData,
-      fullName: formData.fullName.trim(),
-      email: formData.email.trim(),
-      phone: formData.phone.trim(),
-      budget: formData.budget?.trim() || "",
-      downPayment: formData.downPayment?.trim() || "",
-      whatInMind: formData.whatInMind?.trim() || "",
-    };
-
-    // Basic validation - check required fields
-    if (!trimmedData.fullName || !trimmedData.email || !trimmedData.phone) {
-      const missingFields = [];
-      if (!trimmedData.fullName) missingFields.push('Nombre completo');
-      if (!trimmedData.email) missingFields.push('Correo electrónico');
-      if (!trimmedData.phone) missingFields.push('Teléfono');
-      
+    // Basic validation
+    if (!formData.fullName || !formData.email || !formData.phone) {
       toast({
         title: t('contact:validation.required_fields'),
-        description: `${t('contact:validation.missing_fields')}: ${missingFields.join(', ')}`,
+        description: t('contact:validation.complete_required'),
         variant: "destructive",
       });
       return;
     }
 
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(trimmedData.email)) {
-      toast({
-        title: t('contact:validation.invalid_email'),
-        description: t('contact:validation.email_format'),
-        variant: "destructive",
-      });
-      return;
-    }
-
-    // Phone validation - more flexible for Dominican Republic numbers
-    const phoneRegex = /^(\+?1[-.\s]?)?\(?([89]\d{2})\)?[-.\s]?\d{3}[-.\s]?\d{4}$/;
-    if (!phoneRegex.test(trimmedData.phone.replace(/\s+/g, ' '))) {
+    // Phone validation for Dominican format
+    const phoneRegex = /^\+?1?\s?\(?[89]\d{2}\)?\s?\d{3}[-.\s]?\d{4}$/;
+    if (!phoneRegex.test(formData.phone)) {
       toast({
         title: t('contact:validation.invalid_phone'),
-        description: t('contact:validation.phone_format_dr'),
+        description: t('contact:validation.phone_format'),
         variant: "destructive",
       });
       return;
     }
 
-    // Prepare submission data
-    const submissionData = { ...trimmedData };
+    const submissionData = { ...formData };
     if (projectSlug) {
       submissionData.projectSlug = projectSlug;
     }
-
     createContactMutation.mutate(submissionData);
   };
 
