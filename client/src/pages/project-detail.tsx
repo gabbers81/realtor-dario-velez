@@ -378,105 +378,32 @@ export default function ProjectDetailPage() {
                 </Button>
               </div>
               
-              {/* Desktop: Enhanced PDF viewer with production-aware fallback */}
+              {/* Desktop: Enhanced PDF viewer with fallback */}
               <div className="hidden md:block relative">
-                {/* Check if this is a large PDF that fails in production due to CDN limits */}
-                {(project.slug === 'secret-garden' || project.slug === 'solvamar-macao') && 
-                 window.location.hostname === 'dariovelez.com.do' ? (
-                  <div className="bg-gradient-to-br from-red-50 to-orange-50 border-2 border-red-200 rounded-lg p-8 text-center">
-                    <div className="bg-red-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                      <ExternalLink className="text-red-600" size={32} />
-                    </div>
-                    <h3 className="text-xl font-bold text-red-800 mb-2">
-                      {t('projects:detail.production_pdf_title', 'Documento disponible por descarga directa')}
-                    </h3>
-                    <p className="text-red-700 mb-6 max-w-lg mx-auto leading-relaxed">
-                      {t('projects:detail.production_pdf_message', 'Este documento de 40MB+ requiere descarga directa debido a limitaciones del CDN en producción. Haga clic en el botón para descargar o solicite información personalizada.')}
-                    </p>
-                    <div className="flex gap-4 justify-center">
-                      <Button
-                        asChild
-                        className="bg-red-600 text-white hover:bg-red-700 shadow-lg"
-                      >
-                        <a 
-                          href={`https://c435f3a6-d06f-4e5e-8b86-69a645e21929-00-12qmye5u79wap.worf.replit.dev${project.pdfUrl}`} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          onClick={() => trackEvent('pdf_alternative_download', 'project', project.slug)}
-                        >
-                          <Download className="mr-2" size={20} />
-                          {t('projects:detail.download_direct', 'Descargar Documento')}
-                        </a>
-                      </Button>
-                      <Button
-                        onClick={() => setIsContactModalOpen(true)}
-                        variant="outline"
-                        className="border-red-300 text-red-700 hover:bg-red-50"
-                      >
-                        <MessageCircle className="mr-2" size={20} />
-                        {t('projects:detail.request_info', 'Solicitar Información')}
-                      </Button>
-                    </div>
-                    <div className="mt-4 text-sm text-red-600">
-                      {t('projects:detail.alternative_note', 'También puede contactarnos para recibir el documento por email')}
-                    </div>
-                  </div>
-                ) : project.slug === 'secret-garden' || project.slug === 'solvamar-macao' ? (
-                  <div className="bg-gray-100 rounded-lg p-8 text-center">
-                    <FileText className="mx-auto mb-4 text-caribbean" size={64} />
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">
-                      {t('projects:detail.large_pdf_title', 'Documento PDF Grande')}
-                    </h3>
-                    <p className="text-gray-600 mb-6 max-w-md mx-auto">
-                      {t('projects:detail.large_pdf_message', 'Este documento es muy grande para visualizar directamente. Por favor, ábralo en una nueva pestaña para mejor experiencia.')}
-                    </p>
-                    <div className="flex gap-4 justify-center">
-                      <Button
-                        asChild
-                        className="bg-caribbean text-white hover:bg-caribbean/90"
-                      >
-                        <a href={project.pdfUrl} target="_blank" rel="noopener noreferrer">
-                          <Eye className="mr-2" size={20} />
-                          {t('projects:detail.open_in_new_tab', 'Abrir en nueva pestaña')}
-                        </a>
-                      </Button>
-                      <Button
-                        onClick={downloadPDF}
-                        variant="outline"
-                      >
-                        <Download className="mr-2" size={20} />
-                        {t('projects:detail.download_pdf')}
-                      </Button>
-                    </div>
-                  </div>
-                ) : (
-                  <>
-                    <iframe
-                      src={project.pdfUrl}
-                      className="w-full h-[600px] lg:h-[800px] border-0"
-                      title={`${project.title} - Información detallada`}
-                      allow="fullscreen"
-                      onError={() => {
-                        console.log('PDF iframe failed to load, showing fallback');
-                      }}
-                    />
-                    
-                    {/* Fallback option for when iframe doesn't work */}
-                    <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-lg p-3 shadow-lg">
-                      <Button
-                        asChild
-                        variant="outline"
-                        size="sm"
-                        className="text-sm"
-                      >
-                        <a href={project.pdfUrl} target="_blank" rel="noopener noreferrer">
-                          <FileText className="mr-2" size={16} />
-                          {t('projects:detail.open_in_new_tab', 'Abrir en nueva pestaña')}
-                        </a>
-                      </Button>
-                    </div>
-                  </>
-                )}
+                <iframe
+                  src={project.pdfUrl}
+                  className="w-full h-[600px] lg:h-[800px] border-0"
+                  title={`${project.title} - Información detallada`}
+                  allow="fullscreen"
+                  onError={() => {
+                    console.log('PDF iframe failed to load, showing fallback');
+                  }}
+                />
+                
+                {/* Fallback option for when iframe doesn't work */}
+                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-lg p-3 shadow-lg">
+                  <Button
+                    asChild
+                    variant="outline"
+                    size="sm"
+                    className="text-sm"
+                  >
+                    <a href={project.pdfUrl} target="_blank" rel="noopener noreferrer">
+                      <FileText className="mr-2" size={16} />
+                      {t('projects:detail.open_in_new_tab', 'Abrir en nueva pestaña')}
+                    </a>
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
