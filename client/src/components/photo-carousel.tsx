@@ -152,9 +152,9 @@ export function PhotoCarousel({ images, projectTitle, className }: PhotoCarousel
                 key={index}
                 onClick={() => goToImage(index)}
                 className={cn(
-                  "w-px h-px rounded-full transition-all duration-200",
+                  "w-2 h-2 rounded-full transition-all duration-200 scale-[0.0625]",
                   currentIndex === index
-                    ? "bg-white scale-125"
+                    ? "bg-white scale-[0.078125]"
                     : "bg-white/50 hover:bg-white/75"
                 )}
                 aria-label={`Ir a imagen ${index + 1}`}
@@ -227,9 +227,9 @@ export function PhotoCarousel({ images, projectTitle, className }: PhotoCarousel
                   key={index}
                   onClick={() => goToImage(index)}
                   className={cn(
-                    "w-px h-px rounded-full transition-all duration-200",
+                    "w-2 h-2 rounded-full transition-all duration-200 scale-[0.0625]",
                     currentIndex === index
-                      ? "bg-white scale-125"
+                      ? "bg-white scale-[0.078125]"
                       : "bg-white/50 hover:bg-white/75"
                   )}
                   aria-label={`Ir a imagen ${index + 1}`}
