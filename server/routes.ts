@@ -152,66 +152,27 @@ Sitemap: ${process.env.NODE_ENV === 'production'
     });
   });
 
-  // Production diagnostic endpoint with RLS testing
+  // Simple diagnostic endpoint
   app.get("/api/diagnostics", async (_req, res) => {
-    console.log('🔧 Diagnostics endpoint called');
     try {
-      // Test RLS permissions
-      const rlsCheck = await storage.checkRLSPermissions();
-      
-      // Test database connection
       const projectCount = await storage.getProjects();
-      
       res.json({
-        status: rlsCheck.status === 'error' ? "error" : "healthy",
+        status: "healthy",
         timestamp: new Date().toISOString(),
-        environment: {
-          NODE_ENV: process.env.NODE_ENV,
-          DATABASE_URL: process.env.DATABASE_URL ? `Set (${process.env.DATABASE_URL.substring(0, 20)}...)` : "Missing",
-          SUPABASE_URL: process.env.SUPABASE_URL ? `Set (${process.env.SUPABASE_URL.substring(0, 20)}...)` : "Missing",
-          SUPABASE_SERVICE_ROLE_KEY: process.env.SUPABASE_SERVICE_ROLE_KEY ? "Set" : "Missing"
-        },
         database: {
           connection: "successful",
           projects_count: projectCount.length,
           sample_project: projectCount[0]?.title || "none"
-        },
-        rls_permissions: rlsCheck.details,
-        rls_status: rlsCheck.status,
-        recommendations: rlsCheck.status === 'rls_blocked' ? [
-          "RLS is enabled on Supabase tables",
-          "Direct database queries are blocked",
-          "REST API fallback with service role key is working",
-          "Consider using service role credentials for direct connections"
-        ] : rlsCheck.status === 'error' ? [
-          "Database connection or permission errors detected",
-          "Check Supabase credentials and table existence",
-          "Verify RLS policies allow service role access"
-        ] : [
-          "All database connections working normally"
-        ]
+        }
       });
     } catch (error: any) {
-      console.error('❌ Diagnostics failed:', error);
       res.status(500).json({
         status: "error",
         timestamp: new Date().toISOString(),
         error: {
           message: error.message,
-          code: error.code,
           type: error.constructor.name
-        },
-        environment: {
-          NODE_ENV: process.env.NODE_ENV,
-          DATABASE_URL: process.env.DATABASE_URL ? "Set" : "Missing",
-          SUPABASE_URL: process.env.SUPABASE_URL ? "Set" : "Missing",
-          SUPABASE_SERVICE_ROLE_KEY: process.env.SUPABASE_SERVICE_ROLE_KEY ? "Set" : "Missing"
-        },
-        recommendations: [
-          "Check database connectivity",
-          "Verify environment variables are set",
-          "Ensure Supabase service role key has proper permissions"
-        ]
+        }
       });
     }
   });
