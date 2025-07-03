@@ -148,22 +148,58 @@ Sitemap: ${process.env.NODE_ENV === 'production'
       res.setHeader('Cache-Control', 'public, max-age=3600, s-maxage=3600'); // 1 hour
       res.setHeader('ETag', `"projects-${Date.now()}"`);
       
+      console.log('🔍 API: Fetching projects...');
       const projects = await storage.getProjects();
+      console.log(`✅ API: Successfully retrieved ${projects.length} projects`);
       res.json(projects);
     } catch (error: any) {
-      console.error('API Error - fetching projects:', error);
-      if (error?.code === 'ENOTFOUND') {
+      console.error('❌ API Error - fetching projects:', {
+        message: error.message,
+        code: error.code,
+        errno: error.errno,
+        stack: error.stack?.split('\n').slice(0, 3).join('\n'), // First 3 lines of stack
+        environment: {
+          DATABASE_URL: process.env.DATABASE_URL ? '✅ Set' : '❌ Missing',
+          SUPABASE_URL: process.env.SUPABASE_URL ? '✅ Set' : '❌ Missing',
+          SUPABASE_SERVICE_ROLE_KEY: process.env.SUPABASE_SERVICE_ROLE_KEY ? '✅ Set' : '❌ Missing',
+          NODE_ENV: process.env.NODE_ENV
+        }
+      });
+      
+      // Check for specific error types and provide detailed responses
+      if (error?.code === 'ENOTFOUND' || error?.errno === -3007) {
+        console.error('🔌 Database connection failed - network issue');
         res.status(503).json({ 
-          message: "Database connection unavailable", 
-          details: "DNS resolution issue with Supabase hostname. Please create tables in Supabase dashboard first." 
+          message: "Database connection failed", 
+          details: "Unable to connect to database server. Network or DNS issue.",
+          error_code: error.code,
+          error_type: "NETWORK_ERROR",
+          suggestion: "Check if Supabase credentials are configured correctly in production."
         });
       } else if (error?.message?.includes('REST API error')) {
+        console.error('🚫 REST API fallback failed');
         res.status(503).json({ 
-          message: "Database tables not found", 
-          details: "Please create tables using the SQL script in Supabase dashboard" 
+          message: "Database API error", 
+          details: error.message,
+          error_type: "REST_API_ERROR",
+          suggestion: "Check Supabase REST API credentials and table existence."
+        });
+      } else if (error?.message?.includes('relation') && error?.message?.includes('does not exist')) {
+        console.error('📋 Database table missing');
+        res.status(503).json({ 
+          message: "Database table not found", 
+          details: "Projects table may not exist in production database.",
+          error_type: "TABLE_MISSING",
+          suggestion: "Run table creation script in Supabase dashboard."
         });
       } else {
-        res.status(500).json({ message: "Error fetching projects" });
+        console.error('⚠️ Unknown error type:', error);
+        res.status(500).json({ 
+          message: "Error fetching projects", 
+          details: error.message,
+          error_type: "UNKNOWN_ERROR",
+          suggestion: "Check server logs for more details."
+        });
       }
     }
   });

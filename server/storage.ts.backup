@@ -120,9 +120,6 @@ export class SupabaseStorage implements IStorage {
         console.log('ℹ️  Please ensure tables are created manually in Supabase dashboard using supabase-setup.sql');
         return;
       }
-    } catch (initError) {
-      console.error('Failed to initialize Supabase storage:', initError);
-    }
   }
 
   async createContact(insertContact: InsertContact): Promise<Contact> {
