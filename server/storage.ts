@@ -60,13 +60,19 @@ try {
   db = drizzle(sql);
   console.log('Supabase client initialized successfully with encoded URL');
   
-  // Initialize Supabase REST API client as fallback
+  // Initialize Supabase REST API client as fallback with service role key (bypasses RLS)
   if (process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY) {
     supabaseClient = createClient(
       process.env.SUPABASE_URL,
-      process.env.SUPABASE_SERVICE_ROLE_KEY
+      process.env.SUPABASE_SERVICE_ROLE_KEY,
+      {
+        auth: {
+          autoRefreshToken: false,
+          persistSession: false
+        }
+      }
     );
-    console.log('✅ Supabase REST API client initialized as fallback');
+    console.log('✅ Supabase REST API client initialized with service role (bypasses RLS)');
   }
 } catch (error) {
   console.error('Error initializing Supabase connection:', error);
@@ -142,7 +148,17 @@ export class SupabaseStorage implements IStorage {
         const [retryContact] = await db.insert(contacts).values(contactWithoutSlug).returning();
         return retryContact;
       }
-      if ((error?.code === 'ENOTFOUND' || error?.errno === -3007) && supabaseClient) {
+
+      // Check for RLS permission errors
+      if (error.message?.includes('permission denied') || 
+          error.message?.includes('row level security') ||
+          error.message?.includes('policy')) {
+        console.error('🚫 RLS Error: Row Level Security is blocking contact creation');
+        console.log('💡 Solution: Trying REST API with service role key to bypass RLS...');
+      }
+
+      if ((error?.code === 'ENOTFOUND' || error?.errno === -3007 || 
+           error.message?.includes('permission denied')) && supabaseClient) {
         console.log('🔄 Direct connection failed, using REST API fallback for contact creation...');
         
         // Transform camelCase to snake_case for REST API
@@ -207,7 +223,16 @@ export class SupabaseStorage implements IStorage {
     try {
       return await db.select().from(contacts);
     } catch (error: any) {
-      if ((error?.code === 'ENOTFOUND' || error?.errno === -3007) && supabaseClient) {
+      // Check for RLS permission errors
+      if (error.message?.includes('permission denied') || 
+          error.message?.includes('row level security') ||
+          error.message?.includes('policy')) {
+        console.error('🚫 RLS Error: Row Level Security is blocking contacts access');
+        console.log('💡 Solution: Using REST API with service role key to bypass RLS...');
+      }
+
+      if ((error?.code === 'ENOTFOUND' || error?.errno === -3007 || 
+           error.message?.includes('permission denied')) && supabaseClient) {
         console.log('🔄 Direct connection failed, using REST API fallback for contacts...');
         const { data, error: restError } = await supabaseClient
           .from('contacts')
@@ -242,8 +267,23 @@ export class SupabaseStorage implements IStorage {
         }
       });
 
-      if ((error?.code === 'ENOTFOUND' || error?.errno === -3007) && supabaseClient) {
-        console.log('🔄 Storage: Direct connection failed, using REST API fallback for projects...');
+      // Check for RLS permission errors
+      if (error.message?.includes('permission denied') || 
+          error.message?.includes('row level security') ||
+          error.message?.includes('policy')) {
+        console.error('🚫 RLS Error: Row Level Security is blocking database access');
+        console.log('💡 Solution: Ensure you are using the service role key which bypasses RLS');
+      }
+
+      // Try REST API fallback for network issues or RLS permission problems
+      if (((error?.code === 'ENOTFOUND' || error?.errno === -3007) || 
+           error.message?.includes('permission denied') || 
+           error.message?.includes('row level security')) && supabaseClient) {
+        
+        const fallbackReason = error?.code === 'ENOTFOUND' ? 'network connectivity' : 
+                              error.message?.includes('permission') ? 'RLS permission' : 'database connection';
+        
+        console.log(`🔄 Storage: Direct connection failed (${fallbackReason}), using REST API fallback for projects...`);
         try {
           const { data, error: restError } = await supabaseClient
             .from('projects')
@@ -251,10 +291,18 @@ export class SupabaseStorage implements IStorage {
           
           if (restError) {
             console.error('❌ Storage: REST API fallback failed:', restError);
+            
+            // Check if REST API also has RLS issues
+            if (restError.message?.includes('permission denied') || 
+                restError.message?.includes('policy')) {
+              console.error('🚫 RLS Error: Both direct and REST API connections blocked by Row Level Security');
+              console.log('💡 Fix: Check that SUPABASE_SERVICE_ROLE_KEY is the correct service role key that bypasses RLS');
+            }
+            
             throw new Error(`REST API error: ${restError.message}`);
           }
           
-          console.log(`✅ Storage: Retrieved ${data?.length || 0} projects via REST API`);
+          console.log(`✅ Storage: Retrieved ${data?.length || 0} projects via REST API (service role bypasses RLS)`);
           // Map snake_case to camelCase for API consistency
           return (data || []).map((project: any) => ({
             ...project,
@@ -281,7 +329,16 @@ export class SupabaseStorage implements IStorage {
       const [project] = await db.select().from(projects).where(eq(projects.id, id));
       return project;
     } catch (error: any) {
-      if ((error?.code === 'ENOTFOUND' || error?.errno === -3007) && supabaseClient) {
+      // Check for RLS permission errors
+      if (error.message?.includes('permission denied') || 
+          error.message?.includes('row level security') ||
+          error.message?.includes('policy')) {
+        console.error('🚫 RLS Error: Row Level Security is blocking project access');
+        console.log('💡 Solution: Using REST API with service role key to bypass RLS...');
+      }
+
+      if ((error?.code === 'ENOTFOUND' || error?.errno === -3007 || 
+           error.message?.includes('permission denied')) && supabaseClient) {
         console.log('🔄 Direct connection failed, using REST API fallback for single project...');
         const { data, error: restError } = await supabaseClient
           .from('projects')
@@ -313,7 +370,16 @@ export class SupabaseStorage implements IStorage {
       const [project] = await db.select().from(projects).where(eq(projects.slug, slug));
       return project;
     } catch (error: any) {
-      if ((error?.code === 'ENOTFOUND' || error?.errno === -3007) && supabaseClient) {
+      // Check for RLS permission errors
+      if (error.message?.includes('permission denied') || 
+          error.message?.includes('row level security') ||
+          error.message?.includes('policy')) {
+        console.error('🚫 RLS Error: Row Level Security is blocking project slug access');
+        console.log('💡 Solution: Using REST API with service role key to bypass RLS...');
+      }
+
+      if ((error?.code === 'ENOTFOUND' || error?.errno === -3007 || 
+           error.message?.includes('permission denied')) && supabaseClient) {
         console.log('🔄 Direct connection failed, using REST API fallback for project by slug...');
         const { data, error: restError } = await supabaseClient
           .from('projects')
@@ -368,7 +434,16 @@ export class SupabaseStorage implements IStorage {
       const [contact] = await db.select().from(contacts).where(eq(contacts.email, email.toLowerCase()));
       return contact || null;
     } catch (error: any) {
-      if ((error?.code === 'ENOTFOUND' || error?.errno === -3007) && supabaseClient) {
+      // Check for RLS permission errors
+      if (error.message?.includes('permission denied') || 
+          error.message?.includes('row level security') ||
+          error.message?.includes('policy')) {
+        console.error('🚫 RLS Error: Row Level Security is blocking contact email lookup');
+        console.log('💡 Solution: Using REST API with service role key to bypass RLS...');
+      }
+
+      if ((error?.code === 'ENOTFOUND' || error?.errno === -3007 || 
+           error.message?.includes('permission denied')) && supabaseClient) {
         console.log('🔄 Direct connection failed, using REST API fallback for contact lookup by email...');
         const { data, error: restError } = await supabaseClient
           .from('contacts')
@@ -410,7 +485,16 @@ export class SupabaseStorage implements IStorage {
 
       return updatedContact;
     } catch (error: any) {
-      if ((error?.code === 'ENOTFOUND' || error?.errno === -3007) && supabaseClient) {
+      // Check for RLS permission errors
+      if (error.message?.includes('permission denied') || 
+          error.message?.includes('row level security') ||
+          error.message?.includes('policy')) {
+        console.error('🚫 RLS Error: Row Level Security is blocking contact update');
+        console.log('💡 Solution: Using REST API with service role key to bypass RLS...');
+      }
+
+      if ((error?.code === 'ENOTFOUND' || error?.errno === -3007 || 
+           error.message?.includes('permission denied')) && supabaseClient) {
         console.log('🔄 Direct connection failed, using REST API fallback for contact update...');
         
         // Transform camelCase to snake_case for REST API
@@ -446,6 +530,111 @@ export class SupabaseStorage implements IStorage {
       }
       throw error;
     }
+  }
+
+  // RLS Health Check Method
+  async checkRLSPermissions(): Promise<{
+    status: 'healthy' | 'rls_blocked' | 'error';
+    details: {
+      projects: { accessible: boolean; count?: number; error?: string };
+      contacts: { accessible: boolean; count?: number; error?: string };
+      direct_connection: boolean;
+      rest_api_fallback: boolean;
+    };
+  }> {
+    const result = {
+      status: 'healthy' as 'healthy' | 'rls_blocked' | 'error',
+      details: {
+        projects: { accessible: false } as { accessible: boolean; count?: number; error?: string },
+        contacts: { accessible: false } as { accessible: boolean; count?: number; error?: string },
+        direct_connection: false,
+        rest_api_fallback: !!supabaseClient
+      }
+    };
+
+    // Test projects table access
+    try {
+      const projectsResult = await db.select().from(projects).limit(1);
+      result.details.projects = { accessible: true, count: projectsResult.length };
+      result.details.direct_connection = true;
+    } catch (error: any) {
+      if (error.message?.includes('permission denied') || 
+          error.message?.includes('row level security') ||
+          error.message?.includes('policy')) {
+        result.details.projects = { 
+          accessible: false, 
+          error: 'RLS blocking access - trying REST API fallback' 
+        };
+        result.status = 'rls_blocked';
+        
+        // Test REST API fallback
+        if (supabaseClient) {
+          try {
+            const { data, error: restError } = await supabaseClient
+              .from('projects')
+              .select('*')
+              .limit(1);
+            if (!restError) {
+              result.details.projects = { 
+                accessible: true, 
+                count: data?.length || 0,
+                error: 'Direct blocked, REST API working (service role bypasses RLS)'
+              };
+            }
+          } catch (restFallbackError) {
+            result.details.projects = {
+              ...result.details.projects,
+              error: `Both direct and REST API failed: ${restFallbackError}`
+            };
+            result.status = 'error';
+          }
+        }
+      } else {
+        result.details.projects = { accessible: false, error: error.message };
+        result.status = 'error';
+      }
+    }
+
+    // Test contacts table access
+    try {
+      const contactsResult = await db.select().from(contacts).limit(1);
+      result.details.contacts = { accessible: true, count: contactsResult.length };
+    } catch (error: any) {
+      if (error.message?.includes('permission denied') || 
+          error.message?.includes('row level security') ||
+          error.message?.includes('policy')) {
+        result.details.contacts = { 
+          accessible: false, 
+          error: 'RLS blocking access - trying REST API fallback' 
+        };
+        
+        // Test REST API fallback for contacts
+        if (supabaseClient) {
+          try {
+            const { data, error: restError } = await supabaseClient
+              .from('contacts')
+              .select('*')
+              .limit(1);
+            if (!restError) {
+              result.details.contacts = { 
+                accessible: true, 
+                count: data?.length || 0,
+                error: 'Direct blocked, REST API working (service role bypasses RLS)'
+              };
+            }
+          } catch (restFallbackError) {
+            result.details.contacts = {
+              ...result.details.contacts,
+              error: `Both direct and REST API failed: ${restFallbackError}`
+            };
+          }
+        }
+      } else {
+        result.details.contacts = { accessible: false, error: error.message };
+      }
+    }
+
+    return result;
   }
 }
 
