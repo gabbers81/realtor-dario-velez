@@ -69,15 +69,25 @@ const contactLimiter = rateLimit({
   }
 });
 
-// Only apply general rate limiting to API routes, not static assets
+// Only apply general rate limiting to API routes, not static assets or PDFs
 app.use('/api', limiter);
 app.use('/api/contacts', contactLimiter);
 
-// Compression middleware for better performance
+// Skip rate limiting for PDF requests entirely
+app.use('/pdfs', (req, res, next) => {
+  // Bypass all rate limiting for PDF requests
+  next();
+});
+
+// Compression middleware for better performance - exclude PDFs
 app.use(compression({
   level: 6,
   threshold: 1024,
   filter: (req, res) => {
+    // Never compress PDFs as they're already compressed and it causes issues with large files
+    if (req.path.startsWith('/pdfs/') || req.path.endsWith('.pdf')) {
+      return false;
+    }
     if (req.headers['x-no-compression']) {
       return false;
     }
@@ -85,8 +95,8 @@ app.use(compression({
   }
 }));
 
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: false, limit: '10mb' }));
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ extended: false, limit: '50mb' }));
 
 // Serve PDFs with proper headers for iframe embedding and caching
 // Use correct path based on environment
@@ -149,15 +159,27 @@ app.get('/pdfs/:filename', async (req, res) => {
       const stream = fs.createReadStream(filePath, { start, end });
       stream.pipe(res);
     } else {
-      // For large files (>35MB), use streaming
-      if (fileSize > 35 * 1024 * 1024) {
-        console.log(`Streaming large PDF: ${filename} (${fileSizeMB}MB)`);
-        const stream = fs.createReadStream(filePath);
-        stream.pipe(res);
-      } else {
-        // For smaller files, serve directly
-        res.sendFile(path.resolve(filePath));
+      // Production-safe PDF serving with proper error handling
+      if (process.env.NODE_ENV === 'production') {
+        log(`Production PDF request: ${filename} (${fileSizeMB}MB)`);
       }
+      
+      // Use sendFile for better production compatibility
+      res.sendFile(path.resolve(filePath), (sendError) => {
+        if (sendError) {
+          console.error(`Error sending PDF ${filename}:`, sendError.message);
+          if (!res.headersSent) {
+            res.status(500).json({ 
+              error: 'PDF serving failed',
+              details: process.env.NODE_ENV === 'development' ? sendError.message : 'Internal server error'
+            });
+          }
+        } else {
+          if (process.env.NODE_ENV === 'production') {
+            log(`Successfully served PDF: ${filename}`);
+          }
+        }
+      });
     }
     
   } catch (error: any) {
