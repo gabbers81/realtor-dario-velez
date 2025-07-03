@@ -99,26 +99,81 @@ if (process.env.NODE_ENV === 'production') {
   log(`PDF serving configured from: ${pdfPath}`);
 }
 
-app.use('/pdfs', express.static(pdfPath, {
-  maxAge: '7d', // 7 days cache
-  etag: true,
-  lastModified: true,
-  setHeaders: (res, path) => {
-    if (path.endsWith('.pdf')) {
-      res.setHeader('Content-Type', 'application/pdf');
-      res.setHeader('X-Frame-Options', 'SAMEORIGIN');
-      res.setHeader('Content-Disposition', 'inline');
-      res.setHeader('Cache-Control', 'public, max-age=604800, immutable'); // 7 days
-      res.setHeader('Accept-Ranges', 'bytes');
-      // Allow PDF embedding in iframes
-      res.setHeader('X-Content-Type-Options', 'nosniff');
+// Enhanced PDF serving with streaming support for large files
+app.get('/pdfs/:filename', async (req, res) => {
+  const filename = req.params.filename;
+  const filePath = `${pdfPath}/${filename}`;
+  
+  try {
+    // Check if file exists and get stats
+    const fs = await import('fs');
+    const path = await import('path');
+    
+    if (!fs.existsSync(filePath)) {
+      console.error(`PDF not found: ${filePath}`);
+      return res.status(404).json({ error: 'PDF not found' });
+    }
+    
+    const stats = fs.statSync(filePath);
+    const fileSize = stats.size;
+    const fileSizeMB = Math.round(fileSize / 1024 / 1024);
+    
+    // Production logging for large files
+    if (process.env.NODE_ENV === 'production') {
+      log(`Serving PDF: ${filename} (${fileSizeMB}MB)`);
+    }
+    
+    // Set headers for PDF serving
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Length', fileSize);
+    res.setHeader('Content-Disposition', 'inline');
+    res.setHeader('Cache-Control', 'public, max-age=604800, immutable'); // 7 days
+    res.setHeader('Accept-Ranges', 'bytes');
+    res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+    res.setHeader('X-Content-Type-Options', 'nosniff');
+    res.setHeader('Last-Modified', stats.mtime.toUTCString());
+    res.setHeader('ETag', `"${stats.size}-${stats.mtime.getTime()}"`);
+    
+    // Handle range requests for large files
+    const range = req.headers.range;
+    if (range) {
+      const parts = range.replace(/bytes=/, "").split("-");
+      const start = parseInt(parts[0], 10);
+      const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1;
+      const chunkSize = (end - start) + 1;
       
-      // Production debugging
-      if (process.env.NODE_ENV === 'production') {
-        log(`Serving PDF: ${path}`);
+      res.status(206);
+      res.setHeader('Content-Range', `bytes ${start}-${end}/${fileSize}`);
+      res.setHeader('Content-Length', chunkSize);
+      
+      const stream = fs.createReadStream(filePath, { start, end });
+      stream.pipe(res);
+    } else {
+      // For large files (>35MB), use streaming
+      if (fileSize > 35 * 1024 * 1024) {
+        console.log(`Streaming large PDF: ${filename} (${fileSizeMB}MB)`);
+        const stream = fs.createReadStream(filePath);
+        stream.pipe(res);
+      } else {
+        // For smaller files, serve directly
+        res.sendFile(path.resolve(filePath));
       }
     }
+    
+  } catch (error: any) {
+    console.error(`Error serving PDF ${filename}:`, error.message);
+    res.status(500).json({ 
+      error: 'Internal server error serving PDF',
+      message: process.env.NODE_ENV === 'development' ? error.message : 'PDF serving failed'
+    });
   }
+});
+
+// Fallback static serving for any remaining static files
+app.use('/pdfs', express.static(pdfPath, {
+  maxAge: '7d',
+  etag: true,
+  lastModified: true
 }));
 
 // Serve assets with aggressive caching
