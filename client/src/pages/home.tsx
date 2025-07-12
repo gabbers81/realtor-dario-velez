@@ -209,7 +209,7 @@ export default function HomePage() {
                   setIsContactModalOpen(true);
                   setIsMobileMenuOpen(false);
                 }}
-                className="w-full bg-caribbean text-white hover:bg-caribbean/90 h-12 text-base touch-manipulation"
+                className="w-full bg-caribbean text-white hover:bg-caribbean/90 h-12 text-base touch-manipulation button-press"
               >
                 {t('navigation.contact')}
               </Button>
@@ -241,7 +241,7 @@ export default function HomePage() {
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button 
                   onClick={() => setIsContactModalOpen(true)}
-                  className="bg-caribbean text-white hover:bg-caribbean/90 px-8 py-4 text-base font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"
+                  className="bg-caribbean text-white hover:bg-caribbean/90 px-8 py-4 text-base font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 button-press"
                 >
                   <Calendar className="mr-2" size={20} />
                   {t('buttons.schedule_appointment')}
@@ -249,7 +249,7 @@ export default function HomePage() {
                 <Button 
                   variant="outline"
                   onClick={() => scrollToSection('proyectos')}
-                  className="border-2 border-turquoise text-turquoise hover:bg-turquoise hover:text-white px-8 py-4 text-base font-semibold transition-all duration-300"
+                  className="border-2 border-turquoise text-turquoise hover:bg-turquoise hover:text-white px-8 py-4 text-base font-semibold transition-all duration-300 button-press"
                 >
                   {t('home:hero.cta')}
                 </Button>
@@ -278,7 +278,10 @@ export default function HomePage() {
                 <img 
                   src={WhatsApp_Image_2025_06_25_at_19_11_55} 
                   alt="Dario Velez - Realtor Profesional" 
-                  className="rounded-2xl shadow-2xl w-full max-w-md mx-auto object-cover h-[600px]"
+                  className="rounded-2xl shadow-2xl w-full max-w-md mx-auto object-cover h-[600px] image-fade-in"
+                  onLoad={(e) => {
+                    e.currentTarget.classList.add('loaded');
+                  }}
                 />
               </div>
               <div className="absolute inset-0 bg-gradient-to-tr from-turquoise/20 to-caribbean/20 rounded-2xl transform rotate-6 scale-105 -z-10"></div>
@@ -342,14 +345,14 @@ export default function HomePage() {
           {isLoading ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {[...Array(6)].map((_, i) => (
-                <Card key={i} className="overflow-hidden">
-                  <div className="w-full h-48 bg-gray-200 animate-pulse"></div>
+                <Card key={i} className={`overflow-hidden opacity-0 animate-fade-in animate-stagger-${i + 1}`}>
+                  <div className="w-full h-48 skeleton-enhanced"></div>
                   <CardContent className="p-6">
-                    <div className="h-6 bg-gray-200 rounded animate-pulse mb-2"></div>
-                    <div className="h-4 bg-gray-200 rounded animate-pulse mb-4"></div>
+                    <div className="h-6 skeleton-enhanced rounded mb-2"></div>
+                    <div className="h-4 skeleton-enhanced rounded mb-4"></div>
                     <div className="flex justify-between items-center">
-                      <div className="h-6 bg-gray-200 rounded animate-pulse w-24"></div>
-                      <div className="h-4 bg-gray-200 rounded animate-pulse w-20"></div>
+                      <div className="h-6 skeleton-enhanced rounded w-24"></div>
+                      <div className="h-4 skeleton-enhanced rounded w-20"></div>
                     </div>
                   </CardContent>
                 </Card>
@@ -357,20 +360,23 @@ export default function HomePage() {
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-              {(projects as Project[])?.sort((a, b) => a.title.localeCompare(b.title)).map((project: Project) => {
+              {(projects as Project[])?.sort((a, b) => a.title.localeCompare(b.title)).map((project: Project, index: number) => {
                 const translatedProject = getTranslatedProject(project);
                 return (
                   <Card 
                     key={project.id} 
-                    className="overflow-hidden hover:shadow-xl active:shadow-lg transition-all duration-300 group cursor-pointer transform hover:scale-[1.02] active:scale-[0.98] touch-manipulation"
+                    className={`overflow-hidden hover:shadow-xl active:shadow-lg transition-all duration-300 group cursor-pointer transform hover:scale-[1.02] active:scale-[0.98] touch-manipulation button-press opacity-0 animate-fade-in animate-stagger-${index + 1}`}
                     onClick={() => navigateToProject(project)}
                   >
                     <div className="overflow-hidden relative">
                       <img 
                         src={project.imageUrl} 
                         alt={translatedProject.title}
-                        className="w-full h-48 sm:h-52 object-cover group-hover:scale-105 group-active:scale-100 transition-transform duration-500"
+                        className="w-full h-48 sm:h-52 object-cover group-hover:scale-105 group-active:scale-100 transition-transform duration-500 image-fade-in"
                         loading="lazy"
+                        onLoad={(e) => {
+                          e.currentTarget.classList.add('loaded');
+                        }}
                       />
                       {/* Mobile touch indicator */}
                       <div className="absolute inset-0 bg-black bg-opacity-0 group-active:bg-opacity-10 transition-all duration-200 sm:hidden"></div>
