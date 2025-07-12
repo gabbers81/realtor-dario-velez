@@ -1,13 +1,10 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "wouter";
-import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ContactModal } from "@/components/contact-modal";
 import { CalendlyModal } from "@/components/calendly-modal";
-import { AnimatedButton } from "@/components/animated-button";
-import { BlurImage } from "@/components/blur-image";
 import { Home, Calendar, ArrowRight, Check, Shield, CheckCircle, Phone, Mail, MapPin, Scale, FileText, Star, Quote } from "lucide-react";
 import { FaFacebook, FaInstagram, FaLinkedin, FaWhatsapp, FaBars, FaTimes } from "react-icons/fa";
 import { useTranslation } from 'react-i18next';
@@ -15,251 +12,10 @@ import { LanguageSwitcher } from "@/components/language-switcher";
 import { CookieSettingsButton } from "@/components/cookie-settings-button";
 import { SEOHead } from "@/components/seo-head";
 import { generatePropertySchema } from "@/lib/property-schema";
-import { useScrollAnimation } from "@/hooks/use-scroll-animation";
-import { useSmoothScroll } from "@/hooks/use-smooth-scroll";
-import { PageTransition } from "@/components/page-transition";
-import { 
-  fadeIn, fadeInUp, fadeInDown, scaleIn, 
-  staggerContainer, staggerItem, 
-  heroTitle, heroSubtitle, 
-  cardHover, float, gradientAnimation 
-} from "@/lib/animations";
 import type { Project } from "@/lib/types";
 
 import WhatsApp_Image_2025_06_25_at_19_11_55 from "@assets/WhatsApp Image 2025-06-25 at 19.11.55.jpeg";
 import DarioVelezLogo from "@assets/DarioRealtorLogo_cropped_1750974653123.png";
-
-// Counter animation component
-function CounterAnimation({ end, suffix = "", className }: { end: number; suffix?: string; className?: string }) {
-  const [count, setCount] = useState(0);
-  const [isVisible, setIsVisible] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.5 }
-    );
-
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (!isVisible) return;
-
-    const duration = 2000;
-    const steps = 60;
-    const increment = end / steps;
-    let current = 0;
-
-    const timer = setInterval(() => {
-      current += increment;
-      if (current >= end) {
-        setCount(end);
-        clearInterval(timer);
-      } else {
-        setCount(Math.floor(current));
-      }
-    }, duration / steps);
-
-    return () => clearInterval(timer);
-  }, [isVisible, end]);
-
-  return (
-    <div ref={ref} className={className}>
-      {count}{suffix}
-    </div>
-  );
-}
-
-// About Section Component
-function AboutSection() {
-  const { t } = useTranslation(['home']);
-  const sectionRef = useRef(null);
-  const controls = useScrollAnimation(sectionRef);
-
-  const features = [
-    {
-      icon: CheckCircle,
-      color: "caribbean",
-      title: "Especializado",
-      description: "Asesor inmobiliario, miembro de AEI, especializado en propiedades turísticas de República Dominicana"
-    },
-    {
-      icon: Shield,
-      color: "turquoise",
-      title: "Experiencia",
-      description: "Más de 15+ transacciones exitosas en la zona turística de Punta Cana, Bávaro, Bayahibe, Las Terrenas y Santo Domingo"
-    },
-    {
-      icon: MapPin,
-      color: "sage",
-      title: "Internacional",
-      description: "Atendiendo clientes de Estados Unidos, Canadá, Europa y Latinoamérica"
-    }
-  ];
-
-  return (
-    <section ref={sectionRef} className="py-20 bg-white">
-      <motion.div 
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
-        initial="hidden"
-        animate={controls}
-        variants={staggerContainer}
-      >
-        <motion.div className="text-center mb-16" variants={fadeIn}>
-          <h2 className="font-bold text-4xl text-gray-900 mb-4">{t('home:about.title')}</h2>
-          <p className="text-gray-600 text-lg max-w-3xl mx-auto">
-            {t('home:about.experience')}
-          </p>
-        </motion.div>
-
-        <motion.div 
-          className="grid md:grid-cols-3 gap-8"
-          variants={staggerContainer}
-        >
-          {features.map((feature, index) => {
-            const Icon = feature.icon;
-            return (
-              <motion.div
-                key={index}
-                variants={staggerItem}
-                whileHover={cardHover}
-              >
-                <Card className="text-center p-6 hover:shadow-lg transition-shadow h-full">
-                  <CardContent className="pt-6">
-                    <motion.div 
-                      className={`w-16 h-16 bg-${feature.color}/10 rounded-full flex items-center justify-center mx-auto mb-4`}
-                      whileHover={{ rotate: 360 }}
-                      transition={{ duration: 0.6 }}
-                    >
-                      <Icon className={`text-${feature.color} text-2xl`} size={32} />
-                    </motion.div>
-                    <h3 className="font-semibold text-xl mb-2">{feature.title}</h3>
-                    <p className="text-gray-600">{feature.description}</p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            );
-          })}
-        </motion.div>
-      </motion.div>
-    </section>
-  );
-}
-
-// Projects Section Component
-function ProjectsSection({ projects, isLoading, navigateToProject, getTranslatedProject }: any) {
-  const { t } = useTranslation(['home', 'projects', 'actions']);
-  const sectionRef = useRef(null);
-  const controls = useScrollAnimation(sectionRef);
-
-  return (
-    <section ref={sectionRef} id="proyectos" className="py-20 bg-gray-50">
-      <motion.div 
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
-        initial="hidden"
-        animate={controls}
-        variants={staggerContainer}
-      >
-        <motion.div className="text-center mb-16" variants={fadeIn}>
-          <h2 className="font-bold text-4xl text-gray-900 mb-4">{t('home:projects.title')}</h2>
-          <p className="text-gray-600 text-lg max-w-3xl mx-auto">
-            {t('home:projects.subtitle')}
-          </p>
-        </motion.div>
-
-        {isLoading ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[...Array(6)].map((_, i) => (
-              <motion.div
-                key={i}
-                variants={staggerItem}
-                className="overflow-hidden"
-              >
-                <Card className="overflow-hidden">
-                  <div className="w-full h-48 bg-gray-200 animate-pulse"></div>
-                  <CardContent className="p-6">
-                    <div className="h-6 bg-gray-200 rounded animate-pulse mb-2"></div>
-                    <div className="h-4 bg-gray-200 rounded animate-pulse mb-4"></div>
-                    <div className="flex justify-between items-center">
-                      <div className="h-6 bg-gray-200 rounded animate-pulse w-24"></div>
-                      <div className="h-4 bg-gray-200 rounded animate-pulse w-20"></div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        ) : (
-          <motion.div 
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
-            variants={staggerContainer}
-          >
-            {(projects as Project[])?.sort((a, b) => a.title.localeCompare(b.title)).map((project: Project) => {
-              const translatedProject = getTranslatedProject(project);
-              return (
-                <motion.div
-                  key={project.id}
-                  variants={staggerItem}
-                  whileHover={cardHover}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <Card 
-                    className="overflow-hidden hover:shadow-xl active:shadow-lg transition-all duration-300 cursor-pointer h-full"
-                    onClick={() => navigateToProject(project)}
-                  >
-                    <div className="overflow-hidden relative">
-                      <BlurImage
-                        src={project.imageUrl} 
-                        alt={translatedProject.title}
-                        className="w-full h-48 sm:h-52 object-cover"
-                      />
-                      <motion.div 
-                        className="absolute inset-0 bg-black bg-opacity-0 group-active:bg-opacity-10 transition-all duration-200 sm:hidden"
-                        whileHover={{ backgroundColor: "rgba(0,0,0,0.1)" }}
-                      />
-                    </div>
-                    <CardContent className="p-4 sm:p-6">
-                      <h3 className="font-semibold text-lg sm:text-xl mb-2 leading-tight">{translatedProject.title}</h3>
-                      <p className="text-gray-600 mb-4 text-sm sm:text-base leading-relaxed">{translatedProject.description}</p>
-                      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-0">
-                        <span className="text-caribbean font-bold text-lg sm:text-xl">
-                          {translatedProject.price}
-                        </span>
-                        <motion.button 
-                          className="text-turquoise hover:text-caribbean active:text-caribbean/80 font-medium flex items-center justify-center sm:justify-start h-10 sm:h-auto transition-colors duration-200"
-                          whileHover={{ x: 5 }}
-                          transition={{ duration: 0.2 }}
-                        >
-                          {t('actions:view_details')} 
-                          <motion.span
-                            animate={{ x: [0, 5, 0] }}
-                            transition={{ duration: 1.5, repeat: Infinity }}
-                          >
-                            <ArrowRight className="ml-1" size={16} />
-                          </motion.span>
-                        </motion.button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              );
-            })}
-          </motion.div>
-        )}
-      </motion.div>
-    </section>
-  );
-}
 
 export default function HomePage() {
   const { t, i18n } = useTranslation(['common', 'home', 'contact', 'projects', 'legal', 'testimonials']);
@@ -267,9 +23,6 @@ export default function HomePage() {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [isCalendlyModalOpen, setIsCalendlyModalOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  
-  // Enable smooth scrolling
-  useSmoothScroll();
 
   // Get testimonials with fallback
   const getTestimonials = () => {
@@ -330,12 +83,11 @@ export default function HomePage() {
   }, [isMobileMenuOpen]);
 
   return (
-    <PageTransition>
-      <div className="min-h-screen bg-white">
-        <SEOHead 
-          title={t('home:seo.title', 'Dario Velez - Propiedades Exclusivas en República Dominicana')}
-          description={t('common:seo.description')}
-        />
+    <div className="min-h-screen bg-white">
+      <SEOHead 
+        title={t('home:seo.title', 'Dario Velez - Propiedades Exclusivas en República Dominicana')}
+        description={t('common:seo.description')}
+      />
       {/* Header */}
       <header className="bg-white shadow-sm sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -466,131 +218,182 @@ export default function HomePage() {
         </div>
       </header>
       {/* Hero Section */}
-      <motion.section 
-        id="inicio" 
-        className="relative bg-gradient-to-br from-slate-100 via-blue-50 to-cyan-50 min-h-screen flex items-center overflow-hidden"
-        initial="hidden"
-        animate="visible"
-        variants={staggerContainer}
-      >
+      <section id="inicio" className="relative bg-gradient-to-br from-slate-100 via-blue-50 to-cyan-50 min-h-screen flex items-center overflow-hidden">
         {/* Background decorative elements */}
-        <motion.div 
-          className="absolute top-20 right-20 w-32 h-32 bg-yellow-200 rounded-full opacity-60 blur-2xl"
-          animate={float}
-        />
-        <motion.div 
-          className="absolute bottom-32 left-20 w-48 h-48 bg-turquoise/20 rounded-full opacity-60 blur-3xl"
-          animate={float}
-          transition={{ delay: 1, duration: 8 }}
-        />
+        <div className="absolute top-20 right-20 w-32 h-32 bg-yellow-200 rounded-full opacity-60 blur-2xl"></div>
+        <div className="absolute bottom-32 left-20 w-48 h-48 bg-turquoise/20 rounded-full opacity-60 blur-3xl"></div>
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left content */}
             <div className="space-y-8">
               <div>
-                <motion.p 
-                  className="text-turquoise font-medium text-lg mb-4"
-                  variants={fadeInDown}
-                >
-                  {t('home:hero.specialist_title')}
-                </motion.p>
-                <motion.h1 
-                  className="font-bold text-5xl lg:text-6xl text-gray-900 leading-tight"
-                  variants={heroTitle}
-                >
+                <p className="text-turquoise font-medium text-lg mb-4">{t('home:hero.specialist_title')}</p>
+                <h1 className="font-bold text-5xl lg:text-6xl text-gray-900 leading-tight">
                   {t('home:hero.title')}
-                </motion.h1>
+                </h1>
               </div>
               
-              <motion.p 
-                className="text-gray-600 text-lg leading-relaxed max-w-lg"
-                variants={heroSubtitle}
-              >
+              <p className="text-gray-600 text-lg leading-relaxed max-w-lg">
                 {t('home:hero.description')}
-              </motion.p>
+              </p>
 
-              <motion.div 
-                className="flex flex-col sm:flex-row gap-4"
-                variants={fadeInUp}
-                transition={{ delay: 0.4 }}
-              >
-                <AnimatedButton
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button 
                   onClick={() => setIsContactModalOpen(true)}
-                  variant="primary"
-                  size="lg"
-                  icon={<Calendar size={20} />}
-                  iconPosition="left"
-                  className="shadow-lg hover:shadow-xl"
+                  className="bg-caribbean text-white hover:bg-caribbean/90 px-8 py-4 text-base font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300"
                 >
+                  <Calendar className="mr-2" size={20} />
                   {t('buttons.schedule_appointment')}
-                </AnimatedButton>
-                <AnimatedButton
-                  variant="secondary"
-                  size="lg"
+                </Button>
+                <Button 
+                  variant="outline"
                   onClick={() => scrollToSection('proyectos')}
-                  icon={<ArrowRight size={20} />}
+                  className="border-2 border-turquoise text-turquoise hover:bg-turquoise hover:text-white px-8 py-4 text-base font-semibold transition-all duration-300"
                 >
                   {t('home:hero.cta')}
-                </AnimatedButton>
-              </motion.div>
+                </Button>
+              </div>
 
               {/* Statistics */}
-              <motion.div 
-                className="grid grid-cols-3 gap-8 pt-8"
-                variants={staggerContainer}
-              >
-                <motion.div className="text-center" variants={staggerItem}>
-                  <CounterAnimation end={5} suffix="+" className="text-3xl font-bold text-caribbean" />
+              <div className="grid grid-cols-3 gap-8 pt-8">
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-caribbean">5+</div>
                   <div className="text-gray-600 text-sm">Años de Experiencia</div>
-                </motion.div>
-                <motion.div className="text-center" variants={staggerItem}>
-                  <CounterAnimation end={5} suffix="+" className="text-3xl font-bold text-sage" />
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-sage">5+</div>
                   <div className="text-gray-600 text-sm">Proyectos Completados</div>
-                </motion.div>
-                <motion.div className="text-center" variants={staggerItem}>
-                  <CounterAnimation end={15} suffix="+" className="text-3xl font-bold text-yellow-500" />
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-yellow-500">15+</div>
                   <div className="text-gray-600 text-sm">Clientes Satisfechos</div>
-                </motion.div>
-              </motion.div>
+                </div>
+              </div>
             </div>
 
             {/* Right content - Professional photo */}
-            <motion.div 
-              className="relative"
-              variants={scaleIn}
-              transition={{ delay: 0.3 }}
-            >
-              <motion.div 
-                className="relative z-10"
-                whileHover={{ scale: 1.02 }}
-                transition={{ duration: 0.3 }}
-              >
-                <BlurImage
+            <div className="relative">
+              <div className="relative z-10">
+                <img 
                   src={WhatsApp_Image_2025_06_25_at_19_11_55} 
                   alt="Dario Velez - Realtor Profesional" 
                   className="rounded-2xl shadow-2xl w-full max-w-md mx-auto object-cover h-[600px]"
-                  priority
                 />
-              </motion.div>
-              <motion.div 
-                className="absolute inset-0 bg-gradient-to-tr from-turquoise/20 to-caribbean/20 rounded-2xl transform rotate-6 scale-105 -z-10"
-                animate={float}
-                transition={{ delay: 0.5, duration: 6 }}
-              />
-            </motion.div>
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-tr from-turquoise/20 to-caribbean/20 rounded-2xl transform rotate-6 scale-105 -z-10"></div>
+            </div>
           </div>
         </div>
-      </motion.section>
+      </section>
       {/* About Section */}
-      <AboutSection />
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="font-bold text-4xl text-gray-900 mb-4">{t('home:about.title')}</h2>
+            <p className="text-gray-600 text-lg max-w-3xl mx-auto">
+              {t('home:about.experience')}
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            <Card className="text-center p-6 hover:shadow-lg transition-shadow">
+              <CardContent className="pt-6">
+                <div className="w-16 h-16 bg-caribbean/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <CheckCircle className="text-caribbean text-2xl" size={32} />
+                </div>
+                <h3 className="font-semibold text-xl mb-2">Especializado</h3>
+                <p className="text-gray-600">Asesor inmobiliario,  miembro de AEI, especializado en propiedades turísticas de República Dominicana</p>
+              </CardContent>
+            </Card>
+
+            <Card className="text-center p-6 hover:shadow-lg transition-shadow">
+              <CardContent className="pt-6">
+                <div className="w-16 h-16 bg-turquoise/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Shield className="text-turquoise text-2xl" size={32} />
+                </div>
+                <h3 className="font-semibold text-xl mb-2">Experiencia</h3>
+                <p className="text-gray-600">Más de 15+ transacciones exitosas en la zona turística de Punta Cana, Bávaro, Bayahibe, Las Terrenas y Santo Domingo</p>
+              </CardContent>
+            </Card>
+
+            <Card className="text-center p-6 hover:shadow-lg transition-shadow">
+              <CardContent className="pt-6">
+                <div className="w-16 h-16 bg-sage/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <MapPin className="text-sage text-2xl" size={32} />
+                </div>
+                <h3 className="font-semibold text-xl mb-2">Internacional</h3>
+                <p className="text-gray-600">Atendiendo clientes de Estados Unidos, Canadá, Europa y Latinoamérica</p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
       {/* Projects Section */}
-      <ProjectsSection 
-        projects={projects} 
-        isLoading={isLoading} 
-        navigateToProject={navigateToProject}
-        getTranslatedProject={getTranslatedProject}
-      />
+      <section id="proyectos" className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="font-bold text-4xl text-gray-900 mb-4">{t('home:projects.title')}</h2>
+            <p className="text-gray-600 text-lg max-w-3xl mx-auto">
+              {t('home:projects.subtitle')}
+            </p>
+          </div>
+
+          {isLoading ? (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[...Array(6)].map((_, i) => (
+                <Card key={i} className="overflow-hidden">
+                  <div className="w-full h-48 bg-gray-200 animate-pulse"></div>
+                  <CardContent className="p-6">
+                    <div className="h-6 bg-gray-200 rounded animate-pulse mb-2"></div>
+                    <div className="h-4 bg-gray-200 rounded animate-pulse mb-4"></div>
+                    <div className="flex justify-between items-center">
+                      <div className="h-6 bg-gray-200 rounded animate-pulse w-24"></div>
+                      <div className="h-4 bg-gray-200 rounded animate-pulse w-20"></div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+              {(projects as Project[])?.sort((a, b) => a.title.localeCompare(b.title)).map((project: Project) => {
+                const translatedProject = getTranslatedProject(project);
+                return (
+                  <Card 
+                    key={project.id} 
+                    className="overflow-hidden hover:shadow-xl active:shadow-lg transition-all duration-300 group cursor-pointer transform hover:scale-[1.02] active:scale-[0.98] touch-manipulation"
+                    onClick={() => navigateToProject(project)}
+                  >
+                    <div className="overflow-hidden relative">
+                      <img 
+                        src={project.imageUrl} 
+                        alt={translatedProject.title}
+                        className="w-full h-48 sm:h-52 object-cover group-hover:scale-105 group-active:scale-100 transition-transform duration-500"
+                        loading="lazy"
+                      />
+                      {/* Mobile touch indicator */}
+                      <div className="absolute inset-0 bg-black bg-opacity-0 group-active:bg-opacity-10 transition-all duration-200 sm:hidden"></div>
+                    </div>
+                    <CardContent className="p-4 sm:p-6">
+                      <h3 className="font-semibold text-lg sm:text-xl mb-2 leading-tight">{translatedProject.title}</h3>
+                      <p className="text-gray-600 mb-4 text-sm sm:text-base leading-relaxed">{translatedProject.description}</p>
+                      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-0">
+                        <span className="text-caribbean font-bold text-lg sm:text-xl">
+                          {translatedProject.price}
+                        </span>
+                        <button className="text-turquoise hover:text-caribbean active:text-caribbean/80 font-medium flex items-center justify-center sm:justify-start h-10 sm:h-auto transition-colors duration-200">
+                          {t('actions.view_details')} <ArrowRight className="ml-1" size={16} />
+                        </button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      </section>
       {/* Testimonials Section */}
       <section id="testimonials" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -856,7 +659,6 @@ export default function HomePage() {
         isOpen={isCalendlyModalOpen} 
         onClose={() => setIsCalendlyModalOpen(false)}
       />
-      </div>
-    </PageTransition>
+    </div>
   );
 }
