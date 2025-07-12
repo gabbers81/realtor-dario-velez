@@ -1,3 +1,4 @@
+import "./env.js";
 import { drizzle } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
 import { eq } from 'drizzle-orm';
@@ -26,8 +27,21 @@ export interface IStorage {
   createProject(project: InsertProject): Promise<Project>;
 }
 
+// Check if DATABASE_URL is available
+if (!process.env.DATABASE_URL) {
+  console.error('❌ DATABASE_URL environment variable is not set!');
+  console.error('Please ensure your .env file is properly configured with:');
+  console.error('DATABASE_URL=postgresql://postgres.xxx:[PASSWORD]@aws-0-us-east-2.pooler.supabase.com:6543/postgres');
+  console.error('');
+  console.error('Current environment variables:', {
+    NODE_ENV: process.env.NODE_ENV,
+    DATABASE_URL: process.env.DATABASE_URL ? '✅ Set' : '❌ Missing'
+  });
+  throw new Error('DATABASE_URL is required. Please check your .env file configuration.');
+}
+
 // Production-aware database connection initialization
-const databaseUrl = process.env.DATABASE_URL!.trim();
+const databaseUrl = process.env.DATABASE_URL.trim();
 
 // Production RLS compatibility check and connection string optimization
 let encodedUrl = databaseUrl;
@@ -35,31 +49,23 @@ let isProductionReady = true;
 let connectionWarnings: string[] = [];
 
 // Check if using transaction pooler (required for RLS in production)
-const isTransactionPooler = databaseUrl.includes(':5432');
+const isTransactionPooler = databaseUrl.includes(':6543');
 if (process.env.NODE_ENV === 'production' && !isTransactionPooler) {
   console.warn('⚠️ Production Warning: Not using transaction pooler. RLS policies may not work correctly.');
   connectionWarnings.push('Transaction pooler recommended for production RLS compatibility');
   isProductionReady = false;
 }
 
-// Handle special characters in password by URL encoding
-const urlMatch = databaseUrl.match(/^postgresql:\/\/([^:]+):([^@]+)@(.+)$/);
-if (urlMatch) {
-  const [, username, password, hostPart] = urlMatch;
-  const encodedPassword = encodeURIComponent(password);
-  encodedUrl = `postgresql://${username}:${encodedPassword}@${hostPart}`;
-  
-  // Log connection details for production debugging
-  if (process.env.NODE_ENV === 'production') {
-    console.log('🔍 Production Database Connection:', {
-      host: hostPart.split('@')[1]?.split(':')[0] || 'unknown',
-      port: hostPart.includes(':5432') ? '5432 (transaction pooler)' : hostPart.split(':')[1]?.split('/')[0] || 'unknown',
-      database: hostPart.split('/')[1] || 'postgres',
-      ssl: 'required',
-      rls_compatible: isTransactionPooler
-    });
-  }
-}
+// The password is already URL encoded in the .env file, so we don't need to encode it again
+encodedUrl = databaseUrl;
+
+// Log connection details for debugging
+console.log('🔍 Database Connection Info:', {
+  environment: process.env.NODE_ENV,
+  using_pooler: isTransactionPooler,
+  host: databaseUrl.match(/@([^:\/]+)/)?.[1] || 'unknown',
+  port: isTransactionPooler ? '6543' : 'unknown'
+});
 
 const sql = postgres(encodedUrl, {
   ssl: process.env.NODE_ENV === 'production' ? 'require' : 'prefer',
@@ -255,8 +261,8 @@ export class SupabaseStorage implements IStorage {
       isReady: isProductionReady,
       warnings: connectionWarnings,
       recommendations: !isProductionReady ? [
-        'Use transaction pooler connection string (port 5432) for RLS compatibility',
-        'Format: postgresql://postgres.xxx:[PASSWORD]@db.xxx.supabase.co:5432/postgres',
+        'Use transaction pooler connection string (port 6543) for RLS compatibility',
+        'Format: postgresql://postgres.xxx:[PASSWORD]@aws-0-us-east-2.pooler.supabase.com:6543/postgres',
         'Verify RLS policies are properly configured for anonymous access if needed'
       ] : [],
       connection_type: isTransactionPooler ? 'transaction_pooler' : 'direct',
