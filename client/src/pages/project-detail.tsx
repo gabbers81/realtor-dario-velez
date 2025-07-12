@@ -17,12 +17,31 @@ import { useSwipe } from "@/hooks/use-swipe";
 import { trackEvent } from "@/lib/analytics";
 import type { Project } from "@/lib/types";
 import DarioVelezLogo from "@assets/DarioRealtorLogo_cropped_1750974653123.png";
+import { PageTransition } from "@/components/page-transition";
+import { motion } from "framer-motion";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
+import { fadeInUp, staggerContainer, staggerItem, fadeIn } from "@/lib/animations";
+import { useRef } from "react"; // Ensure useRef is imported, it was missing from the previous auto-import
 
 export default function ProjectDetailPage() {
   const { t, i18n } = useTranslation(['common', 'home', 'contact', 'projects']);
   const [location, setLocation] = useLocation();
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [isCalendlyModalOpen, setIsCalendlyModalOpen] = useState(false);
+
+  // Refs for scroll animations
+  const projectHeaderRef = useRef(null);
+  const keyInfoRef = useRef(null);
+  const locationInfoRef = useRef(null);
+  const featuresSectionRef = useRef(null);
+  const pdfViewerRef = useRef(null);
+
+  // Animation controls - using triggerOnce: true for most sections on this page for a cleaner feel.
+  const projectHeaderControls = useScrollAnimation(projectHeaderRef, { triggerOnce: true });
+  const keyInfoControls = useScrollAnimation(keyInfoRef, { threshold: 0.1, triggerOnce: true });
+  const locationInfoControls = useScrollAnimation(locationInfoRef, { triggerOnce: true });
+  const featuresSectionControls = useScrollAnimation(featuresSectionRef, { threshold: 0.1, triggerOnce: true });
+  const pdfViewerControls = useScrollAnimation(pdfViewerRef, { triggerOnce: true });
 
   // Navigation function
   const goBack = () => {
@@ -118,10 +137,11 @@ export default function ProjectDetailPage() {
   const locationData = getLocationData(project.slug);
 
   return (
-    <div className="min-h-screen bg-white" {...swipeHandlers}>
-      <SEOHead 
-        title={`${translatedProject.title} - ${translatedProject.location}`}
-        description={`${translatedProject.description} ${translatedProject.price} - ${t('projects:detail.contact_project')}`}
+    <PageTransition>
+      <div className="min-h-screen bg-white" {...swipeHandlers}>
+        <SEOHead
+          title={`${translatedProject.title} - ${translatedProject.location}`}
+          description={`${translatedProject.description} ${translatedProject.price} - ${t('projects:detail.contact_project')}`}
         image={projectImage}
         url={`/proyecto/${project.slug}`}
         type="article"
@@ -223,7 +243,13 @@ export default function ProjectDetailPage() {
       </header>
 
       {/* Project Header */}
-      <section className="py-6 bg-gradient-to-br from-gray-50 to-white">
+      <motion.section
+        ref={projectHeaderRef}
+        initial="hidden"
+        animate={projectHeaderControls}
+        variants={fadeInUp} // Simple fade up for the whole initial section
+        className="py-6 bg-gradient-to-br from-gray-50 to-white"
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Title and Description */}
           <div className="text-center mb-6">
@@ -239,43 +265,60 @@ export default function ProjectDetailPage() {
               className="rounded-xl overflow-hidden shadow-lg"
             />
           </div>
+        </div> {/* End of projectHeaderRef's inner max-w-7xl container */}
+      </motion.section>
 
-          {/* Key Info Cards - Below Carousel */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-            <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
-              <div className="flex items-center text-gray-700">
-                <DollarSign className="mr-3 text-caribbean" size={24} />
-                <div>
-                  <span className="block text-sm sm:text-xs text-gray-500 font-medium">{t('projects:detail.price')}</span>
-                  <span className="font-bold text-xl sm:text-lg text-gray-900">{getTranslatedProject(project).price}</span>
-                </div>
+      {/* Key Info Cards - Below Carousel, now a separate section */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          ref={keyInfoRef}
+          initial="hidden"
+          animate={keyInfoControls}
+          variants={staggerContainer}
+          className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 mt-6"
+        >
+          <motion.div variants={staggerItem} className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+            <div className="flex items-center text-gray-700">
+              <DollarSign className="mr-3 text-caribbean" size={24} />
+              <div>
+                <span className="block text-sm sm:text-xs text-gray-500 font-medium">{t('projects:detail.price')}</span>
+                <span className="font-bold text-xl sm:text-lg text-gray-900">{getTranslatedProject(project).price}</span>
               </div>
             </div>
-            
-            <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
-              <div className="flex items-center text-gray-700">
-                <MapPin className="mr-3 text-turquoise" size={24} />
-                <div>
-                  <span className="block text-sm sm:text-xs text-gray-500 font-medium">{t('projects:detail.location')}</span>
-                  <span className="font-semibold text-lg sm:text-base text-gray-900">{getTranslatedProject(project).location}</span>
-                </div>
-              </div>
-            </div>
-            
-            <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
-              <div className="flex items-center text-gray-700">
-                <Clock className="mr-3 text-sage" size={24} />
-                <div>
-                  <span className="block text-sm sm:text-xs text-gray-500 font-medium">{t('projects:detail.completion')}</span>
-                  <span className="font-semibold text-lg sm:text-base text-gray-900">{getTranslatedProject(project).completion}</span>
-                </div>
-              </div>
-            </div>
-          </div>
+          </motion.div>
 
-          {/* Location Information */}
-          {locationData && (
-            <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100 mb-6">
+          <motion.div variants={staggerItem} className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+            <div className="flex items-center text-gray-700">
+              <MapPin className="mr-3 text-turquoise" size={24} />
+              <div>
+                <span className="block text-sm sm:text-xs text-gray-500 font-medium">{t('projects:detail.location')}</span>
+                <span className="font-semibold text-lg sm:text-base text-gray-900">{getTranslatedProject(project).location}</span>
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.div variants={staggerItem} className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+            <div className="flex items-center text-gray-700">
+              <Clock className="mr-3 text-sage" size={24} />
+              <div>
+                <span className="block text-sm sm:text-xs text-gray-500 font-medium">{t('projects:detail.completion')}</span>
+                <span className="font-semibold text-lg sm:text-base text-gray-900">{getTranslatedProject(project).completion}</span>
+              </div>
+            </div>
+          </motion.div>
+        </motion.div>
+      </div>
+
+      {/* Location Information */}
+      {locationData && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              ref={locationInfoRef}
+              initial="hidden"
+              animate={locationInfoControls}
+              variants={fadeInUp}
+              className="bg-white rounded-xl p-4 shadow-sm border border-gray-100 mb-6 mt-6"
+            >
               <h3 className="font-bold text-xl sm:text-lg mb-4 text-gray-900 text-center">{t('projects:detail.location_accessibility')}</h3>
               
               {/* Distance Section */}
@@ -323,27 +366,45 @@ export default function ProjectDetailPage() {
                   ))}
                 </div>
               </div>
-            </div>
-          )}
-
-          {/* Features Section - Full Width Below */}
-          <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
-            <h3 className="font-bold text-xl sm:text-lg mb-4 text-gray-900 text-center">{t('projects:detail.main_features')}</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-2">
-              {getTranslatedProject(project).features.map((feature, index) => (
-                <div key={index} className="flex items-center p-3 sm:p-2 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
-                  <Check className="mr-3 sm:mr-2 text-caribbean flex-shrink-0" size={20} />
-                  <span className="text-gray-700 font-medium text-base sm:text-sm">{feature}</span>
-                </div>
-              ))}
-            </div>
-          </div>
+            </motion.div>
         </div>
-      </section>
+      )}
+
+      {/* Features Section */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6"> {/* Container for Features, Added mt-6 */}
+        <motion.div
+          ref={featuresSectionRef}
+          initial="hidden"
+          animate={featuresSectionControls}
+          variants={staggerContainer}
+          className="bg-white rounded-xl p-4 shadow-sm border border-gray-100 mb-6"
+        >
+          <h3 className="font-bold text-xl sm:text-lg mb-4 text-gray-900 text-center">{t('projects:detail.main_features')}</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-2">
+            {getTranslatedProject(project).features.map((feature, index) => (
+              <motion.div
+                key={index}
+                variants={staggerItem}
+                className="flex items-center p-3 sm:p-2 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+              >
+                <Check className="mr-3 sm:mr-2 text-caribbean flex-shrink-0" size={20} />
+                <span className="text-gray-700 font-medium text-base sm:text-sm">{feature}</span>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      </div>
+
 
       {/* PDF Viewer */}
       {project.pdfUrl && (
-        <section className="py-4">
+        <motion.section
+          ref={pdfViewerRef}
+          initial="hidden"
+          animate={pdfViewerControls}
+          variants={fadeInUp}
+          className="py-4 mt-6"
+        >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-3 gap-2">
               <h2 className="text-xl sm:text-lg font-bold text-gray-900">{t('projects:detail.detailed_info')}</h2>
@@ -358,7 +419,6 @@ export default function ProjectDetailPage() {
             </div>
             
             <div className="bg-gray-100 rounded-lg overflow-hidden shadow-lg">
-              {/* Mobile: Show download button prominently */}
               <div className="block md:hidden p-6 text-center bg-white">
                 <FileText className="mx-auto mb-4 text-caribbean" size={48} />
                 <h3 className="text-lg font-semibold text-gray-900 mb-2">
@@ -378,7 +438,6 @@ export default function ProjectDetailPage() {
                 </Button>
               </div>
               
-              {/* Desktop: Enhanced PDF viewer with fallback */}
               <div className="hidden md:block relative">
                 <iframe
                   src={project.pdfUrl}
@@ -390,7 +449,6 @@ export default function ProjectDetailPage() {
                   }}
                 />
                 
-                {/* Fallback option for when iframe doesn't work */}
                 <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-lg p-3 shadow-lg">
                   <Button
                     asChild
@@ -407,7 +465,7 @@ export default function ProjectDetailPage() {
               </div>
             </div>
           </div>
-        </section>
+        </motion.section>
       )}
 
       {/* Footer */}
@@ -522,6 +580,7 @@ export default function ProjectDetailPage() {
         isOpen={isCalendlyModalOpen} 
         onClose={() => setIsCalendlyModalOpen(false)}
       />
-    </div>
+      </div>
+    </PageTransition>
   );
 }

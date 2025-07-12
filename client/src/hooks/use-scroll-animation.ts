@@ -6,7 +6,7 @@ import { MutableRefObject } from 'react';
 interface UseScrollAnimationOptions {
   threshold?: number;
   triggerOnce?: boolean;
-  rootMargin?: string;
+  // rootMargin?: string; // Removed as it's not used and causing type issues
 }
 
 export function useScrollAnimation(
@@ -17,7 +17,7 @@ export function useScrollAnimation(
   const inView = useInView(ref, {
     amount: options.threshold || 0.1,
     once: options.triggerOnce !== false,
-    margin: options.rootMargin || "0px"
+    // margin: options.rootMargin // Removed
   });
 
   useEffect(() => {

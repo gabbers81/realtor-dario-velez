@@ -5,6 +5,8 @@ import { Download, Calendar, Check, FileText, Eye } from "lucide-react";
 import type { Project } from "@/lib/types";
 import { useState } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { motion, AnimatePresence } from "framer-motion";
+import { modalTransition } from "@/lib/animations";
 
 interface ProjectModalProps {
   isOpen: boolean;
@@ -46,17 +48,27 @@ export function ProjectModal({ isOpen, onClose, project, onOpenContact }: Projec
     document.body.removeChild(link);
   };
 
-  return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle className="text-2xl text-gray-900">{project.title}</DialogTitle>
-        </DialogHeader>
+  const MotionDialogContent = motion(DialogContent);
 
-        <div className="space-y-6">
-          <div className="grid md:grid-cols-2 gap-6">
-            <div>
-              <h4 className="font-semibold text-lg mb-2">Descripción</h4>
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <Dialog open={isOpen} onOpenChange={onClose}>
+          <MotionDialogContent
+            className="max-w-2xl max-h-[90vh] overflow-y-auto"
+            variants={modalTransition}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+          >
+            <DialogHeader>
+              <DialogTitle className="text-2xl text-gray-900">{project.title}</DialogTitle>
+            </DialogHeader>
+
+            <div className="space-y-6 mt-4"> {/* Added mt-4 for spacing */}
+              <div className="grid md:grid-cols-2 gap-6">
+                <div>
+                  <h4 className="font-semibold text-lg mb-2">Descripción</h4>
               <p className="text-gray-600 mb-4">{project.description}</p>
               
               <div className="grid grid-cols-2 gap-4 mb-4">
@@ -119,51 +131,60 @@ export function ProjectModal({ isOpen, onClose, project, onOpenContact }: Projec
             </Button>
           </div>
         </div>
-      </DialogContent>
-      
-      {/* PDF Modal for Desktop */}
-      {showPDF && pdfUrl && (
-        <Dialog open={showPDF} onOpenChange={setShowPDF}>
-          <DialogContent className="max-w-4xl max-h-[90vh] p-6">
-            <DialogHeader>
-              <DialogTitle className="text-xl font-bold">
-                {project.title} - Información Detallada
-              </DialogTitle>
-              <Button
-                onClick={() => setShowPDF(false)}
-                variant="ghost"
-                className="absolute right-4 top-4 h-6 w-6 p-0"
-              >
-                ×
-              </Button>
-            </DialogHeader>
-            
-            <div className="relative bg-gray-100 rounded-lg overflow-hidden">
-              <iframe
-                src={pdfUrl}
-                className="w-full h-[70vh] border-0"
-                title={`${project.title} - Información detallada`}
-                allow="fullscreen"
-              />
-              
-              {/* Fallback download button */}
-              <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-lg p-2 shadow-lg">
-                <Button
-                  asChild
-                  variant="outline"
-                  size="sm"
-                  className="text-sm"
+          </MotionDialogContent>
+      {/* PDF Modal for Desktop - needs AnimatePresence as well */}
+      <AnimatePresence>
+            {showPDF && pdfUrl && (
+              <Dialog open={showPDF} onOpenChange={setShowPDF}>
+                <MotionDialogContent
+                  className="max-w-4xl max-h-[90vh] p-6" // p-6 is default, so this is fine
+                  variants={modalTransition} // Re-use same transition or define a new one
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
                 >
-                  <a href={pdfUrl} target="_blank" rel="noopener noreferrer">
-                    <FileText className="mr-2" size={16} />
-                    Abrir en nueva pestaña
-                  </a>
-                </Button>
-              </div>
-            </div>
-          </DialogContent>
+                  <DialogHeader>
+                    <DialogTitle className="text-xl font-bold">
+                      {project.title} - Información Detallada
+                    </DialogTitle>
+                    <Button
+                      onClick={() => setShowPDF(false)}
+                      variant="ghost"
+                      className="absolute right-4 top-4 h-6 w-6 p-0"
+                    >
+                      ×
+                    </Button>
+                  </DialogHeader>
+
+                  <div className="relative bg-gray-100 rounded-lg overflow-hidden mt-4"> {/* Added mt-4 */}
+                    <iframe
+                      src={pdfUrl}
+                      className="w-full h-[70vh] border-0"
+                      title={`${project.title} - Información detallada`}
+                      allow="fullscreen"
+                    />
+
+                    {/* Fallback download button */}
+                    <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-lg p-2 shadow-lg">
+                      <Button
+                        asChild
+                        variant="outline"
+                        size="sm"
+                        className="text-sm"
+                      >
+                        <a href={pdfUrl} target="_blank" rel="noopener noreferrer">
+                          <FileText className="mr-2" size={16} />
+                          Abrir en nueva pestaña
+                        </a>
+                      </Button>
+                    </div>
+                  </div>
+                </MotionDialogContent>
+              </Dialog>
+            )}
+      </AnimatePresence>
         </Dialog>
       )}
-    </Dialog>
+    </AnimatePresence>
   );
 }

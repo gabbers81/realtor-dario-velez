@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "wouter";
-import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, useTransform, useSpring, useScroll } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ContactModal } from "@/components/contact-modal";
@@ -268,6 +268,19 @@ export default function HomePage() {
   const [isCalendlyModalOpen, setIsCalendlyModalOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   
+  // Hero Parallax Scroll
+  const heroRef = useRef(null);
+  const { scrollYProgress: heroScrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"]
+  });
+
+  const heroBgElement1Y = useTransform(heroScrollYProgress, [0, 1], ["0%", "30%"]);
+  const heroBgElement2Y = useTransform(heroScrollYProgress, [0, 1], ["0%", "50%"]);
+  const heroImageY = useTransform(heroScrollYProgress, [0, 1], ["0%", "-10%"]);
+  const heroContentY = useTransform(heroScrollYProgress, [0, 1], ["0%", "5%"]);
+
+
   // Enable smooth scrolling
   useSmoothScroll();
 
@@ -355,30 +368,34 @@ export default function HomePage() {
             </button>
             
             <nav className="hidden md:flex items-center space-x-6">
-              <button 
+              <motion.button
                 onClick={() => scrollToSection('inicio')}
                 className="text-gray-700 hover:text-caribbean font-medium transition-colors"
+                whileHover={{ y: -2 }}
               >
                 {t('navigation.home')}
-              </button>
-              <button 
+              </motion.button>
+              <motion.button
                 onClick={() => scrollToSection('proyectos')}
                 className="text-gray-700 hover:text-caribbean font-medium transition-colors"
+                whileHover={{ y: -2 }}
               >
                 {t('navigation.projects')}
-              </button>
-              <button 
+              </motion.button>
+              <motion.button
                 onClick={() => scrollToSection('testimonials')}
                 className="text-gray-700 hover:text-caribbean font-medium transition-colors"
+                whileHover={{ y: -2 }}
               >
                 {t('navigation.testimonials')}
-              </button>
-              <button 
+              </motion.button>
+              <motion.button
                 onClick={() => scrollToSection('info-legal')}
                 className="text-gray-700 hover:text-caribbean font-medium transition-colors"
+                whileHover={{ y: -2 }}
               >
                 {t('navigation.legal')}
-              </button>
+              </motion.button>
               <LanguageSwitcher />
               <CookieSettingsButton variant="navigation" />
               <Button 
@@ -467,6 +484,7 @@ export default function HomePage() {
       </header>
       {/* Hero Section */}
       <motion.section 
+        ref={heroRef}
         id="inicio" 
         className="relative bg-gradient-to-br from-slate-100 via-blue-50 to-cyan-50 min-h-screen flex items-center overflow-hidden"
         initial="hidden"
@@ -477,17 +495,19 @@ export default function HomePage() {
         <motion.div 
           className="absolute top-20 right-20 w-32 h-32 bg-yellow-200 rounded-full opacity-60 blur-2xl"
           animate={float}
+          style={{ y: heroBgElement1Y }}
         />
         <motion.div 
           className="absolute bottom-32 left-20 w-48 h-48 bg-turquoise/20 rounded-full opacity-60 blur-3xl"
           animate={float}
           transition={{ delay: 1, duration: 8 }}
+          style={{ y: heroBgElement2Y }}
         />
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left content */}
-            <div className="space-y-8">
+            <motion.div className="space-y-8" style={{ y: heroContentY }}>
               <div>
                 <motion.p 
                   className="text-turquoise font-medium text-lg mb-4"
@@ -553,13 +573,14 @@ export default function HomePage() {
                   <div className="text-gray-600 text-sm">Clientes Satisfechos</div>
                 </motion.div>
               </motion.div>
-            </div>
+            </motion.div> {/* End of heroContentY motion.div */}
 
             {/* Right content - Professional photo */}
             <motion.div 
               className="relative"
               variants={scaleIn}
               transition={{ delay: 0.3 }}
+              style={{ y: heroImageY }}
             >
               <motion.div 
                 className="relative z-10"
@@ -603,10 +624,15 @@ export default function HomePage() {
 
           <div className="grid md:grid-cols-3 gap-8">
             {getTestimonials().map((testimonial: any, index: number) => (
-              <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow bg-white border border-gray-100">
-                <CardContent className="p-0">
-                  {/* Client Transaction Image */}
-                  <div className="relative h-48 overflow-hidden">
+              <motion.div
+                key={index}
+                whileHover={cardHover}
+                className="h-full" // Ensure motion.div takes full height for consistent hover effect
+              >
+                <Card className="overflow-hidden hover:shadow-lg transition-shadow bg-white border border-gray-100 h-full">
+                  <CardContent className="p-0">
+                    {/* Client Transaction Image */}
+                    <div className="relative h-48 overflow-hidden">
                     <img 
                       src={testimonial.avatar} 
                       alt={`${testimonial.name} - Client transaction`}
@@ -639,7 +665,8 @@ export default function HomePage() {
                     </div>
                   </div>
                 </CardContent>
-              </Card>
+                </Card>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -766,15 +793,30 @@ export default function HomePage() {
                 {t('home:footer.description')}
               </p>
               <div className="flex space-x-4">
-                <a href="https://www.facebook.com/profile.php?id=61553046359767" className="text-gray-400 hover:text-turquoise transition-colors">
+                <motion.a
+                  href="https://www.facebook.com/profile.php?id=61553046359767"
+                  className="text-gray-400 hover:text-turquoise transition-colors"
+                  whileHover={{ y: -2, scale: 1.1 }}
+                  target="_blank" rel="noopener noreferrer"
+                >
                   <FaFacebook size={20} />
-                </a>
-                <a href="https://www.instagram.com/dariovelez.oird/" className="text-gray-400 hover:text-turquoise transition-colors">
+                </motion.a>
+                <motion.a
+                  href="https://www.instagram.com/dariovelez.oird/"
+                  className="text-gray-400 hover:text-turquoise transition-colors"
+                  whileHover={{ y: -2, scale: 1.1 }}
+                  target="_blank" rel="noopener noreferrer"
+                >
                   <FaInstagram size={20} />
-                </a>
-                <a href="" className="text-gray-400 hover:text-turquoise transition-colors">
+                </motion.a>
+                <motion.a
+                  href="https://wa.me/18294444431"  // Assuming this is the WhatsApp link
+                  className="text-gray-400 hover:text-turquoise transition-colors"
+                  whileHover={{ y: -2, scale: 1.1 }}
+                  target="_blank" rel="noopener noreferrer"
+                >
                   <FaWhatsapp size={20} />
-                </a>
+                </motion.a>
               </div>
             </div>
 

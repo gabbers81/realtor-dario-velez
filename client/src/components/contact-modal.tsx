@@ -11,6 +11,8 @@ import { apiRequest } from "@/lib/queryClient";
 import { trackEvent } from "@/lib/analytics";
 import { Send, Calendar } from "lucide-react";
 import type { ContactFormData } from "@/lib/types";
+import { motion, AnimatePresence } from "framer-motion";
+import { modalTransition } from "@/lib/animations";
 
 interface ContactModalProps {
   isOpen: boolean;
@@ -159,18 +161,31 @@ export function ContactModal({ isOpen, onClose, onOpenCalendly, projectSlug }: C
     onClose();
   };
 
-  return (
-    <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="max-w-md max-h-[90vh] overflow-y-auto mx-4 sm:mx-0">
-        <DialogHeader>
-          <DialogTitle className="text-xl sm:text-2xl text-gray-900">{t('contact:form.title')}</DialogTitle>
-        </DialogHeader>
+  // Create a motion version of DialogContent
+  const MotionDialogContent = motion(DialogContent);
 
-        <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-4">
-          <div>
-            <Label htmlFor="fullName" className="text-sm font-medium text-gray-700 mb-2 block">
-              {t('contact:form.full_name')} *
-            </Label>
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <Dialog open={isOpen} onOpenChange={handleClose}>
+          <MotionDialogContent
+            // className prop will merge with DialogContent's default classes
+            // Default DialogContent has p-6, so we don't need to re-add it.
+            className="max-w-md max-h-[90vh] overflow-y-auto mx-4 sm:mx-0"
+            variants={modalTransition}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+          >
+            <DialogHeader>
+              <DialogTitle className="text-xl sm:text-2xl text-gray-900">{t('contact:form.title')}</DialogTitle>
+            </DialogHeader>
+            {/* The form should be a direct child if DialogHeader is, to maintain flow */}
+            <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-4 pt-4"> {/* Added pt-4 for spacing from header if needed */}
+              <div>
+                <Label htmlFor="fullName" className="text-sm font-medium text-gray-700 mb-2 block">
+                  {t('contact:form.full_name')} *
+                </Label>
             <Input
               id="fullName"
               type="text"
@@ -288,7 +303,10 @@ export function ContactModal({ isOpen, onClose, onOpenCalendly, projectSlug }: C
             </Button>
           </div>
         </form>
-      </DialogContent>
-    </Dialog>
+        {/* Removed the extra closing div here */}
+          </MotionDialogContent>
+        </Dialog>
+      )}
+    </AnimatePresence>
   );
 }

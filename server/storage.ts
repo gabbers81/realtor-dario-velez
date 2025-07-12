@@ -25,6 +25,16 @@ export interface IStorage {
   getProject(id: number): Promise<Project | undefined>;
   getProjectBySlug(slug: string): Promise<Project | undefined>;
   createProject(project: InsertProject): Promise<Project>;
+
+  // Production readiness assessment
+  getProductionReadiness(): {
+    isReady: boolean;
+    warnings: string[];
+    recommendations: string[];
+    connection_type: string;
+    rls_compatible: boolean;
+    current_url_info: any; // Keeping it simple for the interface
+  };
 }
 
 // Production-aware database connection initialization
@@ -34,11 +44,12 @@ const databaseUrl = process.env.DATABASE_URL?.trim();
 let encodedUrl = databaseUrl || '';
 let isProductionReady = true;
 let connectionWarnings: string[] = [];
+let isTransactionPooler: boolean = false; // Define at module scope
 
 // Only process database URL if it exists
 if (databaseUrl) {
   // Check if using transaction pooler (required for RLS in production)
-  const isTransactionPooler = databaseUrl.includes(':5432');
+  isTransactionPooler = databaseUrl.includes(':5432'); // Assign to module-scoped variable
   if (process.env.NODE_ENV === 'production' && !isTransactionPooler) {
     console.warn('⚠️ Production Warning: Not using transaction pooler. RLS policies may not work correctly.');
     connectionWarnings.push('Transaction pooler recommended for production RLS compatibility');

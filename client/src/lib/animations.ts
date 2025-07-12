@@ -171,3 +171,30 @@ export const gradientAnimation = {
     repeatType: "reverse" as const
   }
 };
+
+// Modal transition animations
+export const modalTransition: Variants = {
+  hidden: {
+    opacity: 0,
+    scale: 0.92,
+    y: 10, // Slight upward movement, but mostly scale and fade
+  },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: {
+      duration: 0.25, // Quicker for modals
+      ease: "easeOut",
+    },
+  },
+  exit: {
+    opacity: 0,
+    scale: 0.92,
+    y: 10,
+    transition: {
+      duration: 0.15, // Quicker for modals
+      ease: "easeIn",
+    },
+  },
+};

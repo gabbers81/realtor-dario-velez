@@ -4,6 +4,7 @@ import { LanguageSwitcher } from "@/components/language-switcher";
 import { SEOHead } from "@/components/seo-head";
 import { Home, ArrowLeft, Search } from "lucide-react";
 import DarioVelezLogo from "@assets/DarioRealtorLogo_cropped_1750974653123.png";
+import { PageTransition } from "@/components/page-transition";
 
 export default function Error404Page() {
   const { t } = useTranslation(['common']);
@@ -17,10 +18,11 @@ export default function Error404Page() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-caribbean-50 to-blue-50">
-      <SEOHead 
-        title={t('common:error404.title', 'Página no encontrada')}
-        description={t('common:error404.description', 'La página que buscas no existe. Explora nuestras propiedades exclusivas en República Dominicana.')}
+    <PageTransition>
+      <div className="min-h-screen bg-gradient-to-br from-caribbean-50 to-blue-50">
+        <SEOHead
+          title={t('common:error404.title', 'Página no encontrada')}
+          description={t('common:error404.description', 'La página que buscas no existe. Explora nuestras propiedades exclusivas en República Dominicana.')}
       />
       
       {/* Header */}
@@ -115,6 +117,7 @@ export default function Error404Page() {
           </div>
         </div>
       </main>
-    </div>
+      </div>
+    </PageTransition>
   );
 }

@@ -8,6 +8,7 @@ import { SEOHead } from "@/components/seo-head";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { COOKIE_CATEGORIES } from "@/lib/cookie-consent";
 import DarioVelezLogo from "@assets/DarioRealtorLogo_cropped_1750974653123.png";
+import { PageTransition } from "@/components/page-transition";
 
 export default function CookiePolicyPage() {
   const { t, i18n } = useTranslation(['cookies', 'common']);
@@ -27,10 +28,11 @@ export default function CookiePolicyPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
-      <SEOHead 
-        title={`${t('cookies:policy.linkText')} - Dario Velez Realtor`}
-        description="Política de cookies y privacidad para la plataforma inmobiliaria de Dario Velez en República Dominicana"
+    <PageTransition>
+      <div className="min-h-screen bg-white">
+        <SEOHead
+          title={`${t('cookies:policy.linkText')} - Dario Velez Realtor`}
+          description="Política de cookies y privacidad para la plataforma inmobiliaria de Dario Velez en República Dominicana"
       />
 
       {/* Header */}
@@ -155,6 +157,7 @@ export default function CookiePolicyPage() {
           </CardContent>
         </Card>
       </div>
-    </div>
+      </div>
+    </PageTransition>
   );
 }
