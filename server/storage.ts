@@ -34,32 +34,35 @@ const databaseUrl = process.env.DATABASE_URL?.trim();
 let encodedUrl = databaseUrl || '';
 let isProductionReady = true;
 let connectionWarnings: string[] = [];
+let isTransactionPooler = false;
 
 // Only process database URL if it exists
 if (databaseUrl) {
-  // Check if using transaction pooler (required for RLS in production)
-  const isTransactionPooler = databaseUrl.includes(':5432');
+  // Check if using Supabase pooler (supports both 5432 and 6543 ports)
+  isTransactionPooler = databaseUrl.includes('pooler.supabase.com') || databaseUrl.includes(':5432') || databaseUrl.includes(':6543');
   if (process.env.NODE_ENV === 'production' && !isTransactionPooler) {
     console.warn('⚠️ Production Warning: Not using transaction pooler. RLS policies may not work correctly.');
     connectionWarnings.push('Transaction pooler recommended for production RLS compatibility');
     isProductionReady = false;
   }
 
-  // Handle special characters in password by URL encoding
+  // Use original URL without re-encoding for Supabase
+  // Supabase URLs are already properly encoded
+  encodedUrl = databaseUrl;
+
+  // Extract connection details for logging
   const urlMatch = databaseUrl.match(/^postgresql:\/\/([^:]+):([^@]+)@(.+)$/);
   if (urlMatch) {
     const [, username, password, hostPart] = urlMatch;
-    const encodedPassword = encodeURIComponent(password);
-    encodedUrl = `postgresql://${username}:${encodedPassword}@${hostPart}`;
-  
+    
     // Log connection details for debugging
     console.log('🔍 Database Connection Details:', {
       host: hostPart.split(':')[0] || 'unknown',
-      port: hostPart.includes(':5432') ? '5432 (transaction pooler)' : hostPart.split(':')[1]?.split('/')[0] || 'unknown',
+      port: hostPart.split(':')[1]?.split('/')[0] || 'unknown',
       database: hostPart.split('/')[1] || 'postgres',
-      ssl: process.env.NODE_ENV === 'production' ? 'required' : 'prefer',
+      ssl: 'prefer',
       rls_compatible: isTransactionPooler,
-      password_encoded: password !== encodedPassword
+      password_encoded: false
     });
   }
 }
@@ -69,27 +72,18 @@ let sql: any;
 let db: any;
 
 if (databaseUrl && databaseUrl !== 'postgresql://username:password@localhost:5432/propiedades_turisticas') {
+  // Use proper Supabase connection settings
   sql = postgres(encodedUrl, {
-    ssl: process.env.NODE_ENV === 'production' ? 'require' : 'prefer',
-    max: 20,
-    idle_timeout: 20,
+    ssl: { rejectUnauthorized: false }, // Supabase requires SSL but with flexible cert validation
+    max: 10,
+    idle_timeout: 30,
     connect_timeout: 60,
     prepare: false,
-    onnotice: () => {}, // Suppress notices
+    onnotice: () => {},
     transform: {
-      undefined: null // Handle undefined values properly
+      undefined: null
     },
-    onparameter: (key, value) => {
-      // Log parameter issues in production
-      if (process.env.NODE_ENV === 'production' && value === undefined) {
-        console.warn(`⚠️ Undefined parameter detected: ${key}`);
-      }
-    },
-    debug: process.env.NODE_ENV === 'production' ? (connection, query, parameters) => {
-      if (query.includes('ERROR') || query.includes('FAILED')) {
-        console.error('🔍 Database query error:', { query: query.substring(0, 100), parameters });
-      }
-    } : false
+    debug: false
   });
 
   db = drizzle(sql);
