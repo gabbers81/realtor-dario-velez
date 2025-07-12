@@ -281,7 +281,7 @@ export function ContactModal({ isOpen, onClose, onOpenCalendly, projectSlug }: C
           <div className="pt-6 space-y-4">
             <Button 
               type="submit" 
-              className="w-full h-12 text-base bg-caribbean text-white hover:bg-caribbean/90 active:bg-caribbean/80 transition-colors duration-200"
+              className={`w-full h-12 text-base bg-caribbean text-white hover:bg-caribbean/90 active:bg-caribbean/80 transition-colors duration-200 button-press ${createContactMutation.isPending ? 'loading-pulse' : ''}`}
               disabled={createContactMutation.isPending}
             >
               <Send className="mr-2" size={18} />
@@ -296,7 +296,7 @@ export function ContactModal({ isOpen, onClose, onOpenCalendly, projectSlug }: C
                 trackEvent('calendly_open', 'engagement', projectSlug ? `project_${projectSlug}` : 'general');
                 onOpenCalendly();
               }}
-              className="w-full h-12 text-base bg-turquoise text-white hover:bg-turquoise/90 active:bg-turquoise/80 transition-colors duration-200"
+              className="w-full h-12 text-base bg-turquoise text-white hover:bg-turquoise/90 active:bg-turquoise/80 transition-colors duration-200 button-press"
             >
               <Calendar className="mr-2" size={18} />
               {t('contact:form.schedule_appointment')}
