@@ -2,6 +2,7 @@ import { drizzle } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
 import { eq } from 'drizzle-orm';
 import { contacts, projects, type Contact, type InsertContact, type Project, type InsertProject } from "@shared/schema";
+import { MockStorage } from './storage-mock';
 
 // Calendly webhook data interface
 export interface CalendlyWebhookData {
@@ -27,67 +28,78 @@ export interface IStorage {
 }
 
 // Production-aware database connection initialization
-const databaseUrl = process.env.DATABASE_URL!.trim();
+const databaseUrl = process.env.DATABASE_URL?.trim();
 
 // Production RLS compatibility check and connection string optimization
-let encodedUrl = databaseUrl;
+let encodedUrl = databaseUrl || '';
 let isProductionReady = true;
 let connectionWarnings: string[] = [];
 
-// Check if using transaction pooler (required for RLS in production)
-const isTransactionPooler = databaseUrl.includes(':5432');
-if (process.env.NODE_ENV === 'production' && !isTransactionPooler) {
-  console.warn('⚠️ Production Warning: Not using transaction pooler. RLS policies may not work correctly.');
-  connectionWarnings.push('Transaction pooler recommended for production RLS compatibility');
-  isProductionReady = false;
-}
+// Only process database URL if it exists
+if (databaseUrl) {
+  // Check if using transaction pooler (required for RLS in production)
+  const isTransactionPooler = databaseUrl.includes(':5432');
+  if (process.env.NODE_ENV === 'production' && !isTransactionPooler) {
+    console.warn('⚠️ Production Warning: Not using transaction pooler. RLS policies may not work correctly.');
+    connectionWarnings.push('Transaction pooler recommended for production RLS compatibility');
+    isProductionReady = false;
+  }
 
-// Handle special characters in password by URL encoding
-const urlMatch = databaseUrl.match(/^postgresql:\/\/([^:]+):([^@]+)@(.+)$/);
-if (urlMatch) {
-  const [, username, password, hostPart] = urlMatch;
-  const encodedPassword = encodeURIComponent(password);
-  encodedUrl = `postgresql://${username}:${encodedPassword}@${hostPart}`;
+  // Handle special characters in password by URL encoding
+  const urlMatch = databaseUrl.match(/^postgresql:\/\/([^:]+):([^@]+)@(.+)$/);
+  if (urlMatch) {
+    const [, username, password, hostPart] = urlMatch;
+    const encodedPassword = encodeURIComponent(password);
+    encodedUrl = `postgresql://${username}:${encodedPassword}@${hostPart}`;
   
-  // Log connection details for production debugging
-  if (process.env.NODE_ENV === 'production') {
-    console.log('🔍 Production Database Connection:', {
-      host: hostPart.split('@')[1]?.split(':')[0] || 'unknown',
+    // Log connection details for debugging
+    console.log('🔍 Database Connection Details:', {
+      host: hostPart.split(':')[0] || 'unknown',
       port: hostPart.includes(':5432') ? '5432 (transaction pooler)' : hostPart.split(':')[1]?.split('/')[0] || 'unknown',
       database: hostPart.split('/')[1] || 'postgres',
-      ssl: 'required',
-      rls_compatible: isTransactionPooler
+      ssl: process.env.NODE_ENV === 'production' ? 'required' : 'prefer',
+      rls_compatible: isTransactionPooler,
+      password_encoded: password !== encodedPassword
     });
   }
 }
 
-const sql = postgres(encodedUrl, {
-  ssl: process.env.NODE_ENV === 'production' ? 'require' : 'prefer',
-  max: 20,
-  idle_timeout: 20,
-  connect_timeout: 60,
-  prepare: false,
-  onnotice: () => {}, // Suppress notices
-  transform: {
-    undefined: null // Handle undefined values properly
-  },
-  onparameter: (key, value) => {
-    // Log parameter issues in production
-    if (process.env.NODE_ENV === 'production' && value === undefined) {
-      console.warn(`⚠️ Undefined parameter detected: ${key}`);
-    }
-  },
-  debug: process.env.NODE_ENV === 'production' ? (connection, query, parameters) => {
-    if (query.includes('ERROR') || query.includes('FAILED')) {
-      console.error('🔍 Database query error:', { query: query.substring(0, 100), parameters });
-    }
-  } : false
-});
+// Only initialize database if we have a valid URL
+let sql: any;
+let db: any;
 
-const db = drizzle(sql);
+if (databaseUrl && databaseUrl !== 'postgresql://username:password@localhost:5432/propiedades_turisticas') {
+  sql = postgres(encodedUrl, {
+    ssl: process.env.NODE_ENV === 'production' ? 'require' : 'prefer',
+    max: 20,
+    idle_timeout: 20,
+    connect_timeout: 60,
+    prepare: false,
+    onnotice: () => {}, // Suppress notices
+    transform: {
+      undefined: null // Handle undefined values properly
+    },
+    onparameter: (key, value) => {
+      // Log parameter issues in production
+      if (process.env.NODE_ENV === 'production' && value === undefined) {
+        console.warn(`⚠️ Undefined parameter detected: ${key}`);
+      }
+    },
+    debug: process.env.NODE_ENV === 'production' ? (connection, query, parameters) => {
+      if (query.includes('ERROR') || query.includes('FAILED')) {
+        console.error('🔍 Database query error:', { query: query.substring(0, 100), parameters });
+      }
+    } : false
+  });
+
+  db = drizzle(sql);
+}
 
 export class SupabaseStorage implements IStorage {
   constructor() {
+    if (!db) {
+      throw new Error('Database not initialized. Please provide a valid DATABASE_URL.');
+    }
     // Initialize projects on first run if needed
     void this.initializeProjects();
   }
@@ -271,4 +283,11 @@ export class SupabaseStorage implements IStorage {
 
 }
 
-export const storage = new SupabaseStorage();
+// Export appropriate storage based on database availability
+export const storage: IStorage = (() => {
+  if (!databaseUrl || databaseUrl === 'postgresql://username:password@localhost:5432/propiedades_turisticas') {
+    console.log('⚠️  No valid DATABASE_URL found, using mock storage for local development');
+    return new MockStorage();
+  }
+  return new SupabaseStorage();
+})();
