@@ -290,5 +290,17 @@ export const storage: IStorage = (() => {
     console.log('⚠️  No valid DATABASE_URL found, using mock storage for local development');
     return new MockStorage();
   }
+  
+  // For development, if database connection fails, use mock storage
+  if (process.env.NODE_ENV === 'development') {
+    try {
+      return new SupabaseStorage();
+    } catch (error) {
+      console.log('⚠️  Database connection failed in development, falling back to mock storage');
+      console.log('Error:', error.message);
+      return new MockStorage();
+    }
+  }
+  
   return new SupabaseStorage();
 })();
