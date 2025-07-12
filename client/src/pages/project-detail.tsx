@@ -90,10 +90,10 @@ export default function ProjectDetailPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center page-transition">
+      <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-caribbean mx-auto mb-4"></div>
-          <p className="text-gray-600 animate-fade-in">{t('general.loading')}</p>
+          <p className="text-gray-600">{t('general.loading')}</p>
         </div>
       </div>
     );
@@ -118,7 +118,7 @@ export default function ProjectDetailPage() {
   const locationData = getLocationData(project.slug);
 
   return (
-    <div className="min-h-screen bg-white page-transition" {...swipeHandlers}>
+    <div className="min-h-screen bg-white" {...swipeHandlers}>
       <SEOHead 
         title={`${translatedProject.title} - ${translatedProject.location}`}
         description={`${translatedProject.description} ${translatedProject.price} - ${t('projects:detail.contact_project')}`}
@@ -458,7 +458,7 @@ export default function ProjectDetailPage() {
           )}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="bg-green-500 hover:bg-green-600 active:bg-green-700 text-white rounded-full p-3 sm:p-4 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 active:scale-95 touch-manipulation group flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 button-press"
+          className="bg-green-500 hover:bg-green-600 active:bg-green-700 text-white rounded-full p-3 sm:p-4 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 active:scale-95 touch-manipulation group flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16"
           aria-label="Contactar por WhatsApp"
         >
           <FaWhatsapp size={20} className="sm:w-6 sm:h-6 group-hover:scale-110 transition-transform duration-200" />
@@ -470,14 +470,14 @@ export default function ProjectDetailPage() {
         <div className="flex space-x-2 max-w-screen-sm mx-auto">
           <Button
             onClick={() => setIsContactModalOpen(true)}
-            className="flex-1 bg-caribbean text-white hover:bg-caribbean/90 active:bg-caribbean/80 h-12 text-xs touch-manipulation min-w-0 px-3 button-press"
+            className="flex-1 bg-caribbean text-white hover:bg-caribbean/90 active:bg-caribbean/80 h-12 text-xs touch-manipulation min-w-0 px-3"
           >
             <MessageCircle className="mr-1 flex-shrink-0" size={14} />
             <span className="truncate">{t('common:buttons.contact_me')}</span>
           </Button>
           <Button
             onClick={() => setIsCalendlyModalOpen(true)}
-            className="flex-1 bg-turquoise text-white hover:bg-turquoise/90 active:bg-turquoise/80 h-12 text-xs touch-manipulation min-w-0 px-3 button-press"
+            className="flex-1 bg-turquoise text-white hover:bg-turquoise/90 active:bg-turquoise/80 h-12 text-xs touch-manipulation min-w-0 px-3"
           >
             <Calendar className="mr-1 flex-shrink-0" size={14} />
             <span className="truncate">{t('common:buttons.schedule_appointment')}</span>
@@ -486,7 +486,7 @@ export default function ProjectDetailPage() {
             <Button
               onClick={downloadPDF}
               variant="outline"
-              className="px-3 h-12 touch-manipulation border-caribbean text-caribbean hover:bg-caribbean hover:text-white flex-shrink-0 button-press"
+              className="px-3 h-12 touch-manipulation border-caribbean text-caribbean hover:bg-caribbean hover:text-white flex-shrink-0"
             >
               <Download size={14} />
             </Button>
@@ -501,7 +501,7 @@ export default function ProjectDetailPage() {
       <div className="hidden sm:block fixed bottom-6 right-6 z-50">
         <Button
           onClick={() => setIsContactModalOpen(true)}
-          className="bg-caribbean text-white hover:bg-caribbean/90 shadow-lg rounded-full p-4 h-auto touch-manipulation button-press"
+          className="bg-caribbean text-white hover:bg-caribbean/90 shadow-lg rounded-full p-4 h-auto touch-manipulation"
         >
           <MessageCircle className="mr-2" size={20} />
           {t('projects:detail.contact_project')}
