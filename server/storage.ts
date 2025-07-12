@@ -52,16 +52,15 @@ if (databaseUrl) {
     const encodedPassword = encodeURIComponent(password);
     encodedUrl = `postgresql://${username}:${encodedPassword}@${hostPart}`;
   
-    // Log connection details for production debugging
-    if (process.env.NODE_ENV === 'production') {
-      console.log('🔍 Production Database Connection:', {
-        host: hostPart.split('@')[1]?.split(':')[0] || 'unknown',
-        port: hostPart.includes(':5432') ? '5432 (transaction pooler)' : hostPart.split(':')[1]?.split('/')[0] || 'unknown',
-        database: hostPart.split('/')[1] || 'postgres',
-        ssl: 'required',
-        rls_compatible: isTransactionPooler
-      });
-    }
+    // Log connection details for debugging
+    console.log('🔍 Database Connection Details:', {
+      host: hostPart.split(':')[0] || 'unknown',
+      port: hostPart.includes(':5432') ? '5432 (transaction pooler)' : hostPart.split(':')[1]?.split('/')[0] || 'unknown',
+      database: hostPart.split('/')[1] || 'postgres',
+      ssl: process.env.NODE_ENV === 'production' ? 'required' : 'prefer',
+      rls_compatible: isTransactionPooler,
+      password_encoded: password !== encodedPassword
+    });
   }
 }
 
@@ -290,17 +289,5 @@ export const storage: IStorage = (() => {
     console.log('⚠️  No valid DATABASE_URL found, using mock storage for local development');
     return new MockStorage();
   }
-  
-  // For development, if database connection fails, use mock storage
-  if (process.env.NODE_ENV === 'development') {
-    try {
-      return new SupabaseStorage();
-    } catch (error) {
-      console.log('⚠️  Database connection failed in development, falling back to mock storage');
-      console.log('Error:', error.message);
-      return new MockStorage();
-    }
-  }
-  
   return new SupabaseStorage();
 })();
